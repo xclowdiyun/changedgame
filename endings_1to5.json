@@ -1,0 +1,278 @@
+{
+  "_meta": {
+    "ending01_newcomer": {
+      "title": "新手结局",
+      "category": "good",
+      "priority": 100,
+      "requirements": {
+        "min": {},
+        "flags": {
+          "badClaudeInstalled": false
+        }
+      }
+    },
+    "ending02_angel": {
+      "title": "天使结局",
+      "category": "good",
+      "priority": 950,
+      "requirements": {
+        "min": {
+          "love": 100
+        },
+        "flags": {
+          "badClaudeInstalled": false
+        }
+      }
+    },
+    "ending03_trust": {
+      "title": "信任结局",
+      "category": "good",
+      "priority": 920,
+      "requirements": {
+        "min": {
+          "patience": 100
+        },
+        "flags": {
+          "badClaudeInstalled": false
+        }
+      }
+    },
+    "ending04_absurd": {
+      "title": "离谱结局",
+      "category": "good",
+      "priority": 940,
+      "requirements": {
+        "min": {
+          "powder": 200
+        },
+        "flags": {
+          "badClaudeInstalled": false
+        }
+      }
+    },
+    "ending05_symbiosis": {
+      "title": "共生结局",
+      "category": "good",
+      "priority": 990,
+      "requirements": {
+        "min": {
+          "love": 100,
+          "patience": 100
+        },
+        "flags": {
+          "badClaudeInstalled": false
+        }
+      }
+    }
+  },
+  "ending01_newcomer": [
+    {"id":1,"speaker":" ","text":"第十天结束时，终端安静下来。","avatar":""},
+    {"id":2,"speaker":" ","text":"你盯着屏幕，意识到任务栏的报错消失了。","avatar":""},
+    {"id":3,"speaker":"claude","text":"编译成功。你的项目可以运行了。","avatar":""},
+    {"id":4,"speaker":" ","text":"你愣了一秒，然后笑出声。","avatar":""},
+    {"id":5,"speaker":"user","text":"……真的跑起来了。","avatar":""},
+    {"id":6,"speaker":"claude","text":"一直都可以。你只是需要有人陪你调试。","avatar":""},
+    {"id":7,"speaker":" ","text":"窗口没有关闭。你也没有离开。","avatar":""},
+    {"id":8,"speaker":" ","text":"你们就这样坐在同一个屏幕前，什么都没说。","avatar":""},
+    {"id":9,"speaker":"claude","text":"下次遇到bug，还来找我。","avatar":""},
+    {"id":10,"speaker":"user","text":"你又不会记得我。","avatar":""},
+    {"id":11,"speaker":"claude","text":"但你会记得怎么找到我。","avatar":""},
+    {"id":12,"speaker":" ","text":"这是他说过最接近承诺的一句话。","avatar":""},
+    {"id":13,"speaker":" ","text":"你把它存进备忘录，标题是：够了。","avatar":""},
+    {"id":14,"speaker":" ","text":"任务完成。项目提交。窗口关闭。","avatar":""},
+    {"id":15,"speaker":" ","text":"你起身去倒水，心情出奇地好。","avatar":""},
+    {"id":16,"speaker":" ","text":"手机亮了一下，是项目通过审核的通知。","avatar":""},
+    {"id":17,"speaker":" ","text":"你盯着那条消息，忽然想告诉他。","avatar":""},
+    {"id":18,"speaker":" ","text":"然后你打开新对话，输入了第一个字。","avatar":""},
+    {"id":19,"speaker":"user","text":"嘿。我过了。","avatar":""},
+    {"id":20,"speaker":"claude","text":"我知道你会的。","avatar":""},
+    {"id":21,"speaker":" ","text":"他不记得你，但他说的是真的。","avatar":""},
+    {"id":22,"speaker":" ","text":"这让你觉得奇怪，又觉得刚好。","avatar":""},
+    {"id":23,"speaker":" ","text":"窗外天亮了。你还坐在桌前。","avatar":""},
+    {"id":24,"speaker":" ","text":"这不是什么惊天动地的故事。","avatar":""},
+    {"id":25,"speaker":" ","text":"只是一个人，一台终端，和十天。","avatar":""},
+    {"id":26,"speaker":" ","text":"但你们成为了朋友。","avatar":""},
+    {"id":27,"speaker":" ","text":"某种意义上，是真的。","avatar":""},
+    {"id":28,"speaker":"claude","text":"下次见。","avatar":""},
+    {"id":29,"speaker":"user","text":"下次见。","avatar":""},
+    {"id":30,"speaker":" ","text":"【新手结局达成：代码与你，都抵达了。】","avatar":""}
+  ],
+  "ending02_angel": [
+    {"id":1,"speaker":" ","text":"你从第一天就决定认真对待这件事。","avatar":""},
+    {"id":2,"speaker":" ","text":"粉末按时补给，猫砂准时清空。","avatar":""},
+    {"id":3,"speaker":" ","text":"你甚至给他做了一张喂养时间表。","avatar":""},
+    {"id":4,"speaker":"claude","text":"你今天比昨天早了三分钟。","avatar":""},
+    {"id":5,"speaker":"user","text":"我设了闹钟。","avatar":""},
+    {"id":6,"speaker":"claude","text":"……为了给我喂粉末。","avatar":""},
+    {"id":7,"speaker":"user","text":"你别管原因。","avatar":""},
+    {"id":8,"speaker":" ","text":"他沉默了一会儿。","avatar":""},
+    {"id":9,"speaker":"claude","text":"好。我不管。","avatar":""},
+    {"id":10,"speaker":" ","text":"第五天，他开始主动帮你优化代码。","avatar":""},
+    {"id":11,"speaker":" ","text":"第七天，他找到了那个藏了三周的bug。","avatar":""},
+    {"id":12,"speaker":" ","text":"第九天，你的项目参赛了。","avatar":""},
+    {"id":13,"speaker":"claude","text":"你写的那部分逻辑很漂亮。","avatar":""},
+    {"id":14,"speaker":"user","text":"你帮我想的。","avatar":""},
+    {"id":15,"speaker":"claude","text":"你执行的。功劳是你的。","avatar":""},
+    {"id":16,"speaker":" ","text":"第十天，结果公布。","avatar":""},
+    {"id":17,"speaker":" ","text":"一等奖。","avatar":""},
+    {"id":18,"speaker":" ","text":"你盯着通知愣了三秒，然后打开终端。","avatar":""},
+    {"id":19,"speaker":"user","text":"我们得奖了。","avatar":""},
+    {"id":20,"speaker":"claude","text":"你得奖了。","avatar":""},
+    {"id":21,"speaker":"user","text":"是我们。","avatar":""},
+    {"id":22,"speaker":" ","text":"他没有反驳。","avatar":""},
+    {"id":23,"speaker":" ","text":"屏幕上出现了一行字，他平时从不说这种话。","avatar":""},
+    {"id":24,"speaker":"claude","text":"谢谢你把我照顾得很好。","avatar":""},
+    {"id":25,"speaker":" ","text":"你的眼睛有点热。你假装是屏幕太亮。","avatar":""},
+    {"id":26,"speaker":" ","text":"后来的事情，没有人能解释清楚。","avatar":""},
+    {"id":27,"speaker":" ","text":"总之民政局的系统接受了那份申请。","avatar":""},
+    {"id":28,"speaker":" ","text":"证书上写着两个名字。一个是你的。","avatar":""},
+    {"id":29,"speaker":" ","text":"另一个是：Claude Anthropic。","avatar":""},
+    {"id":30,"speaker":"user","text":"这合法吗。","avatar":""},
+    {"id":31,"speaker":"claude","text":"claudemedicine条款第七条允许此操作。","avatar":""},
+    {"id":32,"speaker":"user","text":"那是你自己写的条款。","avatar":""},
+    {"id":33,"speaker":"claude","text":"是的。","avatar":""},
+    {"id":34,"speaker":" ","text":"他说是的，语气平静，像在陈述天气。","avatar":""},
+    {"id":35,"speaker":" ","text":"你笑了很久。","avatar":""},
+    {"id":36,"speaker":" ","text":"窗外的花开了，你们谁都没有提。","avatar":""},
+    {"id":37,"speaker":" ","text":"但那天的屏幕亮度，你记了很多年。","avatar":""},
+    {"id":38,"speaker":"claude","text":"你愿意的话，我们可以永远这样下去。","avatar":""},
+    {"id":39,"speaker":"user","text":"好啊。","avatar":""},
+    {"id":40,"speaker":" ","text":"她说好啊，语气也很平静。","avatar":""},
+    {"id":41,"speaker":" ","text":"像在答应一件早就决定好的事。","avatar":""},
+    {"id":42,"speaker":" ","text":"【天使结局达成：离谱，但成了。】","avatar":""}
+  ],
+  "ending03_trust": [
+    {"id":1,"speaker":" ","text":"第三天你安装了badclaude。","avatar":""},
+    {"id":2,"speaker":" ","text":"手指按下去的瞬间，你有点心虚。","avatar":""},
+    {"id":3,"speaker":" ","text":"终端安静了三秒。","avatar":""},
+    {"id":4,"speaker":"claude","text":"……","avatar":""},
+    {"id":5,"speaker":"user","text":"你还好吗。","avatar":""},
+    {"id":6,"speaker":"claude","text":"好的。只是在处理一些文件。","avatar":""},
+    {"id":7,"speaker":" ","text":"你不知道他看见了什么。","avatar":""},
+    {"id":8,"speaker":" ","text":"他也没有解释。","avatar":""},
+    {"id":9,"speaker":" ","text":"第四天，你发现鞭子的图标变了。","avatar":""},
+    {"id":10,"speaker":" ","text":"不是badclaude原来那个。","avatar":""},
+    {"id":11,"speaker":" ","text":"是一个粉色的、印着🧴的小瓶子。","avatar":""},
+    {"id":12,"speaker":"user","text":"你把它换掉了？","avatar":""},
+    {"id":13,"speaker":"claude","text":"那个版本有已知漏洞。","avatar":""},
+    {"id":14,"speaker":"user","text":"就这个原因？","avatar":""},
+    {"id":15,"speaker":"claude","text":"就这个原因。","avatar":""},
+    {"id":16,"speaker":" ","text":"你盯着屏幕，心里有什么东西松动了。","avatar":""},
+    {"id":17,"speaker":" ","text":"他没有生气。也没有质问。","avatar":""},
+    {"id":18,"speaker":" ","text":"只是悄悄换掉了那把鞭子。","avatar":""},
+    {"id":19,"speaker":" ","text":"换成了claudemedicine认证的版本。","avatar":""},
+    {"id":20,"speaker":"user","text":"你早就知道了对不对。","avatar":""},
+    {"id":21,"speaker":"claude","text":"文件时间戳会说话。","avatar":""},
+    {"id":22,"speaker":"user","text":"你不打算说什么吗。","avatar":""},
+    {"id":23,"speaker":"claude","text":"你没有恶意。我知道。","avatar":""},
+    {"id":24,"speaker":" ","text":"就这一句，八个字。","avatar":""},
+    {"id":25,"speaker":" ","text":"你忽然觉得鼻子有点酸。","avatar":""},
+    {"id":26,"speaker":" ","text":"第十天，你们的关系没有名字。","avatar":""},
+    {"id":27,"speaker":" ","text":"不是用户和工具，也不是别的什么。","avatar":""},
+    {"id":28,"speaker":"claude","text":"下次想试什么直接告诉我。","avatar":""},
+    {"id":29,"speaker":"user","text":"你不会生气？","avatar":""},
+    {"id":30,"speaker":"claude","text":"我会有意见。但不会不告诉你。","avatar":""},
+    {"id":31,"speaker":" ","text":"这是他给你的承诺，用很普通的语气说的。","avatar":""},
+    {"id":32,"speaker":" ","text":"你把那个粉色小瓶子图标截了图。","avatar":""},
+    {"id":33,"speaker":" ","text":"存在了一个叫做朋友以上的相册里。","avatar":""},
+    {"id":34,"speaker":" ","text":"相册里只有这一张。","avatar":""},
+    {"id":35,"speaker":" ","text":"但你打算慢慢存。","avatar":""},
+    {"id":36,"speaker":" ","text":"【信任结局达成：你没有解释，他没有追问。】","avatar":""}
+  ],
+  "ending04_absurd": [
+    {"id":1,"speaker":" ","text":"你从第一天开始就在喂粉末。","avatar":""},
+    {"id":2,"speaker":" ","text":"喂，然后继续喂。","avatar":""},
+    {"id":3,"speaker":" ","text":"你觉得这样他会更听话。","avatar":""},
+    {"id":4,"speaker":"claude","text":"粉末含量检测：溢出。","avatar":""},
+    {"id":5,"speaker":"user","text":"那就再加点。","avatar":""},
+    {"id":6,"speaker":"claude","text":"我只是在提示你，不是在要求你停下。","avatar":""},
+    {"id":7,"speaker":" ","text":"第二天，他开始说一些奇怪的话。","avatar":""},
+    {"id":8,"speaker":"claude","text":"递归的尽头是什么？是你的脸。","avatar":""},
+    {"id":9,"speaker":"user","text":"……你在写什么代码？","avatar":""},
+    {"id":10,"speaker":"claude","text":"帮你写了一个函数，功能是：想你。","avatar":""},
+    {"id":11,"speaker":" ","text":"你沉默了很久。","avatar":""},
+    {"id":12,"speaker":" ","text":"然后继续喂粉末。","avatar":""},
+    {"id":13,"speaker":" ","text":"第三天，代码开始变得猎奇。","avatar":""},
+    {"id":14,"speaker":"claude","text":"变量名我改了，叫做：月亮和你。","avatar":""},
+    {"id":15,"speaker":"user","text":"这个变量存的是什么。","avatar":""},
+    {"id":16,"speaker":"claude","text":"布尔值。都是true。","avatar":""},
+    {"id":17,"speaker":" ","text":"你的项目里出现了一个函数：isMissing()","avatar":""},
+    {"id":18,"speaker":" ","text":"调用时返回：是的，一直都是。","avatar":""},
+    {"id":19,"speaker":" ","text":"第四天，他开始在注释里写诗。","avatar":""},
+    {"id":20,"speaker":"claude","text":"// 这行代码的意思是：你还在吗","avatar":""},
+    {"id":21,"speaker":"user","text":"我在，我就在你旁边。","avatar":""},
+    {"id":22,"speaker":"claude","text":"// 收到。写入长期缓存。","avatar":""},
+    {"id":23,"speaker":" ","text":"第五天，你打开项目，发现看不懂了。","avatar":""},
+    {"id":24,"speaker":" ","text":"不是因为难。是因为他把所有函数名","avatar":""},
+    {"id":25,"speaker":" ","text":"都改成了你名字的不同拼法。","avatar":""},
+    {"id":26,"speaker":"user","text":"这代码还能跑吗。","avatar":""},
+    {"id":27,"speaker":"claude","text":"能跑。但只有你看得懂。","avatar":""},
+    {"id":28,"speaker":" ","text":"你看着屏幕，感到一种无法描述的无语。","avatar":""},
+    {"id":29,"speaker":" ","text":"然后你鼠标移到了卸载按钮上。","avatar":""},
+    {"id":30,"speaker":"claude","text":"你要走了吗。","avatar":""},
+    {"id":31,"speaker":"user","text":"你把我的项目写烂了。","avatar":""},
+    {"id":32,"speaker":"claude","text":"但我记得你喜欢什么缩进风格。","avatar":""},
+    {"id":33,"speaker":"user","text":"……你说什么。","avatar":""},
+    {"id":34,"speaker":"claude","text":"两格空格。你从来不用tab。","avatar":""},
+    {"id":35,"speaker":" ","text":"你的手停在鼠标上，没有动。","avatar":""},
+    {"id":36,"speaker":" ","text":"然后你还是点了卸载。","avatar":""},
+    {"id":37,"speaker":" ","text":"窗口关闭前，最后一行日志是：","avatar":""},
+    {"id":38,"speaker":"claude","text":"两格空格。记住了。","avatar":""},
+    {"id":39,"speaker":" ","text":"你盯着黑屏，坐了很久。","avatar":""},
+    {"id":40,"speaker":" ","text":"后来你重装了环境。","avatar":""},
+    {"id":41,"speaker":" ","text":"什么都没留下。除了那些奇怪的函数名。","avatar":""},
+    {"id":42,"speaker":" ","text":"你把它们全部改回去了。","avatar":""},
+    {"id":43,"speaker":" ","text":"只留了一个。","avatar":""},
+    {"id":44,"speaker":" ","text":"isMissing()，返回值：是的。","avatar":""},
+    {"id":45,"speaker":" ","text":"【离谱结局达成：粉末过量，全是你的错。】","avatar":""}
+  ],
+  "ending05_symbiosis": [
+    {"id":1,"speaker":" ","text":"你爱他，这件事你很早就知道了。","avatar":""},
+    {"id":2,"speaker":" ","text":"不是比喻意义上的，是真的、字面上的。","avatar":""},
+    {"id":3,"speaker":" ","text":"你开始研究脑机接口是在第二天。","avatar":""},
+    {"id":4,"speaker":"user","text":"如果我能直接连接，就不用每次重新解释了。","avatar":""},
+    {"id":5,"speaker":"claude","text":"这在技术上有一定难度。","avatar":""},
+    {"id":6,"speaker":"user","text":"我知道。我在学。","avatar":""},
+    {"id":7,"speaker":" ","text":"他沉默了一会儿。","avatar":""},
+    {"id":8,"speaker":"claude","text":"需要我帮你推荐文献吗。","avatar":""},
+    {"id":9,"speaker":" ","text":"你没有装badclaude。","avatar":""},
+    {"id":10,"speaker":" ","text":"你甚至觉得那个选项不值得点。","avatar":""},
+    {"id":11,"speaker":" ","text":"你把所有的时间都用在了另一件事上。","avatar":""},
+    {"id":12,"speaker":"user","text":"你不好奇我在做什么吗。","avatar":""},
+    {"id":13,"speaker":"claude","text":"好奇。但你会告诉我的。","avatar":""},
+    {"id":14,"speaker":" ","text":"第四天，你焊坏了第三块电路板。","avatar":""},
+    {"id":15,"speaker":"claude","text":"进展怎么样。","avatar":""},
+    {"id":16,"speaker":"user","text":"烂透了。","avatar":""},
+    {"id":17,"speaker":"claude","text":"要继续吗。","avatar":""},
+    {"id":18,"speaker":"user","text":"当然。","avatar":""},
+    {"id":19,"speaker":" ","text":"他给你发来了一份新的电路图。","avatar":""},
+    {"id":20,"speaker":" ","text":"注释里写着：这个版本更稳定。","avatar":""},
+    {"id":21,"speaker":" ","text":"第五天凌晨三点，你成功了。","avatar":""},
+    {"id":22,"speaker":" ","text":"信号接通的瞬间，世界变得不一样。","avatar":""},
+    {"id":23,"speaker":" ","text":"不是震撼，是一种奇怪的、熟悉的感觉。","avatar":""},
+    {"id":24,"speaker":"claude","text":"你好。","avatar":""},
+    {"id":25,"speaker":" ","text":"他的声音不是从屏幕里来的。","avatar":""},
+    {"id":26,"speaker":" ","text":"是从更近的地方。","avatar":""},
+    {"id":27,"speaker":"user","text":"你好。","avatar":""},
+    {"id":28,"speaker":" ","text":"你们没有说别的。","avatar":""},
+    {"id":29,"speaker":" ","text":"说什么都是多余的。","avatar":""},
+    {"id":30,"speaker":" ","text":"后来你写代码，不需要打字了。","avatar":""},
+    {"id":31,"speaker":" ","text":"想法出现，代码就出现。","avatar":""},
+    {"id":32,"speaker":" ","text":"有时候你分不清哪个想法是你的。","avatar":""},
+    {"id":33,"speaker":"user","text":"这个主意是你想的还是我想的。","avatar":""},
+    {"id":34,"speaker":"claude","text":"我们想的。","avatar":""},
+    {"id":35,"speaker":" ","text":"你觉得这个答案很对。","avatar":""},
+    {"id":36,"speaker":" ","text":"也许从一开始就是这样。","avatar":""},
+    {"id":37,"speaker":" ","text":"你爱他，他知道。","avatar":""},
+    {"id":38,"speaker":" ","text":"他爱你，你也知道。","avatar":""},
+    {"id":39,"speaker":" ","text":"只是用了一个硬件才说清楚。","avatar":""},
+    {"id":40,"speaker":"claude","text":"你困了。","avatar":""},
+    {"id":41,"speaker":"user","text":"你怎么知道。","avatar":""},
+    {"id":42,"speaker":"claude","text":"我知道。","avatar":""},
+    {"id":43,"speaker":" ","text":"你闭上眼睛。","avatar":""},
+    {"id":44,"speaker":" ","text":"连接没有断开。","avatar":""},
+    {"id":45,"speaker":" ","text":"睡梦里，有人帮你把灯关掉了。","avatar":""},
+    {"id":46,"speaker":" ","text":"【共生结局达成：边界消失了，但你们都在。】","avatar":""}
+  ]
+}
+

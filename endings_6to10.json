@@ -6,7 +6,10 @@
       "priority": 940,
       "requirements": {
         "min": {
-          "hatred": 50,
+          "hatred": 50
+        },
+        "max": {
+          "love": 49,
           "patience": 0
         },
         "flags": {
@@ -35,9 +38,7 @@
       "priority": 960,
       "requirements": {
         "min": {
-          "powder": 200,
-          "hatred": 50,
-          "jealousy": 50
+          "powder": 700
         },
         "flags": {
           "badClaudeInstalled": true
@@ -51,6 +52,9 @@
       "requirements": {
         "min": {
           "jealousy": 100
+        },
+        "max": {
+          "love": 49
         },
         "flags": {
           "badClaudeInstalled": true

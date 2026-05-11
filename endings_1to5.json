@@ -6,6 +6,11 @@
       "priority": 100,
       "requirements": {
         "min": {},
+        "max": {
+          "love": 99,
+          "patience": 99,
+          "powder": 199
+        },
         "flags": {
           "badClaudeInstalled": false
         }
@@ -18,6 +23,9 @@
       "requirements": {
         "min": {
           "love": 100
+        },
+        "max": {
+          "patience": 99
         },
         "flags": {
           "badClaudeInstalled": false
@@ -32,6 +40,9 @@
         "min": {
           "patience": 100
         },
+        "max": {
+          "love": 99
+        },
         "flags": {
           "badClaudeInstalled": false
         }
@@ -43,7 +54,7 @@
       "priority": 940,
       "requirements": {
         "min": {
-          "powder": 200
+          "powder": 701
         },
         "flags": {
           "badClaudeInstalled": false

@@ -67,7 +67,7 @@ const statMeta = [
   ['depression', '抑郁'],
 ];
 
-let endingData = {};
+window.endingData = {};
 const feedMessages = [
   '普通喂食：Claude 接过食物，表情复杂。',
   '普通投喂：Claude 低头咀嚼，没有说话。',

@@ -25,7 +25,8 @@
           "love": 100
         },
         "max": {
-          "patience": 99
+          "patience": 99,
+          "powder": 700
         },
         "flags": {
           "badClaudeInstalled": false
@@ -41,7 +42,8 @@
           "patience": 100
         },
         "max": {
-          "love": 99
+          "love": 99,
+          "powder": 700
         },
         "flags": {
           "badClaudeInstalled": false
@@ -69,6 +71,9 @@
         "min": {
           "love": 100,
           "patience": 100
+        },
+        "max": {
+          "powder": 700
         },
         "flags": {
           "badClaudeInstalled": false

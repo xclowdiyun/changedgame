@@ -14,11 +14,10 @@ python run_game.py
 
 - `index.html`
 - `game.js`
+- `endings-data.js`
 - `style.css`
-- `endings_1to5.json`
-- `endings_6to10.json`
 - `run_game.py`
 
 ## 说明
 
-这个版本只保留游戏运行所需文件，去掉了调试和分析文件。
+这个版本把所有结局数据放进了 `endings-data.js`，去掉了调试和分析文件。

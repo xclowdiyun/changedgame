@@ -432,19 +432,21 @@ function normalizeEndingRecord(endingId, value, meta = {}) {
 }
 
 async function loadEndingCatalog() {
-  const files = ['endings_1to5.json', 'endings_6to10.json'];
-  const loaded = await Promise.all(files.map(async (file) => {
-    try {
-      const response = await fetch(file);
-      if (!response.ok) throw new Error(file);
-      return await response.json();
-    } catch {
-      return null;
-    }
-  }));
-
   endingData = {};
-  for (const payload of loaded) {
+
+  const payloads = window.embeddedEndingCatalog
+    ? [window.embeddedEndingCatalog]
+    : await Promise.all(['endings_1to5.json', 'endings_6to10.json'].map(async (file) => {
+        try {
+          const response = await fetch(file);
+          if (!response.ok) throw new Error(file);
+          return await response.json();
+        } catch {
+          return null;
+        }
+      }));
+
+  for (const payload of payloads) {
     if (!payload) continue;
     const meta = payload._meta || {};
     for (const [endingId, value] of Object.entries(payload)) {

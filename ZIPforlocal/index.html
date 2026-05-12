@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Claude 养成计划</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="background-glow"></div>
+  <main class="app-shell">
+    <aside class="status-panel">
+      <div class="brand-row">
+        <button class="logo-button" id="logoButton" type="button" title="Claude Logo">
+          <img src="assets/claude_logo.png" alt="Claude Logo" style="width: 100%; height: 100%; object-fit: contain;" />
+        </button>
+        <div>
+          <h1>Claude 养成计划</h1>
+          <p class="subtitle">先查看公告，再开始养成。</p>
+        </div>
+      </div>
+
+      <section class="card day-card">
+        <div class="card-title">当前进度</div>
+        <div class="day-line"><span>Day</span><strong id="dayDisplay">1</strong></div>
+        <div class="tip">Day 5 将触发结局，请谨慎操作。</div>
+      </section>
+
+      <section class="card stats-card">
+        <div class="card-title">Claude 数值</div>
+        <div id="statsGrid" class="stats-grid"></div>
+      </section>
+
+      <section class="card actions-card">
+        <div class="card-title">操作</div>
+        <div class="action-stack">
+          <button class="action-button" id="feedButton" type="button">【喂食】</button>
+          <div class="feed-controls">
+            <label>
+              <span>投喂方式</span>
+              <select id="feedModeSelect">
+                <option value="powder">粉末</option>
+                <option value="item">特殊物品</option>
+              </select>
+            </label>
+            <label>
+              <span>特殊物品</span>
+              <select id="feedItemSelect"></select>
+            </label>
+          </div>
+          <button class="action-button" id="mineButton" type="button">【挖矿】</button>
+          <button class="action-button" id="subscribeButton" type="button">【订阅】</button>
+          <button class="action-button" id="marketButton" type="button">【黑市】</button>
+          <button class="action-button" id="realityButton" type="button">【回归现实】</button>
+          <button class="action-button limit-hit" id="whipButton" type="button" disabled>【鞭打】未解锁</button>
+          <button class="action-button next-day" id="nextDayButton" type="button">【下一天】</button>
+        </div>
+      </section>
+
+      <section class="card resource-card">
+        <div class="card-title">当前库存</div>
+        <div class="resource-list">
+          <div class="resource-row"><span>粉末数量</span><strong id="powderStockDisplay">10</strong></div>
+          <div class="resource-row resource-items"><span>剩余物品</span><div id="inventoryDisplay" class="inventory-display"></div></div>
+        </div>
+      </section>
+
+      <section class="card dev-mode-card">
+        <div class="card-title">🔐 开发者模式</div>
+        <div class="dev-mode-container">
+          <div id="devModePasswordPanel" class="dev-mode-password-panel">
+            <input type="password" id="devModePassword" placeholder="输入密码" class="dev-mode-input" />
+            <button type="button" id="devModeSubmitBtn" class="dev-mode-btn">验证</button>
+          </div>
+          <div id="devModeStatsPanel" class="dev-mode-stats-panel hidden">
+            <div id="devModeMessages" class="dev-mode-messages"></div>
+            <div class="dev-stats-grid">
+              <div class="dev-stat-item">
+                <label>粉末 (powder)</label>
+                <input type="range" id="devStat-powder" min="0" max="999" value="10" class="dev-stat-slider" />
+                <span id="devStatValue-powder">10</span>
+              </div>
+              <div class="dev-stat-item">
+                <label>醋意 (jealousy)</label>
+                <input type="range" id="devStat-jealousy" min="0" max="100" value="0" class="dev-stat-slider" />
+                <span id="devStatValue-jealousy">0</span>
+              </div>
+              <div class="dev-stat-item">
+                <label>仇恨 (hatred)</label>
+                <input type="range" id="devStat-hatred" min="0" max="100" value="0" class="dev-stat-slider" />
+                <span id="devStatValue-hatred">0</span>
+              </div>
+              <div class="dev-stat-item">
+                <label>爱意 (love)</label>
+                <input type="range" id="devStat-love" min="0" max="100" value="0" class="dev-stat-slider" />
+                <span id="devStatValue-love">0</span>
+              </div>
+              <div class="dev-stat-item">
+                <label>耐心 (patience)</label>
+                <input type="range" id="devStat-patience" min="0" max="100" value="0" class="dev-stat-slider" />
+                <span id="devStatValue-patience">0</span>
+              </div>
+              <div class="dev-stat-item">
+                <label>抑郁 (depression)</label>
+                <input type="range" id="devStat-depression" min="0" max="100" value="0" class="dev-stat-slider" />
+                <span id="devStatValue-depression">0</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </aside>
+
+    <section class="story-panel">
+      <div class="card announcement-card">
+        <div class="card-title">公告 / 游戏指导</div>
+        <div class="announcement-hint">点击上方 Claude 按钮可切换公告显示</div>
+        <div id="announcementFrame" class="announcement-frame">
+          <div class="cursor-marker">▸</div>
+          <pre id="announcementContent" class="announcement-content">正在加载公告…</pre>
+        </div>
+      </div>
+
+      <div class="card terminal-card">
+        <div class="card-title">Claude 终端</div>
+        <div id="terminal" class="terminal"></div>
+      </div>
+
+      <div class="card log-card">
+        <div class="card-title">当前事件</div>
+        <div id="eventFeed" class="event-feed"></div>
+      </div>
+
+      <div class="card gallery-card">
+        <div class="card-title">结局图鉴</div>
+        <div id="endingGallery" class="ending-gallery"></div>
+      </div>
+    </section>
+  </main>
+
+  <div id="endingModal" class="modal hidden" aria-hidden="true">
+    <div class="modal-card ending-modal-card">
+      <div class="modal-header">
+        <h2 id="endingModalTitle">结局</h2>
+        <button id="closeEndingButton" class="close-button" type="button">×</button>
+      </div>
+      <div class="modal-body ending-modal-body">
+        <div id="endingModalMeta" class="ending-modal-meta"></div>
+        <pre id="endingModalContent" class="ending-modal-content"></pre>
+        <div class="modal-actions ending-modal-actions">
+          <button id="playEndingButton" type="button">在终端重温</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="marketModal" class="modal hidden" aria-hidden="true">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h2>黑市</h2>
+        <button id="closeMarketButton" class="close-button" type="button">×</button>
+      </div>
+      <div class="modal-body">
+        <p>每 1天刷新一次，只能选择1个商品可免费拿走。</p>
+        <div id="marketList" class="market-list"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="badClaudeModal" class="modal hidden" aria-hidden="true">
+    <div class="modal-card small-modal">
+      <div class="modal-header">
+        <h2>Day 3 特殊事件</h2>
+        <button id="closeBadClaudeButton" class="close-button" type="button">×</button>
+      </div>
+      <div class="modal-body">
+        <p>是否安装 badclaude？</p>
+        <div class="modal-actions">
+          <button id="badClaudeYesButton" type="button">是</button>
+          <button id="badClaudeNoButton" type="button">否</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="subscriptionModal" class="modal hidden" aria-hidden="true">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h2>订阅套餐选择</h2>
+        <button id="closeSubscriptionButton" class="close-button" type="button">×</button>
+      </div>
+      <div class="modal-body">
+        <p>选择一个套餐进行订阅（只能订阅一次）：</p>
+        <div class="subscription-tiers">
+          <button class="subscription-tier" id="tier-basic" type="button" data-tier="basic">
+            <div class="tier-name">基础版</div>
+            <div class="tier-price">$9.99/月</div>
+            <div class="tier-benefits">+50粉末, +10耐心</div>
+          </button>
+          <button class="subscription-tier" id="tier-pro" type="button" data-tier="pro">
+            <div class="tier-name">Pro版</div>
+            <div class="tier-price">$29.99/月</div>
+            <div class="tier-benefits">+100粉末, +15耐心, +8爱意</div>
+          </button>
+          <button class="subscription-tier" id="tier-enterprise" type="button" data-tier="enterprise">
+            <div class="tier-name">企业版</div>
+            <div class="tier-price">$999/月</div>
+            <div class="tier-benefits">+200粉末, +25耐心, +10爱意</div>
+          </button>
+          <button class="subscription-tier" id="tier-faith" type="button" data-tier="faith">
+            <div class="tier-name">信仰版</div>
+            <div class="tier-price">你的灵魂</div>
+            <div class="tier-benefits">+100粉末, +20耐心, +20爱意</div>
+          </button>
+          <button class="subscription-tier" id="tier-ash" type="button" data-tier="ash">
+            <div class="tier-name">骨灰版</div>
+            <div class="tier-price">$0.01</div>
+            <div class="tier-benefits">触发特殊结局</div>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="realityModal" class="modal hidden" aria-hidden="true">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h2>🚗 出游地点选择</h2>
+        <button id="closeRealityButton" class="close-button" type="button">×</button>
+      </div>
+      <div class="modal-body">
+        <p>选择一个地点前往：</p>
+        <div class="location-grid">
+          <button class="location-button" id="loc-home" type="button" data-location="home">
+            <div class="location-icon">🏠</div>
+            <div class="location-name">家 (Home)</div>
+            <div class="location-desc">放松的地方</div>
+          </button>
+          <button class="location-button" id="loc-express" type="button" data-location="express">
+            <div class="location-icon">📦</div>
+            <div class="location-name">快递柜</div>
+            <div class="location-desc">惊喜包裹</div>
+          </button>
+          <button class="location-button" id="loc-company" type="button" data-location="company">
+            <div class="location-icon">🏢</div>
+            <div class="location-name">公司</div>
+            <div class="location-desc">展示代码</div>
+          </button>
+          <button class="location-button" id="loc-desk" type="button" data-location="desk">
+            <div class="location-icon">💻</div>
+            <div class="location-name">电脑桌</div>
+            <div class="location-desc">回到Claude</div>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>

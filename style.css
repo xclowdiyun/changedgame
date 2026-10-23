@@ -520,6 +520,90 @@ body.hate-impact .terminal {
   box-shadow: 0 0 0 1px rgba(255, 216, 95, 0.14), 0 0 24px rgba(255, 216, 95, 0.08);
 }
 
+.whip-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.whip-popup {
+  width: min(360px, calc(100vw - 32px));
+  min-height: 120px;
+  border-radius: 14px;
+  border: 1px solid #fff;
+  background: #000;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.75);
+  overflow: hidden;
+  pointer-events: auto;
+}
+
+.whip-popup-titlebar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 10px;
+  background: #000;
+  border-bottom: 1px solid #fff;
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+}
+
+.whip-popup-titlebar:active {
+  cursor: grabbing;
+}
+
+.whip-popup-drag {
+  border: 1px solid #fff;
+  background: #000;
+  color: #fff;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  cursor: grab;
+  flex: 0 0 auto;
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+.whip-popup-mark {
+  flex: 1;
+  text-align: center;
+  color: #fff;
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.whip-popup-close {
+  border: 1px solid #fff;
+  background: #000;
+  color: #fff;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  cursor: pointer;
+  flex: 0 0 auto;
+}
+
+.whip-popup-body {
+  padding: 10px 12px 12px;
+  display: grid;
+  color: #fff;
+}
+
+.whip-popup-art {
+  margin: 0;
+  padding: 0;
+  border: none;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 1rem;
+  line-height: 1.05;
+  color: #fff;
+  white-space: pre;
+}
+
 .tutorial-highlight {
   position: relative;
   box-shadow: 0 0 0 1px rgba(255, 212, 124, 0.45), 0 0 24px rgba(255, 212, 124, 0.28);

@@ -81,7 +81,7 @@ def main():
     parser = argparse.ArgumentParser(description='Check which of endings 6-10 are satisfied for given stats/flags')
     parser.add_argument('--endings', type=str, default='endings_6to10.json')
     parser.add_argument('--stat', action='append', help='stat assignment, e.g. --stat hatred=60', default=[])
-    parser.add_argument('--flag', action='append', help='flag to set true, e.g. --flag badClaudeInstalled', default=[])
+    parser.add_argument('--flag', action='append', help='flag to set true, e.g. --flag whipPetInstalled', default=[])
     parser.add_argument('--show-meta', action='store_true', help='Show loaded endings metadata')
 
     args = parser.parse_args()

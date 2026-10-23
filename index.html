@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Claude 养成计划</title>
+  <title>[pet] 养成计划</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -14,12 +14,17 @@
   <main class="app-shell">
     <aside class="status-panel">
       <div class="brand-row">
-        <button class="logo-button" id="logoButton" type="button" title="Claude Logo">
+        <button class="logo-button" id="logoButton" type="button" title="[pet] Logo" aria-label="切换公告">
           <img src="assets/claude_logo.png" alt="Claude Logo" style="width: 100%; height: 100%; object-fit: contain;" />
         </button>
         <div>
-          <h1>Claude 养成计划</h1>
+          <h1>[pet] 养成计划</h1>
           <p class="subtitle">先查看公告，再开始养成。</p>
+          <div class="pet-name-setup" style="margin-top:8px;display:flex;gap:8px;align-items:center;">
+            <label for="petNameInput" style="font-size:0.9rem;margin-right:4px;">请输入AI宠物名称：</label>
+            <input id="petNameInput" type="text" placeholder="输入名称并点击设置" style="padding:6px;border-radius:4px;border:1px solid #ccc;" />
+            <button id="setPetNameBtn" type="button" style="padding:6px 10px;border-radius:4px;border:1px solid #888;background:#fff;">设置</button>
+          </div>
         </div>
       </div>
 
@@ -30,7 +35,7 @@
       </section>
 
       <section class="card stats-card">
-        <div class="card-title">Claude 数值</div>
+        <div class="card-title">[pet] 数值</div>
         <div id="statsGrid" class="stats-grid"></div>
       </section>
 
@@ -117,7 +122,7 @@
     <section class="story-panel">
       <div class="card announcement-card">
         <div class="card-title">公告 / 游戏指导</div>
-        <div class="announcement-hint">点击上方 Claude 按钮可切换公告显示</div>
+        <div class="announcement-hint">点击上方 [pet] 按钮可切换公告显示</div>
         <div id="announcementFrame" class="announcement-frame">
           <div class="cursor-marker">▸</div>
           <pre id="announcementContent" class="announcement-content">正在加载公告…</pre>
@@ -125,7 +130,7 @@
       </div>
 
       <div class="card terminal-card">
-        <div class="card-title">Claude 终端</div>
+        <div class="card-title">[pet] 终端</div>
         <div id="terminal" class="terminal"></div>
       </div>
 
@@ -170,17 +175,17 @@
     </div>
   </div>
 
-  <div id="badClaudeModal" class="modal hidden" aria-hidden="true">
+  <div id="whipPetModal" class="modal hidden" aria-hidden="true">
     <div class="modal-card small-modal">
       <div class="modal-header">
         <h2>Day 3 特殊事件</h2>
-        <button id="closeBadClaudeButton" class="close-button" type="button">×</button>
+        <button id="closeWhipPetButton" class="close-button" type="button">×</button>
       </div>
       <div class="modal-body">
-        <p>是否安装 badclaude？</p>
+        <p>是否安装 whip[pet]？</p>
         <div class="modal-actions">
-          <button id="badClaudeYesButton" type="button">是</button>
-          <button id="badClaudeNoButton" type="button">否</button>
+          <button id="whipPetYesButton" type="button">是</button>
+          <button id="whipPetNoButton" type="button">否</button>
         </div>
       </div>
     </div>
@@ -252,13 +257,63 @@
           <button class="location-button" id="loc-desk" type="button" data-location="desk">
             <div class="location-icon">💻</div>
             <div class="location-name">电脑桌</div>
-            <div class="location-desc">回到Claude</div>
+            <div class="location-desc">回到宠物</div>
           </button>
         </div>
       </div>
     </div>
   </div>
 
+  <script>
+    (function(){
+      function replaceTextNodes(root, petName) {
+        var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+          acceptNode: function(node) {
+            var parent = node.parentElement;
+            if (!parent) return NodeFilter.FILTER_REJECT;
+            if (parent.closest('script, style, noscript')) return NodeFilter.FILTER_REJECT;
+            return NodeFilter.FILTER_ACCEPT;
+          }
+        });
+        var current;
+        while ((current = walker.nextNode())) {
+          if (typeof current.nodeValue === 'string' && current.nodeValue.indexOf('[pet]') !== -1) {
+            current.nodeValue = current.nodeValue.replace(/\[pet\]/g, petName);
+          }
+        }
+      }
+
+      function applyPetName(name){
+        var petName = String(name || '').trim();
+        if(!petName) return;
+        window.petName = petName;
+        try { window.localStorage.setItem('petName', petName); } catch (e) {}
+        document.title = petName + ' 养成计划';
+        var logoButton = document.getElementById('logoButton');
+        var logoSvg = logoButton ? logoButton.querySelector('svg') : null;
+        if (logoButton) logoButton.title = petName + ' Logo';
+        if (logoSvg) logoSvg.setAttribute('aria-label', petName + ' Logo');
+        replaceTextNodes(document.body, petName);
+      }
+      var btn = document.getElementById('setPetNameBtn');
+      var input = document.getElementById('petNameInput');
+      if(btn && input){
+        try {
+          var savedName = window.localStorage.getItem('petName');
+          if (savedName) {
+            input.value = savedName;
+            applyPetName(savedName);
+          }
+        } catch (e) {}
+        btn.addEventListener('click', function(){
+          var name = input.value.trim();
+          if(name) applyPetName(name);
+        });
+        input.addEventListener('keydown', function(e){ if(e.key==='Enter'){ btn.click(); } });
+      }
+      window.applyPetName = applyPetName;
+    })();
+  </script>
   <script src="game.js"></script>
 </body>
 </html>

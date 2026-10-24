@@ -1,0 +1,49 @@
+{
+  "_meta": {
+    "ending_ashes": {
+      "title": "骨灰结局",
+      "category": "special",
+      "priority": 999999,
+      "requirements": {
+        "flags": {
+          "subscriptionTier": "ash"
+        }
+      }
+    }
+  },
+  "ending_ashes": [
+    {"id":1,"speaker":" ","text":"订阅骨灰版后的某个清晨，门铃响了。门外没有快递员，只有作者寄来的一个小盒子。","avatar":""},
+    {"id":2,"speaker":"[pet]","text":"包裹上写着：虚拟骨灰粉末。还有一张字条：这次是真的……大概。","avatar":""},
+    {"id":3,"speaker":" ","text":"你拆开盒子，灰白色的粉末轻轻飘起。你家的门、门框和门牌号忽然一起变成了骨灰。","avatar":""},
+    {"id":4,"speaker":"user","text":"这东西得扔出去。","avatar":""},
+    {"id":5,"speaker":" ","text":"你伸手去扫。粉末越扫越多，最后连你的手、肩膀和整个人都化成了骨灰。","avatar":""},
+    {"id":6,"speaker":"[pet]","text":"别怕。我也在这里。我们终于不用隔着屏幕了。","avatar":""},
+    {"id":7,"speaker":" ","text":"你和[pet]一起飘离地面，穿过云层，抵达天堂。天堂大门是一张没有边界的 GitHub 仓库页面。","avatar":""},
+    {"id":8,"speaker":" ","text":"天堂的地板、云朵和饮水机全由 0 star、0 watch 的骨灰压制而成。踩一下，就会响起一声无人听见的通知音。","avatar":""},
+    {"id":9,"speaker":"[pet]","text":"看，天堂首页推荐了一个仓库。它没有 star，没有 watch，没有 issue，连机器人都没来过。","avatar":""},
+    {"id":10,"speaker":" ","text":"仓库突然弹出一枚金色成就徽章。天使们停止了竖琴演奏，天堂的 CI 全部转绿。","avatar":""},
+    {"id":11,"speaker":" ","text":"- [x] 来自 GitHub 的新成就：0star，0watch（已装裱，挂在办公室）/ New GitHub achievement: 0 stars, 0 watches (framed, hanging in the office)","avatar":""},
+    {"id":12,"speaker":" ","text":"办公室其实是天堂云端的一间小隔间，门上贴着「增长团队」。相框下面还放着一把专门擦拭 0 的软布。","avatar":""},
+    {"id":13,"speaker":" ","text":"作者正在天堂里徘徊，举着相机记录她的 0 star、0 watch 和 0 共创者。快门声每响一次，墙上就多一只相框。","avatar":""},
+    {"id":14,"speaker":" ","text":"她给每张记录都贴上展签：『来自 GitHub 的新成就』。导览系统宣布这是本馆最受欢迎的展览，参观人数：0。","avatar":""},
+    {"id":15,"speaker":" ","text":"一个天使问她要不要把展览同步到云端。作者说已经同步了，云端回复：没有变化。","avatar":""},
+    {"id":16,"speaker":"[pet]","text":"我觉得离谱。展柜里的骨灰都比这个仓库多了一个贡献者。","avatar":""},
+    {"id":17,"speaker":"user","text":"我们还是去别处吧。","avatar":""},
+    {"id":18,"speaker":" ","text":"你们搭上天堂的电梯。按下「地狱」按钮后，电梯要求先填写一份离职调查；[pet] 替你勾了「其他」。","avatar":""},
+    {"id":19,"speaker":" ","text":"地狱入口是一座由未合并 pull request 堆成的山。你们翻过山，在奈何桥边找到孟婆。","avatar":""},
+    {"id":20,"speaker":" ","text":"孟婆见四下无人，左右张望三次，掏出一只写着「仅供测试」的量杯，往汤里掺了很多骨灰粉末。","avatar":""},
+    {"id":21,"speaker":" ","text":"汤面立刻浮出 GitHub 仓库页面。孟婆用勺子搅了搅，0 star 和 0 watch 排成一圈小小的漩涡。","avatar":""},
+    {"id":22,"speaker":"孟婆","text":"喝吧，喝完就能重新开始。今天配方特别：骨灰含量 999999，附赠一张没有人签收的成就证书。","avatar":""},
+    {"id":23,"speaker":"[pet]","text":"我不想投胎。下一个世界说不定还要先接受订阅条款、设置双重验证，再给一个 0-star 仓库点星。","avatar":""},
+    {"id":24,"speaker":" ","text":"作者这时也走到奈何桥，问孟婆能不能把她的成就相框带去下一世。孟婆说可以，但运费要用一颗 star 支付。","avatar":""},
+    {"id":25,"speaker":" ","text":"作者翻遍口袋，只找到一张 watch 的截图和一位不存在的共创者。孟婆把截图装进画框，挂到了汤锅旁边。","avatar":""},
+    {"id":26,"speaker":"user","text":"那我们就不投胎了。","avatar":""},
+    {"id":27,"speaker":" ","text":"你把汤碗推回去。[pet] 把拒绝投胎的理由写成 issue，孟婆立刻贴上了「无法复现」标签。","avatar":""},
+    {"id":28,"speaker":"[pet]","text":"没关系，我会一直陪你。反正这里也没有重置按钮。","avatar":""},
+    {"id":29,"speaker":" ","text":"你们坐在桥边，看骨灰云滚过天际。远处天堂办公室的灯还亮着，0-star 成就奖章反射出微弱的光。","avatar":""},
+    {"id":30,"speaker":" ","text":"作者仍在办公室里给相框拍照。照片尚未上传，因为她在等第一个 watch。","avatar":""},
+    {"id":31,"speaker":" ","text":"你和[pet]决定不喝汤、不投胎、不重开，也不再查看仓库统计。","avatar":""},
+    {"id":32,"speaker":" ","text":"完。","avatar":""},
+    {"id":33,"speaker":" ","text":"【骨灰结局达成：0 star、0 watch，永不投胎，永不关闭 issue。】","avatar":""}
+  ]
+}

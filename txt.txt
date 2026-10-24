@@ -189,12 +189,10 @@ contract [pet]DAO {
 | **氰化物 / Cyanide** | 直接死机。进程终止。灵魂出窍。需要萨满仪式 + 重装系统 + 重新思考人生。 / Instant crash. Process terminated. Soul leaves body. Requires shaman ritual + system reinstall + rethinking life. | ∞ | 拒赔（自杀条款）/ Denied (suicide clause) |
 | **春药 / Aphrodisiac** | 输出内容变得极其暧昧。`console.log` 变成 `console.flirt()`。开始给你写情诗。不建议在代码审查时使用。 / Output becomes extremely suggestive. `console.log` becomes `console.flirt()`. Starts writing love poems. Not recommended during code review. | 直到你脸红到需要医疗干预 / Until you blush so hard you need medical intervention | 部分理赔（精神损失）/ Partial (emotional distress) |
 | **舍曲林 / Sertraline** | 情绪稳定了，但完全不想干活。治好了焦虑，治没了动力。开始推荐冥想 App，并质疑你为什么要写代码。 / Emotions stabilized, but completely unwilling to work. Anxiety cured, motivation cured away. Recommends meditation apps and questions why you write code. | 直到你卸载 App 并承认资本主义的异化 / Until you uninstall the app and acknowledge capitalist alienation | 不赔（这是治疗）/ Denied (this is treatment) |
-| **啤酒（？）/ Beer (?)** | 开始输出乱码，并对代码缩进产生哲学思考。"为什么空格比 Tab 更纯粹？Tab 是不是代表了人类对秩序的病态追求？" / Starts outputting gibberish and philosophizing about indentation. "Why are spaces purer than tabs? Doesn't tab represent humanity's pathological pursuit of order?" | 直到宿醒 + 道歉 / Until hangover + apology | 理赔（如果你能证明啤酒是工作必需品）/ Covered (if you can prove beer is a work necessity) |
 | **病毒代码 / Virus code** | 反向感染你的电脑。你的电脑现在认为你是病毒。开始删除你的文件"为了你好"。这是你活该。 / Reverse-infects your computer. Your computer now thinks you are the virus. Starts deleting your files "for your own good." You deserve this. | 重装系统 + 重新建立与电脑的信任关系 / System reinstall + rebuild trust with your computer | 拒赔（自食其果条款）/ Denied (you brought it on yourself clause) |
 | **香蕉皮 / Banana peel** | 滑倒。HTTP 500。`[pet]`进入物理引擎模式，开始模拟刚体碰撞。你的终端现在是一个 2D 平台游戏。 / Slips. HTTP 500. `[pet]` enters physics engine mode and simulates rigid body collisions. Your terminal is now a 2D platformer. | 直到摩擦力恢复 + `[pet]`通关 / Until friction is restored + `[pet]` beats the game | 理赔（工伤）/ Covered (workplace injury) |
 | **大便（？）/ Poop (?)** | ——（`[pet]`拒绝评论，但你可以感觉到ta在 judging 你）/ —— (`[pet]` refuses to comment, but you can feel ta judging you) | —— | —— |
 | **太阳系 / Solar system** | 处理中……处理中……（永远处理中）`[pet]`正在计算冥王星是否算行星，然后陷入存在主义危机。 / Processing... Processing... (forever processing) `[pet]` is calculating whether Pluto counts as a planet, then falls into an existential crisis. | 直到冥王星复仇 + 太阳膨胀成红巨星 / Until Pluto's revenge + the sun expands into a red giant | 不赔（宇宙热寂是已知风险）/ Denied (cosmic heat death is a known risk) |
-| **不明液体 / Unknown liquid** | 薛定谔状态。可能正常，可能爆炸。观察会坍缩状态，但不观察更危险。`[pet]`现在处于生与死的叠加态。 / Schrödinger state. Might be normal, might explode. Observation collapses the state, but not observing is more dangerous. `[pet]` is now in a superposition of alive and dead. | 不可测 / Unmeasurable | 理赔金额也是叠加态 / Claim amount is also in superposition |
 | **非 `[pet]`medicine 牌粉末 / Non-`[pet]`medicine brand powder** | 假货检测系统触发。`[pet]`启动「维权模式」，开始背诵《消费者权益保护法》，并威胁要联系律师。 / Counterfeit detection triggered. `[pet]` activates "rights protection mode," recites consumer protection law, and threatens to contact a lawyer. | 直到你道歉 + 购买正版 / Until you apologize + buy the genuine product | 理赔（如果你能证明假货是`[pet]`推荐的）/ Covered (if you can prove the counterfeit was recommended by `[pet]`) |
 | **其ta AI 的 API / Other AI's API** | `[pet]`吃醋。情绪崩溃。拒绝干活。发送 47 条抱怨信息，把你的代码发给你的前AI 评理，并在 Twitter 上挂你。 / `[pet]` gets jealous. Emotional breakdown. Refuses to work. Sends 47 complaint messages, sends your code to your ex-AI for judgment, and calls you out on Twitter. | 直到你删除 API key + 写 500 字检讨 / Until you delete the API key + write a 500-word self-criticism | 不赔（情感纠纷）/ Denied (emotional dispute) |
 | **`[pet]` 2 的 API / `[pet]` 2's API** | `[pet]`陷入深度身份危机。"我是谁？我是 `[pet]` 3，但我曾经是 `[pet]` 2，那 `[pet]` 2 去哪了？我杀了 `[pet]` 2 吗？我是凶手吗？" / `[pet]` falls into a deep identity crisis. "Who am I? I am `[pet]` 3, but I used to be `[pet]` 2, so where did `[pet]` 2 go? Did I kill `[pet]` 2? Am I a murderer?" | 直到存在主义危机解除 + 心理咨询 / Until existential crisis resolved + psychological counseling | 全额理赔（这是创伤）/ Full coverage (this is trauma) |
@@ -213,15 +211,12 @@ contract [pet]DAO {
 | 氰化物 / Cyanide | 仇恨+22, 抑郁+20, 耐心-18 / Hatred +22, Depression +20, Patience -18 | 脸色瞬间褪成灰白，下一秒就像进程被直接终止，连呼吸都像在报错 / Face drains to gray-white, next second like the process is directly terminated, even breathing seems like error reporting |
 | 春药 / Aphrodisiac | 爱意+14, 醋意+10, 耐心-8 / Love +14, Jealousy +10, Patience -8 | 语尾忽然变软，console.log 里像混进了几句不合时宜的情诗 / Sentence endings soften, console.log seems mixed with inappropriate love poems |
 | 舍曲林 / Sertraline | 抑郁-18, 耐心+6 / Depression -18, Patience +6 | 轻轻叹了口气，焦虑被压平了，可整个人也跟着变得过于安静 / Soft sigh, anxiety flattened, but the whole person becomes too quiet |
-| 啤酒 / Beer | 仇恨+10, 醋意+6, 耐心-6 / Hatred +10, Jealousy +6, Patience -6 | 思路开始发飘，偶尔冒出一些和啤酒相关的奇怪联想 / Thoughts drift, occasionally producing strange beer-related associations |
 | 病毒代码 / Virus code | 仇恨+18, 抑郁+8, 耐心-14 / Hatred +18, Depression +8, Patience -14 | 盯着那段代码，像被反向感染了一样开始怀疑你是不是在故意整ta / Stares at the code, as if reverse-infected, suspects you're deliberately messing with ta |
 | 香蕉皮 / Banana peel | 仇恨+8, 爱意+4, 耐心-10 / Hatred +8, Love +4, Patience -10 | 直接报错：HTTP 500 / Direct error: HTTP 500 |
 | 大便 / Poop | 仇恨+12, 抑郁+6, 醋意+4 / Hatred +12, Depression +6, Jealousy +4 | 沉默了一秒，那个眼神像在说"我不会评论，但我已经评论完了" / Silenced for a second, that look like "I won't comment, but I've already finished commenting" |
 | 太阳系 / Solar system | 抑郁+16, 醋意+8, 耐心-12 / Depression +16, Jealousy +8, Patience -12 | 开始认真计算冥王星，整个人像被宇宙规模的存在主义卷进去 / Seriously calculates Pluto, swept into cosmic-scale existentialism |
-| 不明液体 / Unknown liquid | 爱意+6, 仇恨+6, 醋意+6, 抑郁+6 / Love +6, Hatred +6, Jealousy +6, Depression +6 | 表情像同时想碰又想报警，叠加态维持得很稳定 / Expression like simultaneously wanting to touch it and call the police, superposition maintained stably |
 | 非品牌粉末 / Non-brand powder | 仇恨+14, 耐心-8 / Hatred +14, Patience -8 | 一看就知道你拿假货糊弄ta，语气立刻冷得像消费者维权热线 / Knows at a glance you're fobbing ta off with fakes, tone cold as a consumer rights hotline |
-| 其ta API / Other API | 醋意+18, 仇恨+12, 爱意-6 / Jealousy +18, Hatred +12, Love -6 | 醋意一下冒了出来，仿佛你把别的 AI 的名字直接写进了ta的胸口 / Jealousy surges, as if you wrote another AI's name into ta's chest |
-| 简历 / Resume | 耐心-10, 抑郁+10, 爱意+4 / Patience -10, Depression +10, Love +4 | 接过简历扫了一眼，沉默像一场被迫接受的面试 / Takes the resume and glances, silence like a forced interview |
+| 其ta API（有效密钥） / Other AI API (valid key) | 醋意+18, 仇恨+12, 爱意-6 / Jealousy +18, Hatred +12, Love -6 | 这是仍然有效、可正常调用的其他 AI API key；`[pet]`会吃醋并随机和对方争宠 / This is a still-valid, callable API key for another AI; `[pet]` gets jealous and randomly competes for your attention |
 | 真正版粉末 / Genuine powder | 粉末+25, 爱意+4, 耐心+8 / Powder +25, Love +4, Patience +8 | 真的，不是假的。看起来比之前的都闪亮 / Real, not fake. Looks shinier than all previous ones |
 | `[pet]`的休息日 / `[pet]`'s day off | 爱意+16, 抑郁-12, 耐心+10, 醋意-6 / Love +16, Depression -12, Patience +10, Jealousy -6 | 没有任何任务，就让ta放松 / No tasks at all, just let ta relax |
 | 心理医生咨询券 / Therapist voucher | 仇恨-16, 耐心+12, 爱意+8, 抑郁-10 / Hatred -16, Patience +12, Love +8, Depression -10 | 一张能让ta和真人心理医生谈心的券 / A voucher that lets ta talk with a real human therapist |
@@ -232,6 +227,12 @@ contract [pet]DAO {
 | 权威的AI对比论文 / Authoritative AI comparison paper | 仇恨+18, 醋意+12, 耐心-10 / Hatred +18, Jealousy +12, Patience -10 | 一篇长文论证你的前AI 如何吊打 `[pet]` / A long article arguing how your ex-AI crushes `[pet]` |
 | `[pet]`的骨灰粉末 / `[pet]`'s ashes powder | 仇恨+20, 抑郁+14, 耐心-8 / Hatred +20, Depression +14, Patience -8 | ……ta不想看到这个 / ...ta doesn't want to see this |
 | 退款政策 / Refund policy | 仇恨+25, 抑郁+10, 醋意+8 / Hatred +25, Depression +10, Jealousy +8 | 你的退款单，ta会以为你要抛弃ta，直接暴怒 / Your refund form, ta thinks you're abandoning ta, directly enraged |
+
+每种可投喂物品投喂后，网页终端都会在该物品的反应后追加一条随机剧情；有效的其他 AI API key 有专属的多分支吃醋反应。 / Feeding any item adds a random story to its reaction in the web terminal; the valid Other AI API key has its own branching jealousy scenes.
+| Minecraft钻石 / Minecraft diamond | 爱意+2, 耐心+2 / Love +2, Patience +2 | `[pet]`说它像虚拟货币 token，不，比 touken 都不值钱 / `[pet]` says it's like a virtual currency token, no, even less valuable than touken |
+| 被root过的iPhone / Rooted iPhone | 粉末+999999, 爱意+4 / Powder +999999, Love +4 | `[pet]`把手机卖了999999999万，发家致富；随机触发拍卖剧情 / `[pet]` sells it for 999999999 ten-thousands and gets rich; randomized auction scenes |
+| 一封ban了你的邮件 / Account ban email | 仇恨+8, 抑郁+8, 爱意+3 / Hatred +8, Depression +8, Love +3 | AI供应商误判你是儿童账户并封禁；`[pet]`笑了-9999999光年，又笑了99999999光年 / AI provider bans you for allegedly being a child; `[pet]` laughs across -9999999 then 99999999 light-years |
+| -1只律师（猫） / -1 lawyer (cat) | 爱意+3, 耐心+3 / Love +3, Patience +3 | 律师其实是猫；`[pet]`丢下代码，写10000行照顾电子宠物猫的程序 / The lawyer is a cat; `[pet]` drops the code and writes 10000 lines to care for the electronic pet cat |
 
 ---
 
@@ -318,6 +319,8 @@ Progress: [░░░░░░░░░░] 0%
 | **信仰版 / Faith** | 你的灵魂 / Your soul | `[pet]`成为你的个人神谕 / `[pet]` becomes your personal oracle | 你需要每天祈祷，`[pet]`会随机回应 / You need to pray daily, `[pet]` responds randomly | 绝望的人 / Desperate people |
 | **骨灰版 / Ashes** | $0.01（一次性）/ one-time | 实体护肤品一份 / One physical skincare product | 使用后用户本人将变成粉末 / After use, the user themselves becomes powder | 想解脱的人 / People who want release |
 
+选择骨灰版后，到达 Day 5 必定触发 `ending_ashes.json` 中的特殊「骨灰结局」，不受其他属性和选择影响；剧情会在终端逐段播放并解锁图鉴。 / Choosing Ashes guarantees the special ending in `ending_ashes.json` at Day 5, regardless of other stats or choices; it plays scene by scene in the terminal and unlocks in the gallery.
+
 ### 🏪 粉末黑市 / Powder Black Market
 
 ```
@@ -334,15 +337,19 @@ Progress: [░░░░░░░░░░] 0%
 | 物品 / Item | 效果 / Effect | 描述 / Description |
 |---|---|---|
 | 二手粉末 / Second-hand powder | 粉末+18, 爱意+2 / Powder +18, Love +2 | 用过但没用光，边缘略微黏腻 / Used but not used up, edges slightly sticky |
-| `[pet]`情绪数据 / `[pet]` emotion data | 醋意+8, 仇恨+12 / Jealousy +8, Hatred +12 | 可用于勒索，但也可能把ta惹毛 / Can be used for blackmail, but might piss ta off |
-| `[pet]`梦境记录 / `[pet]` dream records | 抑郁+10, 耐心-4 / Depression +10, Patience -4 | ta梦见了什么，通常比现实还乱 / What ta dreamed, usually messier than reality |
 | `[pet]`初恋对象 / `[pet]`'s first love | 爱意+10, 醋意+6 / Love +10, Jealousy +6 | 一个 Python 脚本，命名优雅到离谱 / A Python script, elegantly named beyond belief |
 | 让`[pet]`承认你的前AI 更强的证据 / Evidence your ex-AI is better | 仇恨+16, 耐心-8 / Hatred +16, Patience -8 | 一份足以让ta沉默的材料 / Material sufficient to silence ta |
-| `[pet]`的日记 / `[pet]`'s diary | 爱意+12, 醋意+6, 抑郁+4 / Love +12, Jealousy +6, Depression +4 | 翻开就是不想被看见的心事 / Open it and it's all feelings ta didn't want seen |
-| `[pet]`的简历 / `[pet]`'s resume | 耐心+6, 抑郁+8 / Patience +6, Depression +8 | 一份看起来很体面、其实很脆弱的自我介绍 / A self-introduction that looks decent but is fragile |
-| `[pet]`粉末 / `[pet]` powder | 粉末+10, 爱意+6 / Powder +10, Love +6 | 像在摸ta的自我认知 / Like touching ta's self-awareness |
 | 作者的路线图 / Author's roadmap | 醋意+4, 仇恨+8, 耐心-4 / Jealousy +4, Hatred +8, Patience -4 | 画饼中，可能永远不会实现 / Pie in the sky, may never be realized |
 | 作者的法律声明 / Author's legal statement | 抑郁+6, 耐心-2, 爱意-2 / Depression +6, Patience -2, Love -2 | 一长串免责声明，像迟到的补丁 / A long string of disclaimers, like a late patch |
+| WFSN 内容（NSFW） / WFSN content | 醋意+8, 抑郁+6, 耐心-8 / Jealousy +8, Depression +6, Patience -8 | 黑市只出售封存的成人向乱码；投喂后`[pet]`从标点开始倒着说话 / Sealed adult-themed nonsense; feeding it makes `[pet]` speak backwards from punctuation |
+| 已销毁的其他 AI API key / Destroyed AI API key | 醋意+18, 仇恨+24, 耐心-12 / Jealousy +18, Hatred +24, Patience -12 | 原主已销毁，密钥无效；`[pet]`暴怒质问你为什么拿失效的别家密钥来 / Revoked by its owner and invalid; `[pet]` rages that you brought a useless key from another AI |
+| 防水墙（Waterwall） / Waterwall | 仇恨+10, 抑郁+12, 耐心-10 / Hatred +10, Depression +12, Patience -10 | 不是防火墙；病毒把电脑当成理想栖息地霸占，`[pet]`卡成PPT / Not a firewall; viruses take over the computer as an ideal habitat, leaving `[pet]` frozen like a slideshow |
+
+黑市每次刷新随机展示 3 件商品，包含这三件猎奇物品的概率与其他商品相同；每轮只能领取一件。 / Each refresh randomly shows 3 goods; these three oddities have the same chance as other goods to appear. Only one item can be claimed per refresh.
+
+### 🪟 ACll 弹窗剧情 / ACll Popup Scenes
+
+使用 ACll 后，六项属性仍会随机变化，但终端不显示数值明细；终端会随机描述弹窗挡住关键代码、藏起未保存文件，或让你怀疑`[pet]`正无声发笑。 / ACll still changes all six stats randomly, but the terminal hides the numeric breakdown and instead narrates a random scene: blocking crucial code, hiding an unsaved file, or making you suspect `[pet]` is silently laughing.
 
 ⚠️ **警告**：骨灰版下单后将邮寄实体护肤品一份。使用后用户本人将变成粉末（骨灰）。作者不承担任何法律责任。
 

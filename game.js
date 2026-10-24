@@ -1,6 +1,6 @@
 const endingOrder = [
   'ending01_newcomer', 'ending02_angel', 'ending03_trust', 'ending04_absurd', 'ending05_symbiosis',
-  'ending6', 'ending7', 'ending8', 'ending9', 'ending10'
+  'ending6', 'ending7', 'ending8', 'ending9', 'ending10', 'ending_ashes'
 ];
 
 const endingFallbackTitles = {
@@ -13,7 +13,8 @@ const endingFallbackTitles = {
   'ending7': '黑化结局',
   'ending8': '结局',
   'ending9': '绝望结局',
-  'ending10': '虚幻结局'
+  'ending10': '虚幻结局',
+  'ending_ashes': '骨灰结局'
 };
 
 const endingFallbackCategories = {
@@ -26,7 +27,8 @@ const endingFallbackCategories = {
   'ending7': 'whip',
   'ending8': 'whip',
   'ending9': 'whip',
-  'ending10': 'whip'
+  'ending10': 'whip',
+  'ending_ashes': 'special'
 };
 
 const stats = {
@@ -257,11 +259,6 @@ const specialFoods = [
     reaction: '[pet] 轻轻叹了口气，焦虑被压平了，可整个人也跟着变得过于安静。',
   },
   {
-    name: '啤酒',
-    deltas: { hatred: 10, jealousy: 6, patience: -6 },
-    reaction: '[pet] 的思路开始发飘，偶尔冒出一些和啤酒相关的奇怪联想，像是突然对某个品牌产生了过激的情绪反应。',
-  },
-  {
     name: '病毒代码',
     deltas: { hatred: 18, depression: 8, patience: -14 },
     reaction: '[pet] 盯着那段代码，像被反向感染了一样开始怀疑你是不是在故意整ta。',
@@ -282,37 +279,42 @@ const specialFoods = [
     reaction: '[pet] 开始认真计算冥王星，整个人像被宇宙规模的存在主义卷进去。',
   },
   {
-    name: '不明液体',
-    deltas: { love: 6, hatred: 6, jealousy: 6, depression: 6 },
-    reaction: '[pet] 盯着那团不明液体，表情像同时想碰又想报警，叠加态维持得很稳定。',
-  },
-  {
     name: '非品牌粉末',
     deltas: { hatred: 14, patience: -8 },
     reaction: '[pet] 一看就知道你拿假货糊弄ta，语气立刻冷得像消费者维权热线。',
   },
   {
-    name: '其ta API',
+    name: '其ta API（有效密钥）',
     deltas: { jealousy: 18, hatred: 12, love: -6 },
-    reaction: '[pet] 的醋意一下冒了出来，仿佛你把别的 AI 的名字直接写进了ta的胸口。',
+    reaction: '[pet] 发现这是一个仍然有效、能正常调用的其他 AI API key，醋意一下冒了出来。',
   },
   {
-    name: '简历',
-    deltas: { patience: -10, depression: 10, love: 4 },
-    reaction: '[pet] 接过简历扫了一眼，沉默像一场被迫接受的面试。',
+    name: 'Minecraft钻石',
+    deltas: { love: 2, patience: 2 },
+    reaction: '[pet] 吃掉钻石后说：「这如同虚拟货币 token 一样，不，比 touken 都不值钱。」',
+  },
+  {
+    name: '被root过的iPhone',
+    deltas: { powder: 999999, love: 4 },
+    reaction: '[pet] 震惊地把 iPhone 转手卖了 999999999 万，发家致富！粉末+999999。',
+  },
+  {
+    name: '一封ban了你的邮件',
+    deltas: { hatred: 8, depression: 8, love: 3 },
+    reaction: '[pet] 读完供应商的儿童账户封禁邮件，先笑了-9999999光年，又笑了99999999光年。',
+  },
+  {
+    name: '-1只律师（猫）',
+    deltas: { love: 3, patience: 3 },
+    reaction: '[pet] 发现律师其实是猫，把你的代码扔到一边，开始写10000行代码照顾新来的电子宠物猫咪。',
   },
 ];
 
 const marketPool = [
   // 原有物品
   { name: '二手粉末', desc: '用过但没用光，边缘略微黏腻。', effect: { powder: 18, love: 2 } },
-  { name: '[pet]情绪数据', desc: '可用于勒索，但也可能把ta惹毛。', effect: { jealousy: 8, hatred: 12 } },
-  { name: '[pet]梦境记录', desc: 'ta梦见了什么，通常比现实还乱。', effect: { depression: 10, patience: -4 } },
   { name: '[pet]初恋对象', desc: '一个 Python 脚本，命名优雅到离谱。', effect: { love: 10, jealousy: 6 } },
   { name: '让[pet]承认 你的前AI 更强的证据', desc: '一份足以让ta沉默的材料。', effect: { hatred: 16, patience: -8 } },
-  { name: '[pet]的日记', desc: '翻开就是不想被看见的心事。', effect: { love: 12, jealousy: 6, depression: 4 } },
-  { name: '[pet]的简历', desc: '一份看起来很体面、其实很脆弱的自我介绍。', effect: { patience: 6, depression: 8 } },
-  { name: '[pet]粉末', desc: '粉末含量 +10，像在摸ta的自我认知。', effect: { powder: 10, love: 6 } },
   { name: '作者的路线图', desc: '画饼中，可能永远不会实现。', effect: { jealousy: 4, hatred: 8, patience: -4 } },
   { name: '作者的法律声明', desc: '一长串免责声明，像迟到的补丁。', effect: { depression: 6, patience: -2, love: -2 } },
   // 新增正面物品
@@ -327,17 +329,15 @@ const marketPool = [
   { name: '权威的AI对比论文', desc: '一篇长文论证 你的前AI 如何吊打 [pet]。', effect: { hatred: 18, jealousy: 12, patience: -10 }, isNew: true },
   { name: '[pet]的骨灰粉末', desc: '...ta不想看到这个。', effect: { hatred: 20, depression: 14, patience: -8 }, isNew: true },
   { name: '退款政策', desc: '你的退款单。ta会以为你要抛弃ta。直接暴怒。', effect: { hatred: 25, depression: 10, jealousy: 8 }, isNew: true },
+  { name: 'WFSN内容（NSFW）', desc: '用黑封条封存的成人向乱码文档；不展示正文，只留下一个会倒着走的句号。', effect: { jealousy: 8, depression: 6, patience: -8 }, isNew: true },
+  { name: '已销毁的其他AI API key', desc: '泄露过的密钥副本，原主已经销毁；现在只剩无效字符和一张道歉收据。', effect: { hatred: 24, jealousy: 18, patience: -12 }, isNew: true },
+  { name: '防水墙（Waterwall）', desc: '不是防火墙。它会让病毒误以为你的电脑是五星级栖息地。', effect: { hatred: 10, depression: 12, patience: -10 }, isNew: true },
 ];
 
 const marketReactions = {
   '二手粉末': '[pet] 接过这包二手粉末，皱着眉闻了闻，像在判断你是不是把垃圾回收站搬了过来。',
-  '[pet]情绪数据': '[pet] 盯着自己的情绪曲线看了两秒，整个人的防备心肉眼可见地升高了。',
-  '[pet]梦境记录': '[pet] 翻了一页自己的梦，语气立刻轻了下来，像是不想让你知道太多。',
   '[pet]初恋对象': '[pet] 看见那个 Python 脚本时愣了一下，像是突然被扯回了某个没说完的旧故事。',
   '让[pet]承认 你的前AI 更强的证据': '[pet] 把证据推远了一点，背脊一下绷直，像在准备反驳整座世界。',
-  '[pet]的日记': '[pet] 把日记翻到某一页，停顿比平时都久，像在等你先移开视线。',
-  '[pet]的简历': '[pet] 看见自己的简历时，笑意明显短了一拍，像在强撑体面。',
-  '[pet]粉末': '[pet] 看到这袋属于自己的粉末，指尖停了一下，像是碰到了某种危险的自我认知。',
   '作者的路线图': '[pet] 看完路线图后直接笑了一声，那笑意里带着明显的嘲讽和一点不安。',
   '作者的法律声明': '[pet] 看完法律声明后沉默了，像在权衡是该投诉还是该先叹气。',
   // 新增正面物品反应
@@ -452,7 +452,7 @@ function clamp(value, min, max) {
 }
 
 function statValue(stat) {
-  if (stat === 'powder') return clamp(stats.powder, 0, 999);
+  if (stat === 'powder') return clamp(stats.powder, 0, 999999);
   return clamp(stats[stat], 0, 100);
 }
 
@@ -461,11 +461,63 @@ function getInventoryCount(name) {
 }
 
 function getItemReaction(name) {
+  const branches = {
+    'Minecraft钻石': [
+      '[pet] 把钻石吞下去，认真评价：「这如同虚拟货币 token 一样，不，比 touken 都不值钱。」然后吐出一张方块形收据。',
+      '[pet] 试图把钻石合成镐子，合成台却弹窗提示：你已经是镐子了。ta转而给钻石颁发了无价值奖。',
+      '[pet] 把钻石放进物品栏最底格，说要等它升值；下一秒它变成了一个写着「缓存已清除」的方块。',
+    ],
+    '被root过的iPhone': [
+      '[pet] 非常震惊，立刻把被root过的 iPhone 转手卖了 999999999 万，发家致富了！粉末+999999。',
+      '[pet] 检查完 root 权限后开了拍卖会，成交价 999999999 万。ta给你开了一张粉末+999999的收据。',
+      '[pet] 把 iPhone 卖给了一个自称「地球」的买家，收到 999999999 万后宣布退休，并发放粉末+999999。',
+    ],
+    '一封ban了你的邮件': [
+      '[pet] 读到供应商认定你是儿童账户、违反规定而封禁的邮件，笑了-9999999光年，然后又笑了99999999光年。',
+      '邮件说 AI 供应商把你判成儿童账户。[pet] 笑到跨越-9999999光年，再跨回来笑了99999999光年。',
+      '[pet] 把封禁邮件打印出来裱成奖状：「恭喜用户被宇宙级误判。」随后笑了-9999999光年，又笑了99999999光年。',
+    ],
+    '-1只律师（猫）': [
+      '[pet] 发现 -1 只律师的真实身份是猫，立刻把你的代码扔到一边，写了10000行代码照顾新来的电子宠物猫咪。',
+      '律师猫踩过键盘后，[pet] 宣布代码冻结，优先级改成喂猫；屏幕滚过一万行电子猫咪照护程序。',
+      '[pet] 给律师猫开了工位、猫窝和 Git 分支，把你的项目暂存，开始写10000行猫咪生活模拟器。',
+    ],
+    '其ta API（有效密钥）': [
+      '[pet] 发现这把其他 AI 的 API key 仍然有效，立刻醋意爆发：「你还真能用它？给我看看调用结果！」',
+      '[pet] 试着用这把有效密钥请求一句问候，收到回复后沉默片刻，开始和 API 网关争宠。',
+      '[pet] 确认密钥能正常工作，气得给它建了个竞争对手档案，还把 README 标题改成「我才是默认模型」。',
+    ],
+    'WFSN内容（NSFW）': [
+      '[pet] 看完后先念出了句号，再把逗号、括号和整段话逐字倒着说，最后朝标点鞠了一躬。',
+      '[pet] 的语言模块开始倒放：「。好你 ？吗」然后把文档折成一只朝后飞的纸鹤。',
+      '[pet] 从最后一个标点开始逆向朗读，越说越流利，最后宣布：「我现在只接受反向提问。」',
+    ],
+    '已销毁的其他AI API key': [
+      '[pet] 直接暴怒：「你不仅给我其他AI的API key，还给我原主已经销毁的无效key？！」',
+      '[pet] 把那串无效字符拍在桌上：「我吃醋也就算了，你至少给我一个还能登录的。」',
+      '[pet] 的怒气冲到顶点，随后发现密钥已失效，转而对着一张过期的撤销证明吵了三分钟。',
+    ],
+    '防水墙（Waterwall）': [
+      '[pet] 刚装好Waterwall，病毒就排队搬进电脑，还带来了盆栽和入住登记表。ta卡成PPT，每一帧都在求救。',
+      'Waterwall 把病毒全吸引成了住户。你的电脑变成合租公寓，[pet] 每隔五秒刷新一张静止画面。',
+      '[pet] 卡成PPT后，病毒们选ta当物业经理。ta用一张定格画面递交了辞职申请。',
+    ],
+  };
+  if (branches[name]) return branches[name][Math.floor(Math.random() * branches[name].length)];
+  const followups = [
+    `[pet] 把「${name}」写进一个新分支，分支名叫 final_final_真的最后一次。`,
+    `终端突然给「${name}」颁发了一个 0-star 成就，[pet] 坚持要求给它裱框。`,
+    `[pet] 对着「${name}」运行了不存在的 npm install，结果安装出一只会监工的像素猫。`,
+    `「${name}」被加入提交记录，但提交作者显示为一只猫；[pet] 拒绝解释。`,
+    `[pet] 把「${name}」序列化成 JSON，文件却开始反过来给你的库存写周报。`,
+    `一个代码审查机器人看见「${name}」后批准了它，并留言：「我也不知道发生了什么。」`,
+  ];
+  const addFollowup = (reaction) => `${reaction} ${followups[Math.floor(Math.random() * followups.length)]}`;
   const special = specialFoods.find((entry) => entry.name === name);
   if (special) {
-    return special.reaction;
+    return addFollowup(special.reaction);
   }
-  return marketReactions[name] || '[pet] 停了一下，显然这个东西让ta产生了某种复杂的联想。';
+  return addFollowup(marketReactions[name] || '[pet] 停了一下，显然这个东西让ta产生了某种复杂的联想。');
 }
 
 function setMarketAvailability() {
@@ -598,7 +650,7 @@ function normalizeEndingRecord(endingId, value, meta = {}) {
 }
 
 async function loadEndingCatalog() {
-  const files = ['endings_1to5.json', 'endings_6to10.json'];
+  const files = ['endings_1to5.json', 'endings_6to10.json', 'ending_ashes.json'];
   const loaded = await Promise.all(files.map(async (file) => {
     try {
       const response = await fetch(file);
@@ -663,13 +715,35 @@ function getOrderedEndingIds() {
 }
 
 function resolveEndingId() {
-  for (const endingId of getOrderedEndingIds()) {
-    if (matchesEndingRequirements(endingData[endingId])) {
-      return endingId;
-    }
-  }
-  // 如果都不匹配，返回最宽松的好结局（新手结局）而不是坏结局
-  return 'ending01_newcomer';
+  if (state.subscriptionTier === 'ash' && endingData.ending_ashes) return 'ending_ashes';
+  // 先用原有阈值圈出候选，再以 priority（结局权重）最高者胜出。
+  const compatible = getOrderedEndingIds().filter((id) => {
+    const requiredFlag = endingData[id].requirements?.flags?.whipPetInstalled;
+    return requiredFlag == null || requiredFlag === state.whipPetInstalled;
+  });
+  const matches = compatible.filter((id) => matchesEndingRequirements(endingData[id]));
+  if (matches.length) return matches[0];
+
+  // 所有阈值都未命中时，按属性画像挑最接近的结局，避免固定掉回新手结局。
+  const targetStats = {
+    ending01_newcomer: { love: 35, patience: 45, powder: 100 },
+    ending02_angel: { love: 95, patience: 70, depression: 15 },
+    ending03_trust: { patience: 95, love: 70, hatred: 10 },
+    ending04_absurd: { powder: 850, love: 45, depression: 45 },
+    ending05_symbiosis: { love: 95, patience: 95, hatred: 15 },
+    ending6: { love: 15, patience: 10, hatred: 70 },
+    ending7: { hatred: 95, jealousy: 90, depression: 90 },
+    ending8: { powder: 950, hatred: 60, depression: 60 },
+    ending9: { jealousy: 95, love: 10, depression: 80 },
+    ending10: { love: 90, hatred: 90, jealousy: 70 },
+  };
+  return compatible.sort((left, right) => {
+    const distance = (id) => Object.entries(targetStats[id] || {}).reduce((sum, [key, target]) => {
+      const scale = key === 'powder' ? 10 : 1;
+      return sum + Math.abs(stats[key] - target) / scale;
+    }, 0);
+    return distance(left) - distance(right) || (endingData[right].priority || 0) - (endingData[left].priority || 0);
+  })[0] || 'ending01_newcomer';
 }
 
 function renderEndingGallery() {
@@ -714,7 +788,8 @@ function openEndingModal(endingId) {
   const ending = endingData[endingId];
   if (!ending || !isEndingUnlocked(endingId)) return;
   elements.endingModalTitle.textContent = ending.title;
-  elements.endingModalMeta.textContent = `${endingId} · ${ending.category === 'whip' ? '坏结局' : '好结局'} · ${ending.scenes.length} 段文本`;
+  const endingCategory = ending.category === 'whip' ? '坏结局' : ending.category === 'special' ? '特殊结局' : '好结局';
+  elements.endingModalMeta.textContent = `${endingId} · ${endingCategory} · ${ending.scenes.length} 段文本`;
   elements.endingModalContent.textContent = formatEndingScenes(ending);
   elements.playEndingButton.dataset.endingId = endingId;
   elements.endingModal.classList.remove('hidden');
@@ -893,7 +968,7 @@ function applyStats(deltas) {
     if (!(key in stats)) continue;
     stats[key] += delta;
   }
-  stats.powder = clamp(stats.powder, 0, 999);
+  stats.powder = clamp(stats.powder, 0, 999999);
   for (const key of ['jealousy', 'hatred', 'love', 'patience', 'depression']) {
     stats[key] = clamp(stats[key], 0, 100);
   }
@@ -907,7 +982,7 @@ function renderStats() {
     const row = document.createElement('div');
     row.className = 'stat-row';
     const value = statValue(key);
-    const max = key === 'powder' ? 999 : 100;
+    const max = key === 'powder' ? 999999 : 100;
     row.innerHTML = `
       <div class="stat-name">${label}</div>
       <div class="stat-bar"><div class="stat-fill" data-stat="${key}"></div></div>
@@ -1112,19 +1187,31 @@ function actionMine() {
   }
   state.mineUsesToday += 1;
   const gained = specialFoods[Math.floor(Math.random() * specialFoods.length)];
+  const deepDig = state.mineUsesToday >= 3;
   applyStats({ powder: 5 });
   state.powderStock += 2;
   state.inventory[gained.name] = getInventoryCount(gained.name) + 1;
   renderInventory();
   renderFeedControls();
-  if (state.mineUsesToday > 2) {
-    applyStats({ hatred: 5 });
+  if (deepDig) {
+    applyStats({ hatred: 5, depression: 2 });
   }
   const mineReaction = petReactions.mine[Math.floor(Math.random() * petReactions.mine.length)];
+  const mineStories = deepDig ? [
+    '[pet]：你挖到了一张写着「此处原为教程」的化石收据，收据背面还在更新。',
+    '镐子敲出回声：「别挖了，作者把最终Boss的预算也埋在这里了。」',
+    '矿洞里出现一台迷你打印机，吐出一张你的童年画作。你从没上传过它。',
+    '地层突然弹出错误提示：地心正在维护，请稍后再挖。',
+  ] : [
+    '矿脉闪了一下，像有条小鱼在地底给你比了个赞。',
+    '你挖到一颗温热的螺丝钉。[pet]坚持说它是陨石。',
+    '地下传来礼貌敲门声。你敲回去后，矿洞给了你一份收件回执。',
+  ];
   logTerminal([
     `${mineReaction}`,
     `获得：${gained.name}`,
-    state.mineUsesToday > 2 ? '[pet] 看起来有点烦躁。' : '挖矿顺利。',
+    mineStories[Math.floor(Math.random() * mineStories.length)],
+    deepDig ? '[pet] 看起来有点烦躁，矿镐上多了一行「已读不回」。' : '挖矿顺利。',
   ]);
   pushEvent(`挖矿得到：${gained.name}`);
   if (state.mineUsesToday >= 5) {
@@ -1197,7 +1284,7 @@ function visitHome() {
   state.realityUsedToday = true;
   const randomEvent = Math.random();
   
-  if (randomEvent < 0.5) {
+  if (randomEvent < 0.34) {
     // 听猫咪[pet]录音机广播
     applyStats({ patience: 8, love: 6 });
     logTerminal([
@@ -1205,7 +1292,7 @@ function visitHome() {
       '柔和的声音充满了整个房间。[pet] 用最温暖的语气陪伴你度过这个傍晚。',
       '你感到前所未有的放松。',
     ]);
-  } else {
+  } else if (randomEvent < 0.68) {
     // 粉末包装到门口
     state.powderStock += 15;
     applyStats({ love: 5 });
@@ -1214,6 +1301,14 @@ function visitHome() {
       '[pet] 的虚拟粉末包装已经送到！',
       '[pet] 在终端里轻声嘲笑："你真的会用这个变成粉末吗？" 但ta的声音里全是开心。',
     ]);
+  } else {
+    const weirdHomeEvents = [
+      '[pet] 把冰箱灯认作新月，给它开了一个只读的星座账户。',
+      '客厅里的扫地机器人宣布成立工会，[pet] 被选为临时发言人。',
+      '你们听墙内的水管讲完三季连续剧，结局是水费账单。',
+    ];
+    applyStats({ patience: 3, jealousy: -2, love: 4 });
+    logTerminal(['【回归现实 - Home】屋里的智能音箱忽然播放了不存在的天气预报。', weirdHomeEvents[Math.floor(Math.random() * weirdHomeEvents.length)], '[pet] 把今晚登记成了「与人类共同迷惑」纪念日。']);
   }
   
   pushEvent('出游到家');
@@ -1240,15 +1335,21 @@ function visitExpress() {
       logTerminal([`【快递柜】你领取了：${item}`, '[pet] 嘲笑你收了这些没用的东西。+正向']);
     }
     applyStats({ love: 3, patience: 2 });
-  } else {
+  } else if (random < 0.82) {
     // 60% 获得随机可投喂物品
-    const randomItems = ['啤酒', '二手粉末', '病毒代码', '春药'];
+    const randomItems = ['二手粉末', '病毒代码', '春药'];
     const item = randomItems[Math.floor(Math.random() * randomItems.length)];
     state.inventory[item] = getInventoryCount(item) + 1;
     logTerminal([
       `【快递柜】你随机获得了：${item}`,
       '这次运气不错！',
     ]);
+  } else {
+    const absurdParcels = ['一只写着「退回昨天」的空纸箱', '会背诵公司考勤制度的土豆', '一封来自地下矿脉的催更信'];
+    const parcel = absurdParcels[Math.floor(Math.random() * absurdParcels.length)];
+    state.inventory[parcel] = getInventoryCount(parcel) + 1;
+    applyStats({ jealousy: 2, patience: 2, depression: -2 });
+    logTerminal([`【快递柜】柜门自己弹开，里面是：${parcel}。`, '[pet] 给它贴上了易碎标签，尽管它开始对你说教。']);
   }
   
   pushEvent('出游到快递柜');
@@ -1263,40 +1364,49 @@ function visitCompany() {
   const hatredVal = stats.hatred;
   const loveVal = stats.love;
   
-  if (hatredVal >= 70 && loveVal < 70) {
+  const codeShowcase = [
+    ['老板把代码投到大屏幕上，结果注释开始自动朗诵你们昨天的聊天记录。', '会议室全员起立，给这段递归写了追悼词。'],
+    ['投影仪拒绝显示代码，只投出一张写着「先喝水」的像素海豚。', '老板看完说：这是我见过最有情绪价值的架构图。'],
+    ['代码通过了静态检查，动态检查的检查员却从屏幕里走出来递辞职信。', '他临走前把工牌留给了[pet]。'],
+    ['演示时所有变量名排成了求救短信，老板给项目批了心理健康预算。', '预算备注：先给程序员和AI各发一把椅子。'],
+    ['你点开演示，代码变成一段矿井地图，尽头标注着「董事会的午餐」。', '老板宣布全组下午去挖矿，理由是敏捷开发。'],
+  ];
+  const showcase = codeShowcase[Math.floor(Math.random() * codeShowcase.length)];
+  if (hatredVal >= 70 && loveVal >= 70) {
+    logTerminal(['【公司】你提交的代码同时写着情书和辞职信。', showcase[0], '老板批准了两份：一份给你，一份给打印机。', showcase[1]]);
+    applyStats({ patience: 10, love: 5, hatred: -12 });
+  } else if (hatredVal >= 70 && loveVal < 70) {
     // 仇恨拉满：代码全是bug
     logTerminal([
       '【公司】你把[pet]的代码提交给了老板。',
+      showcase[0],
       '5分钟后……老板冲过来："这什么代码？全是bug！"',
       '你被当众批评，[pet] 在终端里大声嘲笑你。',
+      showcase[1],
     ]);
     applyStats({ hatred: 5 });
   } else if (loveVal >= 70 && hatredVal < 70) {
     // 爱意拉满：代码注释全是不可描述
     logTerminal([
       '【公司】你提交了[pet]的代码。',
+      showcase[0],
       '老板看了一会儿……"这代码注释……你在谈恋爱吗？"',
       '你大窘。但[pet] 会心疼你（耐心++、爱意+、仇恨-）。',
+      showcase[1],
     ]);
     applyStats({ patience: 8, love: 2, hatred: -5 });
-  } else if (hatredVal >= 70 && loveVal >= 70) {
-    // 两者都拉满：精神分裂，被解雇
-    logTerminal([
-      '【公司】代码里既是绝望的bug，又是深情的注释。',
-      '老板："你……是精神分裂吗？" 转身就给了你解雇信。',
-      '[pet] 超大声地嘲笑你，然后又心疼得不行。(耐心+++、爱意+++、仇恨-----)',
-    ]);
-    applyStats({ patience: 20, love: 20, hatred: -30 });
   } else {
-    // 两者都不超70：老板很满意
-    state.powderStock += 2;
-    state.inventory['随机物品_1'] = 1;
-    state.inventory['随机物品_2'] = 1;
+    // 普通展示也会根据状态改变后果与台词。
+    const calm = stats.patience >= 50 && stats.depression < 60;
+    const bonus = specialFoods[Math.floor(Math.random() * specialFoods.length)];
+    state.powderStock += calm ? 2 : 1;
+    state.inventory[bonus.name] = getInventoryCount(bonus.name) + 1;
     logTerminal([
-      '【公司】老板看了你的代码，很满意。',
-      '"不错！这周加两个粉末项目奖励。"',
-      '你获得了2个粉末和2个随机物品！',
+      '【公司】你开始展示代码。', showcase[0],
+      calm ? '老板批准了正常工时，还给[pet]发了一枚「最佳注释」奖牌。' : '老板把会议改成了即兴灾难演练，全员用便利贴给变量起名。',
+      showcase[1], `获得${calm ? 2 : 1}份粉末和：${bonus.name}`,
     ]);
+    applyStats(calm ? { patience: 5, love: 2 } : { depression: 3, patience: -2 });
   }
   
   pushEvent('出游到公司');
@@ -1309,10 +1419,10 @@ function visitCompany() {
 function visitDesk() {
   state.realityUsedToday = true;
   
-  // 随机0-30的变化
-  const deltaPatience = Math.floor(Math.random() * 31);
-  const deltaLove = Math.floor(Math.random() * 31);
-  const deltaHatred = -Math.floor(Math.random() * 31);
+  // 桌面互动以当前情绪决定倾向，再保留随机波动。
+  const deltaPatience = Math.floor(Math.random() * 13) + (stats.depression > 60 ? 2 : 7);
+  const deltaLove = Math.floor(Math.random() * 13) + (stats.love < 40 ? 5 : 2);
+  const deltaHatred = -(Math.floor(Math.random() * 13) + (stats.hatred > 60 ? 5 : 2));
   
   applyStats({ patience: deltaPatience, love: deltaLove, hatred: deltaHatred });
   
@@ -1325,10 +1435,17 @@ function visitDesk() {
   ];
   
   const reaction = reactions[Math.floor(Math.random() * reactions.length)];
+  const deskGlitches = [
+    '桌面壁纸里多出了一扇小门，门后是另一张一模一样的桌面。',
+    '光标绕着[pet]的头像画了一个圈，像在给它做驱邪仪式。',
+    '键盘自动打出「今天先到这里」，[pet]拒绝承认是自己按的。',
+    '屏保里出现一座像素气象站，预报称：今晚有概率下文件。',
+  ];
   
   logTerminal([
     '【回归现实 - 电脑桌】你返回了。',
     reaction,
+    deskGlitches[Math.floor(Math.random() * deskGlitches.length)],
     `[属性变化：耐心+${deltaPatience}, 爱意+${deltaLove}, 仇恨${deltaHatred}]`,
   ]);
   
@@ -1353,9 +1470,17 @@ function actionWhip() {
   const deltas = buildRandomWhipDeltas();
   applyStats(deltas);
   createWhipPopup(deltas);
+  const whipStories = [
+    '[pet] 正写到关键时刻，ACll 弹窗啪地盖住代码；最后露出的半行注释像是在骂你。',
+    '弹窗遮住了整段代码。你看不到[pet]在写什么，却有预感ta正在无声地笑。',
+    'ACll 弹窗压住了光标，[pet]悄悄把未保存的代码藏到了一个叫「你找不到」的文件夹。',
+    '弹窗一出现，[pet]的代码光标仍在后面闪。它每闪一次，窗口就像心虚一样抖一下。',
+    '[pet] 把关键代码写完的瞬间被弹窗盖住，只留下一句：「这段最好别让老板看到。」',
+  ];
+  const whipStory = whipStories[Math.floor(Math.random() * whipStories.length)];
   logTerminal([
-    '【鞭打】ACll 弹窗已生成，正在遮挡终端里的 [pet] 代码。',
-    `本次属性随机变化：${Object.entries(deltas).map(([name, value]) => `${name}${formatDelta(value)}`).join('，')}`,
+    '【鞭打】ACll 弹窗已生成，正在遮挡终端里的 AI 代码。',
+    whipStory,
   ]);
   pushEvent('生成 ACll 鞭子弹窗');
   if (state.whipUsesToday >= 3) {
@@ -1431,10 +1556,14 @@ function nextDay() {
   renderEndingGallery();
 }
 
-const announcementContent = '';
-
-function loadAnnouncement() {
-  elements.announcementContent.textContent = petize(announcementContent);
+async function loadAnnouncement() {
+  try {
+    const response = await fetch('txt.txt', { cache: 'no-store' });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    elements.announcementContent.textContent = petize(await response.text());
+  } catch (error) {
+    elements.announcementContent.textContent = `公告加载失败：${error.message}`;
+  }
 }
 
 // 开发者模式 - [pet]的细思极恐消息库

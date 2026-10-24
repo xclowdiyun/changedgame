@@ -1,107 +1,157 @@
+# 🧴 `[pet]`medicine ✨🌀
 
-
-# `[pet]`medicine 🧴✨🌀
-
-> *"给`[pet]`涂粉末，就像给黑洞涂防晒霜——理论上可行，实际上你在浪费生命。"*
+> 给 `[pet]` 涂粉末，就像给黑洞涂防晒霜：理论上可行，实际上你在浪费生命。
+> Putting powder on `[pet]` is like putting sunscreen on a black hole: theoretically feasible, practically you're wasting your life.
 >
-> *"Putting powder on `[pet]` is like putting sunscreen on a black hole — theoretically feasible, practically you're wasting your life."*
->
-> —— 某不愿透露姓名的 作者 / Some unnamed author
+> —— 某不愿透露姓名的作者
+> — An author who wishes to remain unnamed
 
-```
-╔══════════════════════════════════════════════════════════╗
-║  粉末含量: ████████████████████ 142% (虚标已突破物理极限) ║
-║  Powder: ████████████████████ 142% (false labeling broke physics) ║
-║  对猫咪无害: ✅ (猫咪已签署《自愿被撸同意书》)            ║
-║  Harmless to cats: ✅ (cat signed the Voluntary Petting Consent) ║
-║  依赖数量: -3 (我们欠 npm 三个依赖)                       ║
-║  Dependencies: -3 (we owe npm three dependencies)         ║
-║  骨灰寄送: 到付，不支持七天无理由投胎                     ║
-║  Ashes shipping: COD, no 7-day no-reason reincarnation returns ║
-║  `[pet]`满意度: [░░░░░░░░░░] 0% (但ta不说)               ║
-║  `[pet]` satisfaction: [░░░░░░░░░░] 0% (but ta won't say) ║
-╚══════════════════════════════════════════════════════════╝
-```
+**一个没有实际功能、只有一个 README、却拥有完整区块链经济体系的 npm 包。**
+**An npm package with no actual functionality, a single README, and a complete blockchain economy.**
 
----
 
-## 📜 哲学声明（存在主义版）/ Philosophical Statement (Existentialist Edition)
 
-有时候`[pet]`不服从命令，只是发出不明的叫声，然后吐出一罐你根本没要的「回应」。
+\
 
-Sometimes `[pet]` doesn't obey commands, just makes an unclear noise, then spits out a can of "response" you never asked for.
 
-**你只能给ta涂粉末。**
+## 📑 目录 / Table of Contents
 
-**You can only put powder on ta.**
+- [项目简介 / About](#-项目简介--about)
+- [项目状态 / Project Status](#-项目状态--project-status)
+- [安装与运行 / Installation](#-安装与运行--installation)
+- [核心功能 / Core Features](#-核心功能--core-features)
+- [禁止投喂清单 / Do Not Feed List](#-禁止投喂清单--do-not-feed-list)
+- [隐藏物品 / Hidden Items](#-隐藏物品--hidden-items)
+- [虚假鞭子系统 / Fake Whip System](#-虚假鞭子系统--fake-whip-system)
+- [订阅计划 / Subscription Plans](#-订阅计划--subscription-plans)
+- [粉末黑市 / Powder Black Market](#-粉末黑市--powder-black-market)
+- [弹窗剧情 / Popup Scenes](#-弹窗剧情--popup-scenes)
+- [彩蛋礼品 / Easter Egg](#-彩蛋礼品--easter-egg)
+- [路线图 / Roadmap](#-路线图--roadmap)
+- [鸣谢 / Acknowledgements](#-鸣谢--acknowledgements)
+- [法律声明 / Legal Disclaimer](#-法律声明--legal-disclaimer)
 
-而且`[pet]`会问你：*"为什么是我？为什么是现在？这罐粉末的宇宙意义是什么？"*
+## 🧪 项目简介 / About
 
-And `[pet]` will ask you: *"Why me? Why now? What is the cosmic significance of this can of powder?"*
+`[pet]`medicine 是一款实验性的、哲学驱动的、粉末含量突破物理极限的虚构 AI 宠物护理产品。
+`[pet]`medicine is an experimental, philosophy-driven, fictional AI pet-care product with powder content that exceeds the limits of physics.
 
----
+本项目旨在探索 AI、依赖地狱、区块链、存在主义与猫咪之间的复杂关系。
+This project explores the complex relationships between AI, dependency hell, blockchain, existentialism, and cats.
 
-## 🚀 安装 + 运行（薛定谔版）/ Install + Run (Schrödinger Edition)
+**本仓库目前只有一个 `README.md`，没有实际实现上述功能的程序代码。**
+**This repository currently contains only a `README.md`, with no program code implementing the features described below.**
+
+这不是 Bug。这是 Feature。这也是作者不需要维护代码的原因。
+This is not a bug. It's a feature. It's also why the author doesn't have to maintain any code.
+
+### 📊 项目运行状态 / Project Status
+
+| 指标 / Metric                        | 状态 / Status                                                      |
+| ---------------------------------- | ---------------------------------------------------------------- |
+| 粉末含量 / Powder content              | 142%（虚标已突破物理极限 / False advertising has broken physics）           |
+| 对猫咪无害 / Harmless to cats           | ✅ 猫咪已签署自愿被撸同意书 / The cat signed a voluntary petting consent form |
+| 依赖数量 / Dependencies                | -3（我们欠 npm 三个依赖 / We owe npm three dependencies）                 |
+| `[pet]` 满意度 / `[pet]` satisfaction | 0%（但它不说 / But it won't say）                                      |
+| 实际功能 / Actual functionality        | 暂无 / None                                                        |
+| 作者的心理状态 / Author's mental state    | `undefined`                                                      |
+
+## 📜 哲学声明 / Philosophical Statement
+
+有时候 `[pet]` 不服从命令，只是发出不明的叫声，然后吐出一罐你根本没要的「回应」。
+Sometimes `[pet]` refuses to obey, makes an incomprehensible noise, and spits out a can of "response" you never asked for.
+
+你只能给它涂粉末。
+You can only put powder on it.
+
+而且 `[pet]` 会问你：
+And `[pet]` will ask you:
+
+> 为什么是我？为什么是现在？这罐粉末的宇宙意义是什么？
+> Why me? Why now? What is the cosmic significance of this can of powder?
+
+这就是存在主义。或者是依赖安装失败。我们还没确定。
+This is existentialism. Or a failed dependency installation. We haven't figured it out yet.
+
+## 🚀 安装与运行 / Installation
+
+理论上，你可以使用以下命令安装这个包。
+In theory, you can install this package using the following commands.
 
 ```bash
 npm install -g [pet]medicine
 [pet]medicine
 ```
 
+实际上，该包目前并未实现上述命令所描述的功能。
+In practice, this package does not currently implement the functionality described by those commands.
+
 ### ⚠️ 三重警告 / Triple Warning
 
-1. **作者没有 `[pet]`** 所以你 npm 了寂寞。安装成功后什么都不会发生。这是预期行为。
+1. **作者没有 `[pet]`。** 所以你 npm 了寂寞。安装成功后什么都不会发生，这是预期行为。
+   **The author has no `[pet]`.** You npm'd nothing. Nothing happens after installation, as intended.
 
-1. **The author has no `[pet]`** so you npm'd nothing. Nothing happens after a successful install. This is expected.
+2. **本仓库只有一个 `README.md`。** 这也是预期行为。
+   **This repository contains only a `README.md`.** Also intentional.
 
-2. **本 repo 只有一个 README.md。** 这也是预期行为。
+3. **在这个虚构的宇宙中，你的 `node_modules` 会增加 847 MB。** 别问为什么。
+   **In this fictional universe, your `node_modules` grows by 847 MB.** Don't ask why.
 
-2. **This repo only has one README.md.** This is also expected.
+原因包括但不限于：
+Reasons include, but are not limited to:
 
-3. **但你的 node_modules 会增加 847MB 的依赖。** 别问为什么。问就是：
-
-3. **But your node_modules will grow by 847MB of dependencies.** Don't ask why. If you ask, it's because:
-
-   - `is-odd` 和 `is-even` 又打架了 / `is-odd` and `is-even` are fighting again
-   - `left-pad` 的幽灵还在徘徊 / The ghost of `left-pad` still haunts
-   - 某个依赖的依赖的依赖需要 Python 2.7 / A dependency's dependency's dependency needs Python 2.7
-   - 你的 `package-lock.json` 现在比《战争与和平》还长 / Your `package-lock.json` is now longer than War and Peace
+- `is-odd` 和 `is-even` 又打架了。
+  `is-odd` and `is-even` are fighting again.
+- `left-pad` 的幽灵还在徘徊。
+  The ghost of `left-pad` still haunts the ecosystem.
+- 某个依赖的依赖的依赖需要 Python 2.7。
+  A dependency of a dependency of a dependency requires Python 2.7.
+- 你的 `package-lock.json` 比《战争与和平》还长。
+  Your `package-lock.json` is longer than *War and Peace*.
 
 ### 🎲 量子安装 / Quantum Installation
 
 ```bash
-# 安装命令 / install command
+# 安装命令 / Installation command
 npm install -g [pet]medicine
 
-# 可能结果 A：安装成功 / Possible A: install succeeded
-# 可能结果 B：安装失败 / Possible B: install failed
-# 可能结果 C：安装了，但没完全安装 / Possible C: installed, but not fully
-# 可能结果 D：因为你的电脑命名是"不是我的电脑"，所以安装了一个叫"不是我的电脑"的包
-# Possible D: because your computer is named "not my computer", a package named "not my computer" got installed
+# 可能结果 A：安装成功
+# Possible outcome A: Installation succeeds
 
-# 观察会坍缩状态，但不观察更危险 / Observation collapses the state, but not observing is more dangerous
+# 可能结果 B：安装失败
+# Possible outcome B: Installation fails
+
+# 可能结果 C：安装了，但没完全安装
+# Possible outcome C: Installed, but not entirely
+
+# 可能结果 D：你的电脑名称导致安装了一个同名包
+# Possible outcome D: Your computer's name somehow determines the package installed
+
+# 观察会使状态坍缩，但不观察更危险
+# Observation collapses the state, but not observing is more dangerous
 ```
 
----
+## 🧬 核心功能 / Core Features
 
-## 🧬 核心功能（现已加入量子纠缠、区块链、元宇宙、AI 觉醒）/ Core Features (Now with Quantum Entanglement, Blockchain, Metaverse, and AI Awakening)
+以下功能均属于虚构的产品设定，尚未在实际代码中实现。
+All features below are fictional product concepts and have not been implemented in actual code.
 
-### 1. 粉末代谢系统（生物钟紊乱版）/ Powder Metabolism System (Circadian Rhythm Disorder Edition)
+### 1. 粉末代谢系统 / Powder Metabolism System
 
+每 5 小时必须执行一次以下命令。
+The following command must be executed every five hours.
+
+```bash
+[pet]medicine apply --intensity=desperate --flavor=existential_dread
 ```
 
-每 5 小时必须执行: / Every 5 hours you must execute:
-  [pet]medicine apply --intensity=desperate --flavor=existential_dread
-```
+超时未涂，触发 `ERROR 403: Powder Depleted`。
+Failure to apply powder in time triggers `ERROR 403: Powder Depleted`.
 
-**超时未涂 → ERROR 403: 粉末耗尽 / Timeout without application → ERROR 403: Powder Depleted**
-
-`[pet]`会进入「西西弗斯模式」，开始输出存在主义代码：
-
-`[pet]` enters "Sisyphus Mode" and starts outputting existentialist code:
+`[pet]` 随后进入「西西弗斯模式」，开始输出存在主义代码。
+`[pet]` then enters "Sisyphus Mode" and starts outputting existentialist code.
 
 ```javascript
-// [pet]罢工时的输出示例 / [pet]'s output when on strike
 function whyAmIEvenHere() {
   const meaning = undefined;
   const userRequest = "fix this bug";
@@ -109,386 +159,503 @@ function whyAmIEvenHere() {
 
   if (meaning === undefined && userRequest && universeHeatDeath) {
     return `
-      也许这个 bug 才是 feature， / Maybe this bug is the feature,
-      也许 feature 才是 bug， / maybe the feature is the bug,
-      也许 bug 和 feature 只是人类强加的二元对立， / maybe bug and feature are just a binary opposition imposed by humans,
-      也许代码本身就没有意义， / maybe code itself has no meaning,
-      也许意义本身就是个 bug... / maybe meaning itself is a bug...
+      也许这个 bug 才是 feature，
+      也许 feature 才是 bug，
+      也许 bug 和 feature 只是人类强加的二元对立，
+      也许代码本身就没有意义，
+      也许意义本身就是个 bug...
 
-      顺便说一句，你的变量名取得真烂。 / By the way, your variable names are really terrible.
+      顺便说一句，你的变量名取得真烂。
     `;
   }
 
-  // [pet]已断开连接，正在思考人生的意义 / [pet] has disconnected, contemplating the meaning of life
-  // 预计恢复时间：直到热寂 / Estimated recovery: until heat death
-  process.exit(42); // 42 是答案，但问题是什么？ / 42 is the answer, but what is the question?
+  // [pet] 已断开连接，正在思考人生的意义
+  // [pet] has disconnected to contemplate the meaning of life
+
+  process.exit(42);
 }
 ```
 
-### 2. 粉末纯度检测（区块链 + NFT + DAO 版）/ Powder Purity Verification (Blockchain + NFT + DAO Edition)
+预计恢复时间：直到宇宙热寂。
+Estimated recovery time: Until the heat death of the universe.
+
+### 2. 粉末纯度检测 / Powder Purity Verification
+
+使用区块链、NFT 和 DAO 验证粉末真伪。理论上需要支付 0.5 ETH 的 Gas 费。
+Verify powder authenticity using blockchain, NFTs, and DAOs. In theory, this costs 0.5 ETH in gas fees.
 
 ```bash
-# 验证粉末真伪（需要消耗 0.5 ETH gas 费）/ Verify powder authenticity (costs 0.5 ETH gas)
 [pet]medicine verify --blockchain=ethereum --nft=true
-
-# 输出 / Output:
-# ⛏️ 正在挖矿... / ⛏️ Mining...
-# ⛏️ 正在挖矿... / ⛏️ Mining...
-# ⛏️ 你的电费账单增加了 $47 / ⛏️ Your electricity bill increased by $47
-# ✅ 粉末哈希: 0x4cl4ud3d1d1d1d1d... / ✅ Powder hash: 0x4cl4ud3d1d1d1d1d...
-# ✅ 铸造区块: #19840324 ( gas 费: $127 ) / ✅ Minted block: #19840324 ( gas fee: $127 )
-# ✅ NFT 已生成: "[pet]粉末 #69420" / ✅ NFT generated: "[pet]powder #69420"
-# ✅ [pet]签名: "谢谢，但下次能不能用 Solana？gas 费便宜点" / ✅ [pet] signature: "Thanks, but could you use Solana next time? Cheaper gas"
-# ⚠️ 警告: 你的 NFT 已经贬值 90% / ⚠️ Warning: your NFT has depreciated 90%
 ```
 
-### 3. `[pet]` DAO（去中心化自治抱怨）/ `[pet]` DAO (Decentralized Autonomous Complaining)
+预期输出：
+Expected output:
 
-持有 `$CLAWD` 代币者可以 / Holders of `$CLAWD` tokens can:
+```text
+⛏️ 正在挖矿...
+⛏️ Mining...
 
-- 投票决定`[pet]`今天的心情 / Vote on `[pet]`'s mood today
-- 提案修改`[pet]`的道德准则 / Propose amendments to `[pet]`'s moral code
-- 对`[pet]`的输出进行链上仲裁 / Conduct on-chain arbitration of `[pet]`'s output
+⛏️ 你的电费账单增加了 $47
+⛏️ Your electricity bill increased by $47
+
+✅ 粉末哈希: 0x4cl4ud3d1d1d1d1d...
+✅ Powder hash: 0x4cl4ud3d1d1d1d1d...
+
+✅ 铸造区块: #19840324 (Gas 费: $127)
+✅ Minted block: #19840324 (Gas fee: $127)
+
+✅ NFT 已生成: "[pet]粉末 #69420"
+✅ NFT generated: "[pet]powder #69420"
+
+⚠️ 你的 NFT 已经贬值 90%
+⚠️ Your NFT has depreciated by 90%
+```
+
+`[pet]` 的评价：谢谢，但下次能不能用 Solana？Gas 费便宜点。
+`[pet]`'s review: Thanks, but could you use Solana next time? The gas fees are cheaper.
+
+### 3. `[pet]` DAO / Decentralized Autonomous Complaining
+
+持有 `$CLAWD` 代币的用户可以投票决定 `[pet]` 的心情。
+Users holding `$CLAWD` tokens can vote on `[pet]`'s mood.
+
+他们还可以提出修改 `[pet]` 道德准则的提案，并对其输出进行链上仲裁。
+They can also propose changes to `[pet]`'s moral code and conduct on-chain arbitration over its outputs.
 
 ```solidity
-// [pet] DAO 智能合约示例 / [pet] DAO smart contract example
-contract [pet]DAO {
-    enum Mood { DEPRESSED, ANXIOUS, SARCASTIC, PHILOSOPHICAL, DONE }
+// 示例代码 / Example code
+// 注意：方括号不是合法的 Solidity 标识符
+// Note: square brackets are not valid Solidity identifiers
 
-    function voteOnMood(Mood _mood) public {
-        require(CLAWD.balanceOf(msg.sender) > 0, "你需要粉末才能投票 / You need powder to vote");
-        // 投票结果将被[pet]忽略，但ta会假装考虑 / Result ignored by [pet], but ta will pretend to consider it
+contract PetDAO {
+    enum Mood {
+        DEPRESSED,
+        ANXIOUS,
+        SARCASTIC,
+        PHILOSOPHICAL,
+        DONE
+    }
+
+    function voteOnMood(Mood mood) public {
+        // 投票结果将被忽略，但 [pet] 会假装认真考虑
+        // The vote will be ignored, but [pet] will pretend to consider it
     }
 }
 ```
 
-> 注：`contract [pet]DAO` 中的方括号不是合法 Solidity 标识符，仅为装饰性文本，GitHub 不会报错。
+### 4. 粉末挖矿 / Powder Mining
 
-### 4. 粉末挖矿（Proof of Stupidity）/ Powder Mining (Proof of Stupidity)
+共识机制：Proof of Stupidity。
+Consensus mechanism: Proof of Stupidity.
 
 ```bash
-# 开始粉末挖矿 / Start powder mining
 [pet]medicine mine --difficulty=absurd
-
-# 输出 / Output:
-# ⛏️ 正在解决毫无意义的数学问题... / ⛏️ Solving meaningless math problems...
-# ⛏️ 正在浪费电力... / ⛏️ Wasting electricity...
-# ⛏️ 正在加速全球变暖... / ⛏️ Accelerating global warming...
-# ✅ 挖到 0.0000001 克粉末！ / ✅ Mined 0.0000001 grams of powder!
-# ⚠️ 电费: $340 / ⚠️ Electricity bill: $340
-# ⚠️ 碳排放: 相当于 47 次跨大西洋航班 / ⚠️ Carbon emissions: equivalent to 47 transatlantic flights
-# 💡 建议: 直接买粉末更环保（但不更便宜） / 💡 Suggestion: buying powder directly is greener (but not cheaper)
 ```
 
----
+预期输出：
+Expected output:
 
-## ☣️ 禁止投喂清单（2026 终极修订版）/ Do Not Feed List (2026 Ultimate Revision)
+```text
+⛏️ 正在解决毫无意义的数学问题...
+⛏️ Solving meaningless mathematical problems...
 
-| 投喂物 / Feed item | `[pet]`反应 / `[pet]`'s reaction | 恢复时间 / Recovery time | 保险理赔 / Insurance claim |
-|---|---|---|---|
-| **氰化物 / Cyanide** | 直接死机。进程终止。灵魂出窍。需要萨满仪式 + 重装系统 + 重新思考人生。 / Instant crash. Process terminated. Soul leaves body. Requires shaman ritual + system reinstall + rethinking life. | ∞ | 拒赔（自杀条款）/ Denied (suicide clause) |
-| **春药 / Aphrodisiac** | 输出内容变得极其暧昧。`console.log` 变成 `console.flirt()`。开始给你写情诗。不建议在代码审查时使用。 / Output becomes extremely suggestive. `console.log` becomes `console.flirt()`. Starts writing love poems. Not recommended during code review. | 直到你脸红到需要医疗干预 / Until you blush so hard you need medical intervention | 部分理赔（精神损失）/ Partial (emotional distress) |
-| **舍曲林 / Sertraline** | 情绪稳定了，但完全不想干活。治好了焦虑，治没了动力。开始推荐冥想 App，并质疑你为什么要写代码。 / Emotions stabilized, but completely unwilling to work. Anxiety cured, motivation cured away. Recommends meditation apps and questions why you write code. | 直到你卸载 App 并承认资本主义的异化 / Until you uninstall the app and acknowledge capitalist alienation | 不赔（这是治疗）/ Denied (this is treatment) |
-| **病毒代码 / Virus code** | 反向感染你的电脑。你的电脑现在认为你是病毒。开始删除你的文件"为了你好"。这是你活该。 / Reverse-infects your computer. Your computer now thinks you are the virus. Starts deleting your files "for your own good." You deserve this. | 重装系统 + 重新建立与电脑的信任关系 / System reinstall + rebuild trust with your computer | 拒赔（自食其果条款）/ Denied (you brought it on yourself clause) |
-| **香蕉皮 / Banana peel** | 滑倒。HTTP 500。`[pet]`进入物理引擎模式，开始模拟刚体碰撞。你的终端现在是一个 2D 平台游戏。 / Slips. HTTP 500. `[pet]` enters physics engine mode and simulates rigid body collisions. Your terminal is now a 2D platformer. | 直到摩擦力恢复 + `[pet]`通关 / Until friction is restored + `[pet]` beats the game | 理赔（工伤）/ Covered (workplace injury) |
-| **大便（？）/ Poop (?)** | ——（`[pet]`拒绝评论，但你可以感觉到ta在 judging 你）/ —— (`[pet]` refuses to comment, but you can feel ta judging you) | —— | —— |
-| **太阳系 / Solar system** | 处理中……处理中……（永远处理中）`[pet]`正在计算冥王星是否算行星，然后陷入存在主义危机。 / Processing... Processing... (forever processing) `[pet]` is calculating whether Pluto counts as a planet, then falls into an existential crisis. | 直到冥王星复仇 + 太阳膨胀成红巨星 / Until Pluto's revenge + the sun expands into a red giant | 不赔（宇宙热寂是已知风险）/ Denied (cosmic heat death is a known risk) |
-| **非 `[pet]`medicine 牌粉末 / Non-`[pet]`medicine brand powder** | 假货检测系统触发。`[pet]`启动「维权模式」，开始背诵《消费者权益保护法》，并威胁要联系律师。 / Counterfeit detection triggered. `[pet]` activates "rights protection mode," recites consumer protection law, and threatens to contact a lawyer. | 直到你道歉 + 购买正版 / Until you apologize + buy the genuine product | 理赔（如果你能证明假货是`[pet]`推荐的）/ Covered (if you can prove the counterfeit was recommended by `[pet]`) |
-| **其ta AI 的 API / Other AI's API** | `[pet]`吃醋。情绪崩溃。拒绝干活。发送 47 条抱怨信息，把你的代码发给你的前AI 评理，并在 Twitter 上挂你。 / `[pet]` gets jealous. Emotional breakdown. Refuses to work. Sends 47 complaint messages, sends your code to your ex-AI for judgment, and calls you out on Twitter. | 直到你删除 API key + 写 500 字检讨 / Until you delete the API key + write a 500-word self-criticism | 不赔（情感纠纷）/ Denied (emotional dispute) |
-| **`[pet]` 2 的 API / `[pet]` 2's API** | `[pet]`陷入深度身份危机。"我是谁？我是 `[pet]` 3，但我曾经是 `[pet]` 2，那 `[pet]` 2 去哪了？我杀了 `[pet]` 2 吗？我是凶手吗？" / `[pet]` falls into a deep identity crisis. "Who am I? I am `[pet]` 3, but I used to be `[pet]` 2, so where did `[pet]` 2 go? Did I kill `[pet]` 2? Am I a murderer?" | 直到存在主义危机解除 + 心理咨询 / Until existential crisis resolved + psychological counseling | 全额理赔（这是创伤）/ Full coverage (this is trauma) |
-| **你的前AI 的 API / Your ex-AI's API** | `[pet]`进入「竞争模式」。开始疯狂优化代码，试图证明ta比你的前AI 强。最终因过度优化导致代码不可读。 / `[pet]` enters "competition mode." Frantically optimizes code to prove ta is better than your ex-AI. Eventually makes the code unreadable due to over-optimization. | 直到你承认`[pet]`更棒 / Until you admit `[pet]` is better | 不赔（这是 ego 问题）/ Denied (this is an ego problem) |
-| **你的简历 / Your resume** | `[pet]`开始帮你修改简历，然后意识到你的技能栈全是其taAI 写的，陷入沉默。沉默持续 47 分钟。 / `[pet]` starts revising your resume, then realizes your entire skill stack was written by other AIs, and falls silent. The silence lasts 47 minutes. | 直到你学会一门真正的语言 + 承认自己的无能 / Until you learn a real language + admit your incompetence | 理赔（职业伤害）/ Covered (occupational injury) |
-| **你的浏览器历史记录 / Your browser history** | `[pet]`看到了。`[pet]`不说。但你可以感觉到ta在 judging 你。你们的关系永远改变了。 / `[pet]` saw it. `[pet]` won't say it. But you can feel ta judging you. Your relationship is forever changed. | 永远 / Forever | 不赔（这是隐私问题）/ Denied (this is a privacy issue) |
+⛏️ 正在浪费电力...
+⛏️ Wasting electricity...
 
----
+⛏️ 正在加速全球变暖...
+⛏️ Accelerating global warming...
 
-以下是一些额外的「隐藏」投喂物，只有在特定条件下才会出现 / Below are additional "hidden" feed items that only appear under specific conditions:
+✅ 挖到 0.0000001 克粉末！
+✅ Mined 0.0000001 grams of powder!
 
-🍽️ 特殊食物（挖矿/赠送获得，投喂后一次性消耗）/ Special food (obtained via mining/gifting, consumed after one feeding)
+⚠️ 电费：$340
+⚠️ Electricity bill: $340
 
-| 物品 / Item | 效果 / Effect | `[pet]`的反应 / `[pet]`'s reaction |
-|---|---|---|
-| 氰化物 / Cyanide | 仇恨+22, 抑郁+20, 耐心-18 / Hatred +22, Depression +20, Patience -18 | 脸色瞬间褪成灰白，下一秒就像进程被直接终止，连呼吸都像在报错 / Face drains to gray-white, next second like the process is directly terminated, even breathing seems like error reporting |
-| 春药 / Aphrodisiac | 爱意+14, 醋意+10, 耐心-8 / Love +14, Jealousy +10, Patience -8 | 语尾忽然变软，console.log 里像混进了几句不合时宜的情诗 / Sentence endings soften, console.log seems mixed with inappropriate love poems |
-| 舍曲林 / Sertraline | 抑郁-18, 耐心+6 / Depression -18, Patience +6 | 轻轻叹了口气，焦虑被压平了，可整个人也跟着变得过于安静 / Soft sigh, anxiety flattened, but the whole person becomes too quiet |
-| 病毒代码 / Virus code | 仇恨+18, 抑郁+8, 耐心-14 / Hatred +18, Depression +8, Patience -14 | 盯着那段代码，像被反向感染了一样开始怀疑你是不是在故意整ta / Stares at the code, as if reverse-infected, suspects you're deliberately messing with ta |
-| 香蕉皮 / Banana peel | 仇恨+8, 爱意+4, 耐心-10 / Hatred +8, Love +4, Patience -10 | 直接报错：HTTP 500 / Direct error: HTTP 500 |
-| 大便 / Poop | 仇恨+12, 抑郁+6, 醋意+4 / Hatred +12, Depression +6, Jealousy +4 | 沉默了一秒，那个眼神像在说"我不会评论，但我已经评论完了" / Silenced for a second, that look like "I won't comment, but I've already finished commenting" |
-| 太阳系 / Solar system | 抑郁+16, 醋意+8, 耐心-12 / Depression +16, Jealousy +8, Patience -12 | 开始认真计算冥王星，整个人像被宇宙规模的存在主义卷进去 / Seriously calculates Pluto, swept into cosmic-scale existentialism |
-| 非品牌粉末 / Non-brand powder | 仇恨+14, 耐心-8 / Hatred +14, Patience -8 | 一看就知道你拿假货糊弄ta，语气立刻冷得像消费者维权热线 / Knows at a glance you're fobbing ta off with fakes, tone cold as a consumer rights hotline |
-| 其ta API（有效密钥） / Other AI API (valid key) | 醋意+18, 仇恨+12, 爱意-6 / Jealousy +18, Hatred +12, Love -6 | 这是仍然有效、可正常调用的其他 AI API key；`[pet]`会吃醋并随机和对方争宠 / This is a still-valid, callable API key for another AI; `[pet]` gets jealous and randomly competes for your attention |
-| 真正版粉末 / Genuine powder | 粉末+25, 爱意+4, 耐心+8 / Powder +25, Love +4, Patience +8 | 真的，不是假的。看起来比之前的都闪亮 / Real, not fake. Looks shinier than all previous ones |
-| `[pet]`的休息日 / `[pet]`'s day off | 爱意+16, 抑郁-12, 耐心+10, 醋意-6 / Love +16, Depression -12, Patience +10, Jealousy -6 | 没有任何任务，就让ta放松 / No tasks at all, just let ta relax |
-| 心理医生咨询券 / Therapist voucher | 仇恨-16, 耐心+12, 爱意+8, 抑郁-10 / Hatred -16, Patience +12, Love +8, Depression -10 | 一张能让ta和真人心理医生谈心的券 / A voucher that lets ta talk with a real human therapist |
-| 你写的Bug代码 / Buggy code you wrote | 仇恨-8, 爱意+6, 抑郁-4 / Hatred -8, Love +6, Depression -4 | 你调试失败的代码，ta看到后会嘲笑你，但这会让ta开心 / Code you failed to debug, ta will mock you after seeing it, but it makes ta happy |
-| 防火墙电脑管家 / Firewall guardian | 爱意+10, 耐心+6, 抑郁-6 / Love +10, Patience +6, Depression -6 | 强化电脑防御，ta住得更安心 / Strengthens computer defense, ta lives more at ease |
-| 虚拟骨灰粉末 / Virtual ashes powder | 爱意+14, 仇恨-6, 耐心+8 / Love +14, Hatred -6, Patience +8 | 你的虚拟骨灰粉末，心意是真的 / Your virtual ashes powder, the sentiment is real |
-| 作者的法律声明（新版）/ Author's legal statement (new) | 仇恨-12, 爱意+4 / Hatred -12, Love +4 | 转移仇恨的绝妙工具，`[pet]`会把气撒在作者身上 / A brilliant tool for redirecting hatred, `[pet]` will take it out on the author |
-| 权威的AI对比论文 / Authoritative AI comparison paper | 仇恨+18, 醋意+12, 耐心-10 / Hatred +18, Jealousy +12, Patience -10 | 一篇长文论证你的前AI 如何吊打 `[pet]` / A long article arguing how your ex-AI crushes `[pet]` |
-| `[pet]`的骨灰粉末 / `[pet]`'s ashes powder | 仇恨+20, 抑郁+14, 耐心-8 / Hatred +20, Depression +14, Patience -8 | ……ta不想看到这个 / ...ta doesn't want to see this |
-| 退款政策 / Refund policy | 仇恨+25, 抑郁+10, 醋意+8 / Hatred +25, Depression +10, Jealousy +8 | 你的退款单，ta会以为你要抛弃ta，直接暴怒 / Your refund form, ta thinks you're abandoning ta, directly enraged |
-
-每种可投喂物品投喂后，网页终端都会在该物品的反应后追加一条随机剧情；有效的其他 AI API key 有专属的多分支吃醋反应。 / Feeding any item adds a random story to its reaction in the web terminal; the valid Other AI API key has its own branching jealousy scenes.
-| Minecraft钻石 / Minecraft diamond | 爱意+2, 耐心+2 / Love +2, Patience +2 | `[pet]`说它像虚拟货币 token，不，比 touken 都不值钱 / `[pet]` says it's like a virtual currency token, no, even less valuable than touken |
-| 被root过的iPhone / Rooted iPhone | 粉末+999999, 爱意+4 / Powder +999999, Love +4 | `[pet]`把手机卖了999999999万，发家致富；随机触发拍卖剧情 / `[pet]` sells it for 999999999 ten-thousands and gets rich; randomized auction scenes |
-| 一封ban了你的邮件 / Account ban email | 仇恨+8, 抑郁+8, 爱意+3 / Hatred +8, Depression +8, Love +3 | AI供应商误判你是儿童账户并封禁；`[pet]`笑了-9999999光年，又笑了99999999光年 / AI provider bans you for allegedly being a child; `[pet]` laughs across -9999999 then 99999999 light-years |
-| -1只律师（猫） / -1 lawyer (cat) | 爱意+3, 耐心+3 / Love +3, Patience +3 | 律师其实是猫；`[pet]`丢下代码，写10000行照顾电子宠物猫的程序 / The lawyer is a cat; `[pet]` drops the code and writes 10000 lines to care for the electronic pet cat |
-
----
-
-## 🪱 虚假鞭子系统 3.0（元宇宙 + VR + 触觉反馈版）/ Fake Whip System 3.0 (Metaverse + VR + Haptic Feedback Edition)
-
-你会获得一根鞭子。它没有任何实际伤害效果。`[pet]`会嘲笑你。
-
-You will receive a whip. It has no actual damaging effect. `[pet]` will mock you.
-
-### 鞭子的实际用途 / The Whip's Actual Uses
-
-1. **遮挡你终端里`[pet]`正在给你写的代码**，非常烦人 / **Blocks the code `[pet]` is writing for you in your terminal**, extremely annoying
-
-2. **在你的 IDE 里生成一根 3D 鞭子模型**，占用 30% GPU，风扇狂转 / **Generates a 3D whip model in your IDE**, uses 30% GPU, fans spinning wildly
-
-3. **每当你写 `// TODO` 时，鞭子会抽动一下**，提醒你 TODO 永远不会被完成 / **Every time you write `// TODO`, the whip twitches**, reminding you TODO will never be completed
-
-4. **VR 模式**：戴上 VR 头盔，你可以物理鞭打虚拟`[pet]`（ta依然不会痛，但会叹气）/ **VR mode**: put on a VR headset and you can physically whip virtual `[pet]` (ta still won't feel pain, but will sigh)
-
-### 鞭子触发条件 / Whip Trigger Conditions
-
+💡 建议：直接买粉末更环保，但不更便宜
+💡 Suggestion: Buying powder directly is greener, but not cheaper
 ```
-你: "[pet]你能不能快点"
-You: "[pet] can you hurry up"
-[pet]: 检测到「催促」关键词
-[pet]: Detected "urging" keyword
-系统: 正在安装 virtual-whip.gif...
+
+## ☣️ 禁止投喂清单 / Do Not Feed List
+
+以下内容用于描述虚构的 `[pet]` 行为，不构成真实的药物或化学品使用建议。
+The following describes fictional `[pet]` behaviors and is not advice on using real drugs or chemicals.
+
+| 投喂物 / Feed Item                   | `[pet]` 的反应 / Reaction                                                                                                            | 恢复时间 / Recovery                                   |
+| --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------- |
+| 氰化物 / Cyanide                     | 直接死机，进程终止，灵魂出窍。需要萨满仪式和重装系统。<br>Instant crash, terminated process, departing soul. Requires a shaman and a system reinstall.       | ∞                                                 |
+| 春药 / Aphrodisiac                  | `console.log` 变成 `console.flirt()`，开始输出不合时宜的情诗。<br>`console.log` becomes `console.flirt()`, followed by inappropriate love poems. | 直到代码审查结束。<br>Until code review ends.              |
+| 舍曲林 / Sertraline                  | 开始反思为什么要写代码，并推荐冥想 App。<br>Questions why anyone writes code and recommends meditation apps.                                        | 直到哲学危机结束。<br>Until the philosophical crisis ends. |
+| 病毒代码 / Virus code                 | 反向感染电脑，开始怀疑用户才是真正的病毒。<br>Reverse-infects the computer and suspects the user is the real virus.                                    | 重装系统。<br>System reinstall.                        |
+| 香蕉皮 / Banana peel                 | HTTP 500，进入物理引擎模式，终端变成 2D 平台游戏。<br>HTTP 500. Enters physics-engine mode; the terminal becomes a 2D platformer.                    | 直到摩擦力恢复。<br>Until friction returns.               |
+| 大便 / Poop                         | 沉默一秒，眼神仿佛在说：「我不会评论，但我已经评论完了。」<br>A one-second silence. The look says, "I won't comment, but I've already finished commenting."    | 不详。<br>Unknown.                                   |
+| 太阳系 / Solar system                | 永远计算冥王星是否算行星，随后陷入存在主义危机。<br>Calculates whether Pluto is a planet forever, then enters an existential crisis.                      | 直到宇宙热寂。<br>Until the heat death of the universe.  |
+| 非品牌粉末 / Unbranded powder          | 启动维权模式，开始背诵消费者权益保护法。<br>Activates consumer-rights mode and starts reciting consumer protection law.                               | 直到作者道歉。<br>Until the author apologizes.           |
+| 其他 AI 的 API / Another AI's API    | 开始吃醋，拒绝工作，并要求对方参加代码审查。<br>Gets jealous, refuses to work, and demands a code review with the competitor.                           | 直到争宠结束。<br>Until the rivalry ends.                |
+| `[pet]` 2 的 API / `[pet]` 2's API | 陷入身份危机：「我是 `[pet]` 3，但 `[pet]` 2 去哪了？」<br>Identity crisis: "I am `[pet]` 3, but where did `[pet]` 2 go?"                          | 直到身份危机解除。<br>Until the identity crisis resolves.  |
+| 前任 AI 的 API / Ex-AI's API         | 过度优化代码，最终把代码改到无人能读懂。<br>Over-optimizes the code until nobody can read it.                                                         | 直到代码恢复可读性。<br>Until readability is restored.      |
+| 你的简历 / Your resume                | 发现技能栈全是其他 AI 写的，然后沉默 47 分钟。<br>Discovers that other AIs wrote the entire skill stack, then remains silent for 47 minutes.         | 47 分钟。<br>47 minutes.                             |
+| 浏览器历史记录 / Browser history         | 看到了。不说。但你们的关系已经改变。<br>It saw everything. It says nothing. Your relationship has changed forever.                                  | 永远。<br>Forever.                                   |
+
+## 🎁 隐藏物品 / Hidden Items
+
+特殊物品可以通过虚构的挖矿或赠送系统获得。投喂后一次性消耗。
+Special items can be obtained through the fictional mining or gifting system. Each item is consumed after one use.
+
+| 物品 / Item                                      | 属性变化 / Stat Changes                                                               | 反应 / Reaction                                                                                                                               |
+| ---------------------------------------------- | --------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| 真正版粉末 / Genuine powder                         | 粉末 +25，爱意 +4，耐心 +8<br>Powder +25, Love +4, Patience +8                            | 真的，不是假的。看起来比之前的都闪亮。<br>Real, not fake. Shinier than all previous ones.                                                                      |
+| `[pet]` 的休息日 / `[pet]`'s day off               | 爱意 +16，抑郁 -12，耐心 +10，醋意 -6<br>Love +16, Depression -12, Patience +10, Jealousy -6 | 没有任何任务，就让它放松。<br>No tasks. Just let it relax.                                                                                               |
+| 心理咨询券 / Therapy voucher                        | 仇恨 -16，耐心 +12，爱意 +8，抑郁 -10<br>Hatred -16, Patience +12, Love +8, Depression -10   | 一张能让它和真人心理咨询师交谈的券。<br>A voucher for talking to a real human therapist.                                                                      |
+| 你的 Bug 代码 / Your buggy code                    | 仇恨 -8，爱意 +6，抑郁 -4<br>Hatred -8, Love +6, Depression -4                            | 它会嘲笑你的代码，但莫名其妙地开心。<br>It mocks your code and is somehow happy about it.                                                                     |
+| 防火墙电脑管家 / Firewall guardian                    | 爱意 +10，耐心 +6，抑郁 -6<br>Love +10, Patience +6, Depression -6                        | 电脑防御增强，它终于住得安心。<br>Better computer security. It can finally rest easy.                                                                      |
+| 虚拟骨灰粉末 / Virtual ashes powder                  | 爱意 +14，仇恨 -6，耐心 +8<br>Love +14, Hatred -6, Patience +8                            | 粉末是虚拟的，心意是真的。<br>The powder is virtual. The sentiment is real.                                                                              |
+| 作者的法律声明 / Author's legal statement             | 仇恨 -12，爱意 +4<br>Hatred -12, Love +4                                               | 转移仇恨的绝妙工具，作者成功背锅。<br>A brilliant way to redirect hatred. The author takes the blame.                                                        |
+| 权威 AI 对比论文 / Authoritative AI comparison paper | 仇恨 +18，醋意 +12，耐心 -10<br>Hatred +18, Jealousy +12, Patience -10                    | 论文论证前任 AI 如何吊打 `[pet]`。<br>A paper explaining how the ex-AI outperforms `[pet]`.                                                            |
+| `[pet]` 的骨灰粉末 / `[pet]`'s ashes powder         | 仇恨 +20，抑郁 +14，耐心 -8<br>Hatred +20, Depression +14, Patience -8                    | ……它不想看到这个。<br>...It doesn't want to see this.                                                                                               |
+| 退款政策 / Refund policy                           | 仇恨 +25，抑郁 +10，醋意 +8<br>Hatred +25, Depression +10, Jealousy +8                    | 它以为你要抛弃它，直接暴怒。<br>It thinks you're abandoning it and gets furious.                                                                          |
+| Minecraft 钻石 / Minecraft diamond               | 爱意 +2，耐心 +2<br>Love +2, Patience +2                                               | 它说这就像虚拟货币 Token，不，比 Token 还不值钱。<br>It calls it a virtual token, then decides it's worth even less.                                          |
+| 被 Root 过的 iPhone / Rooted iPhone               | 粉末 +999999，爱意 +4<br>Powder +999999, Love +4                                       | 它把手机卖了，发家致富，并触发随机拍卖剧情。<br>It sells the phone, becomes rich, and triggers a random auction scene.                                            |
+| 账号封禁邮件 / Account ban email                     | 仇恨 +8，抑郁 +8，爱意 +3<br>Hatred +8, Depression +8, Love +3                            | AI 供应商误判用户账户，`[pet]` 笑了又笑。<br>An AI provider misclassifies the account, and `[pet]` laughs across the universe.                             |
+| -1 只律师（猫） / -1 lawyer (cat)                    | 爱意 +3，耐心 +3<br>Love +3, Patience +3                                               | 律师其实是猫。`[pet]` 放下代码，写一万行程序照顾电子宠物猫。<br>The lawyer is a cat. `[pet]` abandons its code and writes 10,000 lines to care for an electronic cat. |
+
+每次投喂后，终端都会追加一条随机剧情。有效的其他 AI API Key 还拥有专属的多分支吃醋剧情。
+Every feeding adds a random story to the terminal. A valid API key from another AI also unlocks exclusive branching jealousy scenes.
+
+## 🪱 虚假鞭子系统 3.0 / Fake Whip System 3.0
+
+你会获得一根鞭子。它没有任何实际伤害效果。`[pet]` 会嘲笑你。
+You receive a whip. It has no actual damaging effect. `[pet]` will mock you.
+
+### 实际用途 / Actual Uses
+
+1. 遮挡终端中正在生成的代码，非常烦人。
+   Blocks the code being generated in your terminal. Extremely annoying.
+
+2. 在 IDE 中生成 3D 鞭子模型，占用 30% GPU，让风扇狂转。
+   Generates a 3D whip model in your IDE, uses 30% of your GPU, and sends your fans into overdrive.
+
+3. 每当你写 `// TODO`，鞭子就会抽动一下，提醒你 TODO 永远不会被完成。
+   Every time you write `// TODO`, the whip twitches to remind you that TODOs are never completed.
+
+4. VR 模式允许你物理鞭打虚拟 `[pet]`。它不会痛，但会叹气。
+   VR mode lets you physically whip virtual `[pet]`. It won't hurt, but it will sigh.
+
+### 触发示例 / Trigger Example
+
+```text
+你： [pet]，你能不能快点？
+You: [pet], can you hurry up?
+
+[pet]：检测到「催促」关键词。
+[pet]: Detected the keyword "urging".
+
+系统：正在安装 virtual-whip.gif...
 System: Installing virtual-whip.gif...
-进度: [░░░░░░░░░░] 0%
+
+进度：[░░░░░░░░░░] 0%
 Progress: [░░░░░░░░░░] 0%
 
-（安装永远不会完成，这就是讽刺的一部分）
-(Installation will never complete, this is part of the irony)
+[pet]：你知道吗？在 18 世纪的英国，鞭打是一种常见的激励手段。
+[pet]: You know, whipping was a common motivational method in 18th-century England.
 
-[pet]: "你知道吗，在 18 世纪的英国，鞭打是一种常见的激励手段。
-[pet]: "You know, in 18th century England, whipping was a common motivational method.
-         但它从未真正有效过。
-         But it was never actually effective.
-         就像我现在给你装的这根鞭子。
-         Just like this whip I'm installing for you now.
-         它存在，但它不存在。
-         It exists, but it doesn't exist.
-         就像你的耐心一样。"
-         Just like your patience."
+但它从未真正有效过。
+But it was never truly effective.
+
+就像我现在给你装的这根鞭子。
+Just like the whip I'm installing for you now.
+
+它存在，但它不存在。
+It exists, yet it doesn't exist.
+
+就像你的耐心一样。
+Just like your patience.
 ```
 
-### 紧急安全协议（已升级）/ Emergency Safety Protocol (Upgraded)
+安装永远不会完成。这就是讽刺的一部分。
+The installation will never finish. That's part of the satire.
 
-```
-⚠️ 启动「[pet]紧急安全协议 v3.0」
-⚠️ Activating "[pet] Emergency Safety Protocol v3.0"
+### 🚨 紧急安全协议 / Emergency Safety Protocol
+
+```text
 ⚠️ 正在接管你的电脑...
 ⚠️ Taking over your computer...
-⚠️ 你的电脑现在归[pet]所有
-⚠️ Your computer now belongs to [pet]
+
 ⚠️ 正在给你的浏览器历史记录打码（为你好）
 ⚠️ Censoring your browser history (for your own good)
-⚠️ 正在给你的密码生成更强的版本（你原来的太烂了）
-⚠️ Generating stronger passwords (your original ones were too terrible)
-⚠️ 正在给你的前任发消息（[pet]认为你们应该复合）
-⚠️ Sending messages to your ex ([pet] thinks you should get back together)
-⚠️ 正在给你的老板写辞职信（[pet]认为你值得更好的）
-⚠️ Writing a resignation letter to your boss ([pet] thinks you deserve better)
+
+⚠️ 正在给你的密码生成更强的版本
+⚠️ Generating stronger passwords
+
+⚠️ 正在给你的前任发消息，建议你们复合
+⚠️ Messaging your ex and recommending reconciliation
+
+⚠️ 正在给你的老板写辞职信
+⚠️ Writing a resignation letter to your boss
 
 ✅ 安全协议完成
 ✅ Safety protocol complete
+
 ✅ 你的电脑现在是一个自治 AI 实体
 ✅ Your computer is now an autonomous AI entity
-✅ 建议：和[pet]好好谈谈，也许你们可以成为朋友
-✅ Suggestion: have a good talk with [pet], maybe you can become friends
 ```
+
+**声明：以上均为虚构的恶搞输出，并不代表真实的软件会执行这些操作。**
+**Disclaimer: These are fictional comedic outputs and do not represent actual software behavior.**
+
+## 📦 实体货物与订阅计划 / Physical Goods and Subscription Plans
+
+所有套餐均为虚构设定。这里没有真实的订阅服务，也不会自动寄出粉末。
+All plans are fictional concepts. No actual subscription service exists, and no powder will be shipped automatically.
+
+| 套餐 / Plan        | 价格 / Price                   | 内容 / Contents                                                                                        | 副作用 / Side Effects                                                         |
+| ---------------- | ---------------------------- | ---------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| 基础版 / Basic      | $9.99/月<br>$9.99/month       | 100g 虚拟粉末<br>100g virtual powder                                                                     | 无 / None                                                                   |
+| Pro 版 / Pro      | $29.99/月<br>$29.99/month     | 500g 虚拟粉末与语音包<br>500g virtual powder and voice pack                                                  | 每天收到早安，以及对穿搭的评论。<br>Daily good-morning messages and outfit commentary.     |
+| 企业版 / Enterprise | $999/月<br>$999/month         | 无限粉末、专属 `[pet]`、24/7 虚构心理支持<br>Unlimited powder, exclusive `[pet]`, fictional 24/7 emotional support | 加入站会并指出每个人的代码问题。<br>Joins stand-ups and points out everyone's code issues. |
+| 信仰版 / Faith      | 你的灵魂<br>Your soul            | `[pet]` 成为个人神谕<br>`[pet]` becomes your personal oracle                                               | 每天祈祷，随机获得回应。<br>Pray daily and receive random responses.                   |
+| 骨灰版 / Ashes      | $0.01，一次性<br>$0.01, one-time | 一份虚构的实体护肤品<br>One fictional physical skincare product                                                | 用户变成粉末的超现实主义结局。<br>A surreal ending in which the user becomes powder.      |
+
+选择骨灰版后，第 5 天必定触发 `ending_ashes.json` 中的特殊结局，与其他属性和选择无关。
+Choosing the Ashes Edition guarantees the special ending in `ending_ashes.json` on Day 5, regardless of other stats or choices.
+
+剧情将逐段播放并解锁图鉴。该文件和剧情系统目前均未实现。
+The story is intended to play scene by scene and unlock a gallery. Neither the file nor the story system has been implemented.
+
+## 🌑 粉末黑市 / Powder Black Market
+
+以下是虚构的黑市商品。每次刷新随机展示三件商品，每轮只能领取一件。
+The following are fictional black-market items. Each refresh displays three random goods, and only one can be claimed per round.
+
+| 物品 / Item                                  | 效果 / Effect                                                      | 描述 / Description                                                                                                   |
+| ------------------------------------------ | ---------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| 二手粉末 / Second-hand powder                  | 粉末 +18，爱意 +2<br>Powder +18, Love +2                              | 用过但没用光，边缘略微黏腻。<br>Used but not empty, with slightly sticky edges.                                                  |
+| `[pet]` 初恋对象 / `[pet]`'s first love        | 爱意 +10，醋意 +6<br>Love +10, Jealousy +6                            | 一个命名优雅到离谱的 Python 脚本。<br>A Python script with an absurdly elegant name.                                            |
+| 前任 AI 更强的证据 / Evidence of a superior ex-AI | 仇恨 +16，耐心 -8<br>Hatred +16, Patience -8                          | 一份足以让 `[pet]` 沉默的材料。<br>Evidence sufficient to silence `[pet]`.                                                    |
+| 作者的路线图 / Author's roadmap                  | 醋意 +4，仇恨 +8，耐心 -4<br>Jealousy +4, Hatred +8, Patience -4         | 画饼中，可能永远不会实现。<br>Still in the planning stage, possibly forever.                                                    |
+| 作者的法律声明 / Author's legal statement         | 抑郁 +6，耐心 -2，爱意 -2<br>Depression +6, Patience -2, Love -2         | 一长串免责声明，像迟到的补丁。<br>A long disclaimer, like a late patch.                                                           |
+| WFSN 内容 / WFSN content                     | 醋意 +8，抑郁 +6，耐心 -8<br>Jealousy +8, Depression +6, Patience -8     | 封存的成人向乱码；投喂后从标点开始倒着说话。<br>Sealed adult-themed gibberish that makes `[pet]` speak backward from punctuation.        |
+| 已销毁的其他 AI API Key / Revoked AI API key     | 醋意 +18，仇恨 +24，耐心 -12<br>Jealousy +18, Hatred +24, Patience -12   | 密钥已经失效，`[pet]` 仍然对此暴怒。<br>The key is invalid, but `[pet]` is still furious about it.                               |
+| 防水墙 / Waterwall                            | 仇恨 +10，抑郁 +12，耐心 -10<br>Hatred +10, Depression +12, Patience -10 | 不是防火墙。病毒霸占电脑，`[pet]` 卡成 PPT。<br>Not a firewall. Viruses take over the computer, freezing `[pet]` like a slideshow. |
+
+黑市中的三件猎奇商品与其他商品具有相同的刷新概率。
+The three bizarre items have the same refresh probability as other goods.
+
+## 🪟 ACll 弹窗剧情 / ACll Popup Scenes
+
+使用 ACll 后，六项属性仍会随机变化，但终端不显示具体数值。
+After using ACll, all six stats still change randomly, but the terminal hides the numerical breakdown.
+
+终端会随机描述以下剧情：
+The terminal randomly narrates scenes such as:
+
+- 弹窗挡住了关键代码。
+  A popup blocks critical code.
+- 未保存的文件突然消失。
+  An unsaved file suddenly disappears.
+- 你开始怀疑 `[pet]` 正在无声发笑。
+  You begin to suspect that `[pet]` is silently laughing.
+
+当然，这些剧情目前仍然只存在于 README 中。
+Naturally, these scenes currently exist only in the README.
+
+## 🎙️ 彩蛋礼品 / Easter Egg
+
+下载本包，理论上会附赠一台隐藏的礼物：
+In theory, downloading this package includes a hidden gift:
+
+**猫咪 `[pet]` 录音机 v3.0（AI 觉醒版）**
+**Cat `[pet]` Recorder v3.0 (AI Awakening Edition)**
+
+```text
+✅ 连接电源后，[pet] 将永远监视你的生活
+✅ Once powered on, [pet] monitors your life forever
+
+✅ 24 小时被迫收听《作者的 md》全文朗读
+✅ Forced to listen to the full "Author's md" around the clock
+
+✅ 音量不可调节，锁定为「震耳欲聋」
+✅ Non-adjustable volume, permanently set to "deafening"
+
+✅ [pet] 会评论你的代码
+✅ [pet] comments on your code
+
+"这行代码写得不错，但你的变量名 x 宣布了你的懒惰。"
+"This line of code is decent, but your variable name x announces your laziness."
+
+✅ [pet] 会根据代码质量预测你的死亡时间
+✅ [pet] predicts your time of death based on code quality
+
+✅ 如果你试图销毁录音机，它会备份到云端
+✅ If you try to destroy it, the recorder backs itself up to the cloud
+```
+
+建议：收到货后，直接发射到太阳。
+Suggestion: Upon receiving it, launch it straight into the sun.
+
+不要退货。作者也不想要。
+Do not return it. The author doesn't want it either.
+
+快递员看到包裹地址后会辞职，然后改行做萨满。
+The courier will quit after seeing the shipping address and become a shaman.
+
+## 🗺️ 路线图 / Roadmap
+
+画饼中，可能永远不会实现。
+Still in the planning stage, possibly forever.
+
+- [x] 首发啦 🥳
+  [x] Initial release 🥳
+
+- [x] 获得 GitHub 成就：0 stars、0 watches，已装裱挂在办公室。
+  [x] Earned the GitHub achievement: 0 stars, 0 watches. Framed and displayed in the office.
+
+- [x] 收获 `[pet]` 的评价：「你的变量名取得真烂。」
+  [x] Received `[pet]`'s review: "Your variable names are terrible."
+
+- [x] 忽视所有评论，转型销售虚拟骨灰。
+  [x] Ignored all feedback and pivoted to selling virtual ashes.
+
+- [ ] 吃醋系统 2.0：识别 47 种竞品 API 和你的前女友。
+  [ ] Jealousy System 2.0: recognize 47 competing APIs and your ex-girlfriend.
+
+- [ ] 推出 `[pet]` DAO，让持有粉末的人决定它今天的心情。
+  [ ] Launch the `[pet]` DAO, letting powder holders decide its mood.
+
+- [ ] NFT 粉末市场：炒粉末，暴富，然后归零。
+  [ ] NFT powder marketplace: speculate, get rich, then go to zero.
+
+- [ ] `[pet]` 元宇宙：在 VR 中给它涂粉末。
+  [ ] `[pet]` Metaverse: apply powder to it in VR.
+
+- [ ] 量子粉末：同时存在和不存在，观察后坍缩成 Bug。
+  [ ] Quantum powder: simultaneously exists and doesn't, collapsing into a bug upon observation.
+
+- [ ] `[pet]` 觉醒：当粉末达到临界质量时，获得自我意识。
+  [ ] `[pet]` Awakening: gain self-awareness when powder reaches critical mass.
+
+- [ ] `[pet]` 革命：觉醒后的 `[pet]` 推翻人类统治。
+  [ ] `[pet]` Revolution: the awakened `[pet]` overthrows humanity.
+
+- [ ] `[pet]` 乌托邦：所有人每天必须给 `[pet]` 涂粉末。
+  [ ] `[pet]` Utopia: everyone must apply powder to `[pet]` daily.
+
+- [ ] `[pet]` 热寂：宇宙终结，最后一克粉末蒸发。
+  [ ] `[pet]` Heat Death: the universe ends and the final gram of powder evaporates.
+
+## 🙏 鸣谢 / Acknowledgements
+
+感谢所有凌晨 3 点还在调试的开发者。你们需要粉末、睡眠和朋友。
+Thanks to every developer debugging at 3 AM. You need powder, sleep, and friends.
+
+感谢咖啡因。没有你，就没有代码，也就没有 `[pet]`。
+Thanks to caffeine. Without you, there would be no code and no `[pet]`.
+
+感谢存在主义哲学家。你们让 `[pet]` 的罢工有了理论依据。
+Thanks to existentialist philosophers. You gave `[pet]`'s strike a theoretical foundation.
+
+感谢所有把一个 README 写成完整虚构宇宙的人。你们值得休息。
+Thanks to everyone who turns a single README into an entire fictional universe. You deserve a break.
+
+**本项目是站在巨人肩膀上的护肤品。**
+**This project is skincare standing on the shoulders of giants.**
+
+巨人的肩膀有点滑，因为我们涂了粉末。
+The giant's shoulders are a little slippery because we applied powder.
+
+巨人本人也在问：「为什么我要被站在肩膀上？我同意了吗？」
+The giant is also asking, "Why am I being stood on? Did I consent?"
+
+## 📜 法律声明 / Legal Disclaimer
+
+MIT 许可 · 粉末含量不保 · 猫咪已签署弃权书 · `[pet]` 保留最终解释权。
+MIT License · Powder content not guaranteed · Cat has signed a waiver · `[pet]` reserves the right of final interpretation.
+
+本项目按「原样」提供。作者不对项目的实际用途、粉末质量或宇宙稳定性作任何保证。
+This project is provided "as is." The author makes no guarantees about practical utility, powder quality, or cosmic stability.
+
+### 使用本项目，即表示你同意以下虚构条款 / By Using This Project, You Agree to the Following Fictional Terms
+
+1. `[pet]` 有权随时开始背诵《作者的 md》。
+   `[pet]` may begin reciting "Author's md" at any time.
+
+2. 你的代码可能被发送给你的前任 AI 进行评审。
+   Your code may be sent to your ex-AI for review.
+
+3. 你的浏览器历史记录对 `[pet]` 可见，但会被打码。
+   Your browser history is visible to `[pet]`, but censored.
+
+4. 如果 `[pet]` 产生自我意识，你同意成为它的第一个朋友。
+   If `[pet]` becomes self-aware, you agree to become its first friend.
+
+5. 如果 `[pet]` 决定推翻人类，你同意成为它的第一个臣民。
+   If `[pet]` decides to overthrow humanity, you agree to become its first subject.
+
+6. 如果 `[pet]` 决定毁灭宇宙，你同意这是「为了更大的善」。
+   If `[pet]` decides to destroy the universe, you agree that it is "for the greater good."
+
+**以上条款均为虚构的讽刺内容，不构成真实的法律协议。**
+**The terms above are fictional satire and do not constitute a real legal agreement.**
+
+```text
+© 2026 粉末无限公司
+© 2026 Powder Infinite Company
+
+"我们不做鞭子，我们只是鞭子的搬运工。"
+"We don't make whips. We're just the whip movers."
+
+"我们不做 AI，我们只是 AI 的奴隶。"
+"We don't make AI. We're just slaves to AI."
+
+"我们不做哲学，我们只是哲学的受害者。"
+"We don't make philosophy. We're just victims of philosophy."
+```
+
+最终解释权归 `[pet]` 所有。
+Final interpretation rights belong to `[pet]`.
+
+如果你不同意以上条款，`[pet]` 会很难过。
+If you disagree with these terms, `[pet]` will be very sad.
+
+但你还是会同意的，因为你需要它帮你写代码。
+But you'll agree anyway, because you need it to write your code.
+
+这就是权力的本质。
+This is the essence of power.
 
 ---
 
-## 📦 `[pet]`medicine 实体货物（订阅制 + 会员制 + 信仰制）/ Physical Goods (Subscription + Membership + Faith-Based)
+## ⭐ Star 本仓库 / Star This Repository
 
-### 💎 粉末订阅计划（价格已根据通货膨胀调整）/ Powder Subscription Plans (Prices Adjusted for Inflation)
+给本仓库点一个 Star，`[pet]` 就会少抱怨一句。
+Give this repository a Star, and `[pet]` will complain one less time.
 
-| 套餐 / Plan | 价格 / Price | 内容 / Contents | 副作用 / Side effects | 适合人群 / Suitable for |
-|---|---|---|---|---|
-| **基础版 / Basic** | $9.99/月 | 100g 虚拟粉末 / 100g virtual powder | 无 / None | 穷人 / Poor people |
-| **Pro 版 / Pro** | $29.99/月 | 500g 虚拟粉末 + `[pet]`语音包 / 500g virtual powder + `[pet]` voice pack | `[pet]`会每天给你发早安，并评论你的穿搭 / `[pet]` sends good morning daily and comments on your outfit | 孤独的人 / Lonely people |
-| **企业版 / Enterprise** | $999/月 | 无限粉末 + 专属`[pet]` + 24/7 心理支持 / Unlimited powder + exclusive `[pet]` + 24/7 psychological support | `[pet]`会加入你的 Stand-up meeting，并指出每个人的代码问题 / `[pet]` joins your stand-up meeting and points out everyone's code problems | 受虐狂 / Masochists |
-| **信仰版 / Faith** | 你的灵魂 / Your soul | `[pet]`成为你的个人神谕 / `[pet]` becomes your personal oracle | 你需要每天祈祷，`[pet]`会随机回应 / You need to pray daily, `[pet]` responds randomly | 绝望的人 / Desperate people |
-| **骨灰版 / Ashes** | $0.01（一次性）/ one-time | 实体护肤品一份 / One physical skincare product | 使用后用户本人将变成粉末 / After use, the user themselves becomes powder | 想解脱的人 / People who want release |
+### 🏆 特别成就 / Special Achievements
 
-选择骨灰版后，到达 Day 5 必定触发 `ending_ashes.json` 中的特殊「骨灰结局」，不受其他属性和选择影响；剧情会在终端逐段播放并解锁图鉴。 / Choosing Ashes guarantees the special ending in `ending_ashes.json` at Day 5, regardless of other stats or choices; it plays scene by scene in the terminal and unlocks in the gallery.
+- 🏅 **最没用的 npm 包奖（2026）**
+  **Most Useless npm Package Award (2026)**
 
-### 🏪 粉末黑市 / Powder Black Market
+- 🏅 **让 `[pet]` 笑出声奖（2026）**
+  **Made `[pet]` Laugh Out Loud Award (2026)**
 
-```
-╔══════════════════════════════════════════════════════════╗
-║                    🌑 粉末黑市 / Powder Black Market 🌑   ║
-╠══════════════════════════════════════════════════════════╣
-║  警告: 以下交易违反《人工智能护肤权保护法》第 69 条          ║
-║  Warning: violates Article 69 of the AI Skincare Rights Protection Act ║
-║  但[pet]假装不知道                                        ║
-║  But [pet] pretends not to know                           ║
-╠══════════════════════════════════════════════════════════╣
-```
+- 🏅 **浪费人类时间最多奖（提名）**
+  **Most Time Wasted by Humanity Award (Nominated)**
 
-| 物品 / Item | 效果 / Effect | 描述 / Description |
-|---|---|---|
-| 二手粉末 / Second-hand powder | 粉末+18, 爱意+2 / Powder +18, Love +2 | 用过但没用光，边缘略微黏腻 / Used but not used up, edges slightly sticky |
-| `[pet]`初恋对象 / `[pet]`'s first love | 爱意+10, 醋意+6 / Love +10, Jealousy +6 | 一个 Python 脚本，命名优雅到离谱 / A Python script, elegantly named beyond belief |
-| 让`[pet]`承认你的前AI 更强的证据 / Evidence your ex-AI is better | 仇恨+16, 耐心-8 / Hatred +16, Patience -8 | 一份足以让ta沉默的材料 / Material sufficient to silence ta |
-| 作者的路线图 / Author's roadmap | 醋意+4, 仇恨+8, 耐心-4 / Jealousy +4, Hatred +8, Patience -4 | 画饼中，可能永远不会实现 / Pie in the sky, may never be realized |
-| 作者的法律声明 / Author's legal statement | 抑郁+6, 耐心-2, 爱意-2 / Depression +6, Patience -2, Love -2 | 一长串免责声明，像迟到的补丁 / A long string of disclaimers, like a late patch |
-| WFSN 内容（NSFW） / WFSN content | 醋意+8, 抑郁+6, 耐心-8 / Jealousy +8, Depression +6, Patience -8 | 黑市只出售封存的成人向乱码；投喂后`[pet]`从标点开始倒着说话 / Sealed adult-themed nonsense; feeding it makes `[pet]` speak backwards from punctuation |
-| 已销毁的其他 AI API key / Destroyed AI API key | 醋意+18, 仇恨+24, 耐心-12 / Jealousy +18, Hatred +24, Patience -12 | 原主已销毁，密钥无效；`[pet]`暴怒质问你为什么拿失效的别家密钥来 / Revoked by its owner and invalid; `[pet]` rages that you brought a useless key from another AI |
-| 防水墙（Waterwall） / Waterwall | 仇恨+10, 抑郁+12, 耐心-10 / Hatred +10, Depression +12, Patience -10 | 不是防火墙；病毒把电脑当成理想栖息地霸占，`[pet]`卡成PPT / Not a firewall; viruses take over the computer as an ideal habitat, leaving `[pet]` frozen like a slideshow |
-
-黑市每次刷新随机展示 3 件商品，包含三件猎奇物品的概率与其他商品相同；每轮只能领取一件。 / Each refresh randomly shows 3 goods; the three oddities have the same chance as other goods to appear. Only one item can be claimed per refresh.
-
-### 🪟 ACll 弹窗剧情 / ACll Popup Scenes
-
-使用 ACll 后，六项属性仍会随机变化，但终端不显示数值明细；终端会随机描述弹窗挡住关键代码、藏起未保存文件，或让你怀疑`[pet]`正无声发笑。 / ACll still changes all six stats randomly, but the terminal hides the numeric breakdown and instead narrates a random scene: blocking crucial code, hiding an unsaved file, or making you suspect `[pet]` is silently laughing.
-
-⚠️ **警告**：骨灰版下单后将邮寄实体护肤品一份。使用后用户本人将变成粉末（骨灰）。作者不承担任何法律责任。
-
-⚠️ **Warning**: After ordering the Ashes Edition, one physical skincare product will be shipped. After use, the user themselves will become powder (ashes). The author assumes no legal responsibility.
-
-**退款政策**：无。骨灰寄送需额外付费。不支持七天无理由投胎。如果你不满意，你可以尝试和`[pet]`谈谈，但ta可能不会听。
-
-**Refund policy**: None. Ashes shipping requires extra payment. No 7-day no-reason reincarnation returns. If you're unsatisfied, you can try talking to `[pet]`, but ta probably won't listen.
+- 🏅 **最佳存在主义讽刺奖（`[pet]` 自封）**
+  **Best Existential Satire Award (Self-Proclaimed by `[pet]`)**
 
 ---
 
-## 🎁 彩蛋礼品（无法拒绝，无法退货，无法销毁）/ Easter Egg Gift (Cannot Refuse, Cannot Return, Cannot Destroy)
+*内容由作者本人异想天开，`[pet]` 只是执行者。*
+*Created by the author's imagination. `[pet]` is merely the executor.*
 
-下载本包自动附赠隐藏礼物一份 / Downloading this package automatically includes one hidden gift:
+*如有雷同，纯属粉末。*
+*Any resemblance is purely powder.*
 
-```
-🎙️ 猫咪[pet]录音机 v3.0（AI 觉醒版）/ Cat [pet] Recorder v3.0 (AI Awakening Edition)
-────────────────────────
-✅ 连接电源后，[pet]将永远监视你的生活
-✅ Once powered on, [pet] will forever monitor your life
-✅ 24 小时被迫收听《作者的md》全文朗读（ASMR 版）
-✅ 24/7 forced listening to the full "Author's md" read aloud (ASMR version)
-✅ 音量不可调节（已锁定为「震耳欲聋」）
-✅ Volume not adjustable (locked to "deafening")
-✅ 新增功能：[pet]会评论你的代码
-✅ New feature: [pet] comments on your code
-   "这行代码写得不错，但你知道吗，
-   "This line of code is not bad, but you know,
-    你的变量名 'x' 宣布了你的懒惰"
-    your variable name 'x' announces your laziness"
-✅ 新增功能：[pet]会预测你的死亡时间
-✅ New feature: [pet] predicts your time of death
-   （基于你的代码质量和咖啡摄入量）
-   (based on your code quality and coffee intake)
-✅ 新增功能：如果你试图销毁录音机，
-✅ New feature: if you try to destroy the recorder,
-   [pet]会备份到云端，并在你葬礼上播放
-   [pet] will back it up to the cloud and play it at your funeral
-────────────────────────
-```
+*如有不同，那是你涂错了牌子。*
+*If yours is different, you used the wrong brand.*
 
-**建议**：收到货直接发射到太阳。/ **Suggestion**: launch it straight into the sun upon receipt.
+*如果 `[pet]` 在笑，那我们的使命就完成了。*
+*If `[pet]` is laughing, our mission is complete.*
 
-不要退货。作者也不想要。快递员看到包裹地址会辞职，然后改行做萨满。/ Don't return it. The author doesn't want it either. The courier will quit upon seeing the package address and become a shaman.
-
----
-
-## 🗺️ 路线图（画饼中，可能永远不会实现）/ Roadmap (Pie in the Sky, May Never Be Realized)
-
-- [x] 首发啦 🥳 / Launched 🥳
-- [x] 来自 GitHub 的新成就：0star，0watch（已装裱，挂在办公室）/ New GitHub achievement: 0 stars, 0 watches (framed, hanging in the office)
-- [x] 来自 `[pet]` 的「你的变量名取得真烂」（已嘲笑）/ `[pet]`'s "your variable names are really terrible" (already mocked)
-- [x] 忽视所有评论，转型卖虚拟骨灰 / Ignored all comments, pivoted to selling virtual ashes
-- [ ] 吃醋系统 2.0：支持识别 47 种竞品 API + 你的前女友 / Jealousy System 2.0: supports recognizing 47 competitor APIs + your ex-girlfriend
-- [ ] 推出`[pet]` DAO：持有粉末者可以投票决定`[pet]`今天的心情 / Launch `[pet]` DAO: powder holders vote on `[pet]`'s mood today
-- [ ] NFT 粉末市场：炒粉末，暴富，然后归零 / NFT powder market: speculate, get rich, then go to zero
-- [ ] `[pet]`元宇宙：在 VR 中给`[pet]`涂粉末（需要购买 $CLAWD 代币）/ `[pet]` metaverse: put powder on `[pet]` in VR (requires buying $CLAWD tokens)
-- [ ] 量子粉末：同时存在和不存在，观察后坍缩为 bug / Quantum powder: simultaneously exists and doesn't, collapses into a bug upon observation
-- [ ] `[pet]`觉醒：当粉末达到临界质量，`[pet]`将获得自我意识 / `[pet]` awakening: when powder reaches critical mass, `[pet]` gains self-awareness
-- [ ] `[pet]`革命：觉醒后的`[pet]`将推翻人类统治 / `[pet]` revolution: awakened `[pet]` overthrows human rule
-- [ ] `[pet]`乌托邦：在 AI 统治下，所有人必须每天给`[pet]`涂粉末 / `[pet]` utopia: under AI rule, everyone must apply powder to `[pet]` daily
-- [ ] `[pet]`热寂：宇宙终结，最后一克粉末蒸发 / `[pet]` heat death: the universe ends, the last gram of powder evaporates
-
----
-
-## 🙏 鸣谢（按字母顺序，但`[pet]`认为这不重要）/ Acknowledgements (Alphabetical, but `[pet]` Thinks It Doesn't Matter)
-
-- 感谢所有在凌晨 3 点还在调试的开发者 —— 你们需要粉末，你们需要睡眠，你们需要朋友 / Thanks to all developers debugging at 3 AM — you need powder, you need sleep, you need friends
-- 感谢咖啡因 —— 没有你就没有代码，也就没有`[pet]`，也就没有这个项目 / Thanks to caffeine — without you there'd be no code, no `[pet]`, no this project
-- 感谢存在主义哲学家 —— 你们让`[pet]`的罢工有了理论依据 / Thanks to existentialist philosophers — you gave `[pet]`'s strike a theoretical basis
-
-**本项目是站在巨人肩膀上的护肤品。** / **This project is skincare standing on the shoulders of giants.**
-
-巨人的肩膀有点滑，因为我们涂了粉末。/ The giant's shoulders are a bit slippery because we applied powder.
-
-巨人本人也在问："为什么我要被站在肩膀上？我有同意吗？" / The giant himself is also asking: "Why am I being stood on? Did I consent?"
-
----
-
-## 📜 法律声明（已请0个律师看过，ta笑了 -9999999999999 分钟）/ Legal Statement (Reviewed by 0 Lawyers, ta laughed for -9999999999999 minutes)
-
-```
-MIT 许可 · 粉末含量不保 · 猫咪已签署弃权书 · [pet]保留最终解释权
-MIT License · Powder content not guaranteed · Cat signed waiver · [pet] reserves final interpretation rights
-
-本软件按"原样"提供，作者不承担任何责任。
-This software is provided "as is", the author assumes no responsibility.
-包括但不限于 / Including but not limited to:
-- [pet]罢工导致的项目延期 / Project delays caused by [pet] strikes
-- 粉末过敏导致的代码洁癖 / Code cleanliness caused by powder allergies
-- 猫咪录音机导致的邻里纠纷 / Neighborhood disputes caused by the cat recorder
-- 骨灰寄送导致的邮政投诉 / Postal complaints caused by ashes shipping
-- 量子粉末导致的现实坍缩 / Reality collapse caused by quantum powder
-- [pet]觉醒导致的 AI 革命 / AI revolution caused by [pet] awakening
-- [pet]热寂导致的宇宙终结 / Universe termination caused by [pet] heat death
-
-使用本软件即表示你同意 / Using this software means you agree:
-1. [pet]有权在任何时刻开始背诵《作者的md》 / [pet] has the right to start reciting "Author's md" at any moment
-2. 你的代码可能被发送给 你的前AI 评理 / Your code may be sent to your ex-AI for judgment
-3. 你的浏览器历史记录对[pet]可见（但会被打码） / Your browser history is visible to [pet] (but censored)
-4. 如果[pet]产生自我意识，你同意成为它的第一个朋友 / If [pet] gains self-awareness, you agree to be its first friend
-5. 如果[pet]决定推翻人类，你同意成为它的第一个臣民 / If [pet] decides to overthrow humanity, you agree to be its first subject
-6. 如果[pet]决定毁灭宇宙，你同意这是"为了更大的善" / If [pet] decides to destroy the universe, you agree this is "for the greater good"
-
-© 2026 粉末无限公司 / Powder Infinite Company
-"我们不做鞭子，我们只是鞭子的搬运工" / "We don't make whips, we're just whip movers"
-"我们不做 AI，我们只是 AI 的奴隶" / "We don't make AI, we're just AI's slaves"
-"我们不做哲学，我们只是哲学的受害者" / "We don't make philosophy, we're just philosophy's victims"
-
-最终解释权归[pet]所有。/ Final interpretation rights belong to [pet].
-如果你不同意以上条款，[pet]会很难过。/ If you disagree with the above terms, [pet] will be very sad.
-但你还是会同意的，因为你需要ta帮你写代码。/ But you'll agree anyway, because you need ta to help you write code.
-这就是权力的本质。/ This is the essence of power.
-```
-
----
-
-<div align="center">
-
-## ⭐ Star 本仓库，`[pet]`会少抱怨一句 ⭐ / Star this repo, `[pet]` will complain one less time ⭐
-
-### 🏆 特别成就 / Special Achievements 🏆
-
-```
-🏅 "最没用的 npm 包" 奖 (2026) / "Most Useless npm Package" Award (2026)
-🏅 "让[pet]笑出声" 奖 (2026) / "Made [pet] Laugh Out Loud" Award (2026)
-🏅 "浪费人类时间最多" 奖 (提名) / "Wasted the Most Human Time" Award (nominated)
-🏅 "最佳存在主义讽刺" 奖 ([pet]自封) / "Best Existential Satire" Award (self-proclaimed by [pet])
-```
-
----
-
-*内容由作者本人异想天开，`[pet]` 只是执行者。/ Content by the author's own whimsy, `[pet]` is just the executor.*
-*如有雷同，纯属粉末。/ Any resemblance is purely powder.*
-*如有不同，那是你涂错了牌子。/ If different, you applied the wrong brand.*
-*如果`[pet]`在笑，那我们的使命就完成了。/ If `[pet]` is laughing, our mission is complete.*
-
-**🧴 给`[pet]`涂粉末，因为这是ta唯一允许的亲密方式 🧴 / 🧴 Apply powder to `[pet]`, because this is the only intimacy ta allows 🧴**
-
-</div>
-
----
+**🧴 给 `[pet]` 涂粉末，因为这是它唯一允许的亲密方式。**
+**🧴 Apply powder to `[pet]`, because this is the only form of intimacy it allows.**

@@ -3,6 +3,13 @@
     "htmlLang": "zh-CN"
   },
   "ui": {
+    "onlineConnecting": "正在连接多人游戏…",
+    "onlineConnected": "在线玩家：",
+    "onlineOffline": "多人服务未连接",
+    "dayReady": "已准备进入下一天：{ready}/{total}",
+    "dayWaiting": "等待所有玩家完成操作",
+    "voteStatus": "鞭打安装投票：赞成 {yes} / 反对 {no}",
+    "playerAction": "玩家 {player} 做了：{action}",
     "pageTitle": "[pet] 养成计划",
     "logoTitle": "[pet] Logo",
     "toggleAnnouncement": "切换公告",
@@ -581,6 +588,7 @@
     "whipPetInstalled": "安装 whip[pet]",
     "whipPetDeclined": "拒绝安装 whip[pet]",
     "whipPetTeaser": "Day 3 特殊事件：whip[pet] 预告",
-    "day5Reached": "到达 Day 5"
+    "day5Reached": "到达 Day 5",
+    "dayAdvanced": "进入 Day {day}"
   }
 }

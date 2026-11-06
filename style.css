@@ -32,6 +32,40 @@ body {
   overflow-x: hidden;
 }
 
+.online-bar {
+  position: fixed;
+  top: 14px;
+  left: 14px;
+  z-index: 20;
+  min-width: 240px;
+  max-width: min(460px, calc(100vw - 28px));
+  padding: 9px 16px;
+  border: 1px solid rgba(120, 182, 255, 0.45);
+  border-radius: 999px;
+  background: rgba(15, 27, 55, 0.94);
+  color: #b9dcff;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  cursor: move;
+  user-select: none;
+  font: 600 0.82rem 'IBM Plex Mono', monospace;
+}
+
+.online-bar.offline {
+  color: #ffb7c4;
+  border-color: rgba(255, 88, 120, 0.55);
+}
+
+.multiplayer-action {
+  color: #63a9ff;
+}
+
+@media (max-width: 760px) {
+  .online-bar {
+    top: 8px;
+    left: 8px;
+  }
+}
+
 body.hate-high {
   color: #ffd7de;
 }

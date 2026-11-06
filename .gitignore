@@ -1,0 +1,17 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+
+# Local configuration and secrets
+backend/.env
+.env
+*.pem
+*.key
+
+# Local tooling and generated files
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+.DS_Store

@@ -284,6 +284,11 @@ const subscriptionTiers = {
 
 const elements = {};
 let hatredImpactTimer = null;
+const seenMultiplayerEvents = new Set();
+
+function sendMultiplayerAction(action, payload = {}) {
+  return window.Multiplayer?.connected && window.Multiplayer.send(action, payload);
+}
 
 function clamp(value, min, max) {
   return Math.max(min, Math.min(max, value));
@@ -437,23 +442,18 @@ function normalizeEndingRecord(endingId, meta = {}) {
 }
 
 async function loadEndingCatalog() {
-  const files = ['endings_1to5.json', 'endings_6to10.json', 'ending_ashes.json'];
-  const loaded = await Promise.all(files.map(async (file) => {
-    try {
-      const response = await fetch(file);
-      if (!response.ok) throw new Error(file);
-      return await response.json();
-    } catch {
-      return null;
-    }
-  }));
-
+  let catalog = {};
+  try {
+    const base = String(window.PET_GAME_BACKEND_URL || '').replace(/\/$/, '');
+    const response = await fetch(`${base}/api/catalog`);
+    if (!response.ok) throw new Error(`catalog: HTTP ${response.status}`);
+    catalog = await response.json();
+  } catch (error) {
+    console.error('Failed to load ending catalog from backend.', error);
+  }
   endingData = {};
-  for (const payload of loaded) {
-    if (!payload) continue;
-    for (const [endingId, meta] of Object.entries(payload._meta || {})) {
-      endingData[endingId] = normalizeEndingRecord(endingId, meta);
-    }
+  for (const [endingId, meta] of Object.entries(catalog)) {
+    endingData[endingId] = normalizeEndingRecord(endingId, meta);
   }
 
   renderEndingGallery();
@@ -747,11 +747,99 @@ function localizeEventParams(params) {
 function logTerminal(lines) {
   const text = petize(Array.isArray(lines) ? lines.join('\n') : String(lines));
   const stamp = `${t('ui.day')} ${state.day}`;
-  const next = `[${stamp}] ${text}`;
-  elements.terminal.textContent = elements.terminal.textContent
-    ? `${elements.terminal.textContent}\n${next}`
-    : next;
+  const line = document.createElement('div');
+  line.textContent = `[${stamp}] ${text}`;
+  elements.terminal.appendChild(line);
   elements.terminal.scrollTop = elements.terminal.scrollHeight;
+}
+
+function logMultiplayerAction(entry) {
+  if (!entry.id || seenMultiplayerEvents.has(entry.id)) return;
+  seenMultiplayerEvents.add(entry.id);
+  const player = entry.player?.name || t('ui.defaultPetName');
+  const action = petize(t(entry.key, localizeEventParams(entry.params || {})));
+  const line = document.createElement('div');
+  line.className = 'multiplayer-action';
+  line.textContent = `[${t('ui.day')} ${entry.day}] ${t('ui.playerAction', { player, action })}`;
+  elements.terminal.appendChild(line);
+  elements.terminal.scrollTop = elements.terminal.scrollHeight;
+}
+
+function applyMultiplayerState(serverState) {
+  if (!serverState) return;
+  Object.assign(stats, serverState.stats || {});
+  state.day = serverState.day ?? state.day;
+  state.powderStock = serverState.powder_stock ?? state.powderStock;
+  state.inventory = serverState.inventory || {};
+  state.subscriptionTier = serverState.subscription_tier ?? null;
+  state.mineUsesToday = serverState.mine_uses_today ?? 0;
+  state.whipUsesToday = serverState.whip_uses_today ?? 0;
+  state.realityUsedToday = Boolean(serverState.reality_used_today);
+  state.whipPetInstalled = Boolean(serverState.whip_pet_installed);
+  state.whipPetPrompted = Boolean(serverState.whip_pet_prompted);
+  state.eventLog = serverState.event_log || [];
+  for (const entry of state.eventLog) logMultiplayerAction(entry);
+  renderStats();
+  renderInventory();
+  renderFeedControls();
+  updateRealityAvailability();
+  updateMineAvailability();
+  updateSubscribeAvailability();
+  updateWhipAvailability();
+  renderEventFeed();
+  renderOnlinePlayers(serverState);
+  if (state.whipPetInstalled || state.eventLog.some((entry) => entry.key === 'events.whipPetDeclined')) {
+    closeWhipPetModal();
+  }
+  const ready = `${serverState.day_ready_count || 0}/${serverState.player_count || 0}`;
+  elements.nextDayButton.title = serverState.player_count > 1
+    ? `${t('ui.dayWaiting')} · ${t('ui.dayReady', { ready, total: serverState.player_count })}`
+    : '';
+}
+
+function renderOnlinePlayers(serverState) {
+  if (!elements.onlineStatus || !elements.onlinePlayers) return;
+  const players = serverState.players || [];
+  elements.onlineStatus.textContent = t('ui.onlineConnected');
+  elements.onlinePlayers.textContent = players.map((player) => player.name).join(' · ');
+  elements.onlineBar.classList.remove('offline');
+}
+
+function setupOnlineBar() {
+  let dragging = false;
+  let offsetX = 0;
+  let offsetY = 0;
+  elements.onlineBar.addEventListener('pointerdown', (event) => {
+    dragging = true;
+    const rect = elements.onlineBar.getBoundingClientRect();
+    offsetX = event.clientX - rect.left;
+    offsetY = event.clientY - rect.top;
+    elements.onlineBar.setPointerCapture(event.pointerId);
+  });
+  elements.onlineBar.addEventListener('pointermove', (event) => {
+    if (!dragging) return;
+    elements.onlineBar.style.left = `${Math.max(8, event.clientX - offsetX)}px`;
+    elements.onlineBar.style.top = `${Math.max(8, event.clientY - offsetY)}px`;
+  });
+  elements.onlineBar.addEventListener('pointerup', () => { dragging = false; });
+  window.Multiplayer.onConnection = (isConnected) => {
+    elements.onlineBar.classList.toggle('offline', !isConnected);
+    elements.onlineStatus.textContent = isConnected ? t('ui.onlineConnected') : t('ui.onlineOffline');
+  };
+  window.Multiplayer.onError = () => {
+    elements.onlineBar.classList.add('offline');
+    elements.onlineStatus.textContent = t('ui.onlineOffline');
+  };
+  window.Multiplayer.onState = applyMultiplayerState;
+  window.Multiplayer.onResult = (result) => {
+    if (result === 'ending_ready' && endingData && Object.keys(endingData).length) {
+      startEndingPlayback(resolveEndingId());
+    }
+  };
+  window.Multiplayer.connect({
+    id: window.discordUser?.id || crypto.randomUUID(),
+    name: window.discordUser?.name || `Player ${Math.floor(Math.random() * 900 + 100)}`,
+  });
 }
 
 function applyStats(deltas) {
@@ -933,6 +1021,7 @@ function closeMarket() {
 function actionFeed() {
   if (state.currentEndingPlaying) return;
   const mode = elements.feedModeSelect.value;
+  if (sendMultiplayerAction(mode === 'powder' ? 'feed_powder' : 'feed_item', mode === 'item' ? { item: elements.feedItemSelect.value } : {})) return;
   if (mode === 'powder') {
     if (state.powderStock <= 0) {
       logTerminal(t('log.feedNoPowder'));
@@ -974,6 +1063,7 @@ function actionFeed() {
 
 function actionMine() {
   if (state.currentEndingPlaying) return;
+  if (sendMultiplayerAction('mine')) return;
   if (state.mineUsesToday >= 5) {
     logTerminal(t('log.mineLimit'));
     setButtonLimitState(elements.mineButton, true, t('limits.mine'));
@@ -1025,6 +1115,7 @@ function closeSubscriptionModal() {
 
 function selectSubscriptionTier(tierId) {
   if (state.subscriptionTier) return;
+  if (sendMultiplayerAction('subscribe', { tier: tierId })) return;
 
   const tier = subscriptionTiers[tierId];
   if (!tier) return;
@@ -1063,6 +1154,7 @@ function closeRealityModal() {
 
 // 【家 Home】
 function visitHome() {
+  if (sendMultiplayerAction('reality', { location: 'home' })) return;
   state.realityUsedToday = true;
   const randomEvent = Math.random();
 
@@ -1088,6 +1180,7 @@ function visitHome() {
 
 // 【快递柜】
 function visitExpress() {
+  if (sendMultiplayerAction('reality', { location: 'express' })) return;
   state.realityUsedToday = true;
   const random = Math.random();
 
@@ -1129,6 +1222,7 @@ function visitExpress() {
 
 // 【公司】
 function visitCompany() {
+  if (sendMultiplayerAction('reality', { location: 'company' })) return;
   state.realityUsedToday = true;
   const hatredVal = stats.hatred;
   const loveVal = stats.love;
@@ -1179,6 +1273,7 @@ function visitCompany() {
 
 // 【电脑桌】
 function visitDesk() {
+  if (sendMultiplayerAction('reality', { location: 'desk' })) return;
   state.realityUsedToday = true;
 
   // 桌面互动以当前情绪决定倾向，再保留随机波动。
@@ -1203,6 +1298,7 @@ function visitDesk() {
 
 function actionWhip() {
   if (state.currentEndingPlaying) return;
+  if (sendMultiplayerAction('whip')) return;
   if (!state.whipPetInstalled) {
     logTerminal(t('log.whipLocked'));
     return;
@@ -1240,6 +1336,10 @@ function closeWhipPetModal() {
 }
 
 function installWhipPet() {
+  if (sendMultiplayerAction('whip_vote', { yes: true })) {
+    closeWhipPetModal();
+    return;
+  }
   applyStats({ jealousy: 8, hatred: 12, depression: 10, love: -6, patience: -8 });
   state.whipPetInstalled = true;
   updateWhipAvailability();
@@ -1249,6 +1349,10 @@ function installWhipPet() {
 }
 
 function declineWhipPet() {
+  if (sendMultiplayerAction('whip_vote', { yes: false })) {
+    closeWhipPetModal();
+    return;
+  }
   state.whipPetInstalled = false;
   logTerminal(t('log.whipPetDeclined'));
   pushEvent('events.whipPetDeclined');
@@ -1257,6 +1361,7 @@ function declineWhipPet() {
 
 function nextDay() {
   if (state.currentEndingPlaying) return;
+  if (sendMultiplayerAction('day_ready')) return;
 
   if (state.day >= 4) {
     state.day = 5;
@@ -1564,11 +1669,22 @@ async function init() {
   elements.languageSelect = document.getElementById('languageSelect');
   elements.petNameInput = document.getElementById('petNameInput');
   elements.setPetNameBtn = document.getElementById('setPetNameBtn');
+  elements.onlineBar = document.getElementById('onlineBar');
+  elements.onlineStatus = document.getElementById('onlineStatus');
+  elements.onlinePlayers = document.getElementById('onlinePlayers');
 
-  await I18n.load(I18n.detectLanguage());
+  try {
+    await I18n.load(I18n.detectLanguage());
+  } catch (error) {
+    console.error('Failed to load language data from backend.', error);
+    elements.announcementContent.textContent = `Backend data unavailable: ${error.message}`;
+    elements.eventFeed.textContent = `Backend data unavailable: ${error.message}`;
+    return;
+  }
 
   loadUnlockedEndings();
   setupLanguageAndPetName();
+  setupOnlineBar();
   bindEvents();
   applyStaticTranslations();
   renderStats();

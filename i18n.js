@@ -11,6 +11,10 @@ const I18n = (() => {
   let endings = {};
   let announcement = null;
 
+  function dataBaseUrl() {
+    return String(window.PET_GAME_BACKEND_URL || '').replace(/\/$/, '');
+  }
+
   function detectLanguage() {
     try {
       const saved = window.localStorage.getItem(storageKey);
@@ -36,11 +40,13 @@ const I18n = (() => {
 
   async function load(code) {
     const lang = languages[code] ? code : sourceLanguage;
+    const base = dataBaseUrl();
+    if (!base) throw new Error('Backend URL is not configured');
     const [source, local, localEndings, localAnnouncement] = await Promise.all([
-      fetchJson(`lang/${sourceLanguage}/strings.json`),
-      lang === sourceLanguage ? null : fetchJson(`lang/${lang}/strings.json`).catch(() => ({})),
-      fetchJson(`lang/${lang}/endings.json`).catch(() => fetchJson(`lang/${sourceLanguage}/endings.json`)).catch(() => ({})),
-      fetchText(`lang/${lang}/announcement.txt`).catch((error) => error),
+      fetchJson(`${base}/api/data/${sourceLanguage}`).then((payload) => payload.strings),
+      lang === sourceLanguage ? null : fetchJson(`${base}/api/data/${lang}`).then((payload) => payload.strings).catch(() => ({})),
+      fetchJson(`${base}/api/data/${lang}`).then((payload) => payload.endings).catch(() => fetchJson(`${base}/api/data/${sourceLanguage}`).then((payload) => payload.endings)).catch(() => ({})),
+      fetchJson(`${base}/api/data/${lang}`).then((payload) => payload.announcement).catch((error) => error),
     ]);
     sourceStrings = source;
     strings = local || source;

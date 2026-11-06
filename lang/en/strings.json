@@ -3,6 +3,13 @@
     "htmlLang": "en"
   },
   "ui": {
+    "onlineConnecting": "Connecting to multiplayer…",
+    "onlineConnected": "Online players: ",
+    "onlineOffline": "Multiplayer service offline",
+    "dayReady": "Ready for next day: {ready}/{total}",
+    "dayWaiting": "Waiting for every player to finish",
+    "voteStatus": "Whip-pet vote: yes {yes} / no {no}",
+    "playerAction": "{player} did: {action}",
     "pageTitle": "[pet] Care Plan",
     "logoTitle": "[pet] Logo",
     "toggleAnnouncement": "Toggle announcement",
@@ -581,6 +588,7 @@
     "whipPetInstalled": "Installed whip[pet]",
     "whipPetDeclined": "Declined whip[pet]",
     "whipPetTeaser": "Day 3 special event: whip[pet] teaser",
-    "day5Reached": "Reached Day 5"
+    "day5Reached": "Reached Day 5",
+    "dayAdvanced": "Entered Day {day}"
   }
 }

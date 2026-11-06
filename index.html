@@ -10,6 +10,10 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <div id="onlineBar" class="online-bar" aria-live="polite">
+    <span id="onlineStatus">Connecting…</span>
+    <span id="onlinePlayers"></span>
+  </div>
   <div class="background-glow"></div>
   <main class="app-shell">
     <aside class="status-panel">
@@ -268,7 +272,14 @@
     </div>
   </div>
 
+  <script>
+    // Localhost uses the local backend; Discord/Cloudflare uses the configured public backend.
+    window.PET_GAME_BACKEND_URL = ['localhost', '127.0.0.1'].includes(location.hostname)
+      ? 'http://127.0.0.1:8000'
+      : 'https://hazards-segments-jamie-inquiry.trycloudflare.com';
+  </script>
   <script src="i18n.js"></script>
+  <script src="multiplayer.js"></script>
   <script src="game.js"></script>
 </body>
 </html>

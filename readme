@@ -2,6 +2,90 @@
 
 # `[pet]`medicine 🧴✨🌀
 
+## Discord Activity 多人版快速使用 / Discord Activity Multiplayer Quick Start
+
+完整配置手册见 [ACTIVITY.md](./ACTIVITY.md) / See [ACTIVITY.md](./ACTIVITY.md) for the complete setup guide.
+
+本项目当前只有这一份 `readme` 文档，下面的 Activity、安装、配置和游戏规则说明均提供中文/English 对照。  
+This is the only `readme` file in the project; the Activity, installation, configuration, and gameplay instructions below are provided in Chinese/English.
+
+### 本机测试 / Local testing
+
+在第一个终端启动 Python 后端 / Start the Python backend in terminal one:
+
+```powershell
+cd D:\apiandyiyou\discord_petgame\changedgame
+python -m pip install -r backend\requirements.txt
+python -m uvicorn backend.app.main:app --host 127.0.0.1 --port 8000 --reload
+```
+
+在第二个终端启动前端 / Start the frontend in terminal two:
+
+```powershell
+cd D:\apiandyiyou\discord_petgame\changedgame
+python run_game.py --port 5173
+```
+
+浏览器打开 / Open in a browser: `http://127.0.0.1:5173`
+
+后端健康检查 / Backend health check: `http://127.0.0.1:8000/health`
+
+### Discord 配置状态 / Discord setup status
+
+当前版本还没有完成 Discord Developer Portal 的应用绑定 / The Discord Developer Portal app binding is not complete yet.
+
+还需要完成 / Remaining steps:
+
+1. 在 Discord Developer Portal 创建应用 / Create an application in the Discord Developer Portal。
+2. 启用 Embedded App / Activity / Enable Embedded App or Activity。
+3. 将公网 HTTPS 前端地址填入 Activity URL / Set the public HTTPS frontend URL as the Activity URL。
+4. 用 Cloudflare Tunnel、ngrok 或正式 HTTPS 部署暴露前端和 WebSocket 后端 / Expose the frontend and WebSocket backend through a tunnel or HTTPS deployment。
+5. 接入 Discord Embedded App SDK，并由后端验证用户身份 / Integrate the Discord Embedded App SDK and validate identity on the backend。
+
+完成前不能直接在 Discord 中运行当前本机 `127.0.0.1` 地址 / Until these steps are complete, Discord cannot load the local `127.0.0.1` address directly.
+
+前端域名只负责页面，后端域名负责公告、JSON、WebSocket 和游戏状态。两个域名不能填反 / The frontend tunnel serves the page; the backend tunnel serves announcements, JSON, WebSocket, and game state. Do not swap them.
+
+### `.env` 在哪里、怎么填 / Where and how to fill `.env`
+
+先复制模板 / Copy the template first:
+
+```powershell
+cd D:\apiandyiyou\discord_petgame\changedgame
+Copy-Item backend\.env.example backend\.env
+```
+
+文件位置 / File location: `changedgame/backend/.env`
+
+刚开始本机测试只填 / For the first local test, use:
+
+```env
+HOST=127.0.0.1
+PORT=8000
+FRONTEND_ORIGIN=http://127.0.0.1:5173
+```
+
+`.env` 不要提交到 Git / Never commit `.env`. `backend/.env.example` 可以提交，真正的 Client Secret 只能放在 `backend/.env`。
+
+### Discord Developer Portal 选什么 / What to select in Developer Portal
+
+1. 选择 **New Application**，创建普通 Application，不需要先创建 Bot / Choose **New Application**; create a normal Application and do not create a Bot first。
+2. 进入 **Activities / Embedded App** 相关设置，按向导启用 Activity / Open the **Activities / Embedded App** settings and enable the Activity。
+3. 因为游戏是在服务器频道里多人一起玩，安装范围优先选择 **Guild Install**；如果还想让用户从个人 App Launcher 使用，再同时启用 **User Install** / Prefer **Guild Install** for a server game; optionally enable **User Install** too。
+4. 如果配置 Installation scopes，使用 `applications.commands`；不要添加管理员权限，也不要生成 Bot Token / Use `applications.commands` if scopes are requested; do not add Administrator permissions or generate a Bot Token。
+5. 把 Application 的 **Client ID** 填入 `backend/.env` 的 `DISCORD_CLIENT_ID`。Client Secret、Public Key 只放后端，不放前端 / Put Client ID in `backend/.env`; keep Client Secret and Public Key on the backend only。
+
+当前这一步只需创建 Application；真正的 Activity URL、URL Mapping、SDK 身份验证要等 HTTPS 地址准备好后再配置 / At this stage only create the Application. Configure the Activity URL, URL Mapping, and SDK authentication after the HTTPS endpoint is ready.
+
+### 游戏使用规则 / Multiplayer rules
+
+- 不需要创建房间；加入同一个 Activity 的用户自动共享一局 / No room creation is needed; users in the same Activity share one game。
+- 左上角蓝色长条显示在线玩家，可拖动且不可关闭 / The blue bar at the top-left shows online players; it is draggable and cannot be closed。
+- 喂食、挖矿、订阅、回归现实和鞭打由所有玩家自由操作 / Feeding, mining, subscribing, reality actions, and whipping are shared free actions。
+- 所有人点击“下一天”后才会推进 / The next day starts only after every player clicks “Next Day”。
+- whip pet 需要所有玩家投票赞成 / Installing whip pet requires every player to vote yes。
+- 玩家操作会以蓝色显示在终端，并随语言切换翻译 / Player actions appear in blue in the terminal and follow the selected language。
+
 > *"给`[pet]`涂粉末，就像给黑洞涂防晒霜——理论上可行，实际上你在浪费生命。"*
 >
 > *"Putting powder on `[pet]` is like putting sunscreen on a black hole — theoretically feasible, practically you're wasting your life."*

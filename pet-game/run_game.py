@@ -46,7 +46,7 @@ def validate_endings() -> None:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Run [pet] 养成计划 locally.")
+    parser = argparse.ArgumentParser(description="Run [pet] Care Plan (养成计划) locally.")
     parser.add_argument("--port", type=int, default=8000, help="Port for the local web server.")
     args = parser.parse_args()
 

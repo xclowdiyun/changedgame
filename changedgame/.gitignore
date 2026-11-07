@@ -1,0 +1,12 @@
+# secrets - never upload
+.env
+backend/.env
+
+# local junk
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.zip
+ngrok.exe
+node_modules/

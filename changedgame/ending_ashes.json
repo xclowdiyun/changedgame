@@ -1,0 +1,13 @@
+{
+  "_meta": {
+    "ending_ashes": {
+      "category": "special",
+      "priority": 999999,
+      "requirements": {
+        "flags": {
+          "subscriptionTier": "ash"
+        }
+      }
+    }
+  }
+}

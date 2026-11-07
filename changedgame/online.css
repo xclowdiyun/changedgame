@@ -1,0 +1,10 @@
+/* Online players bar: drag anywhere, double-click your own name to rename. */
+.online-bar { touch-action: none; user-select: none; -webkit-user-select: none; cursor: grab; }
+.online-bar.dragging { cursor: grabbing; }
+.online-player { display: inline-block; padding: 0 2px; }
+.online-player + .online-player::before { content: " · "; opacity: 0.6; }
+.online-player.self { cursor: text; border-bottom: 1px dotted currentColor; }
+.online-name-input {
+  width: 9em; font: inherit; color: inherit; background: rgba(0, 0, 0, 0.35);
+  border: 1px solid currentColor; border-radius: 4px; padding: 0 4px; cursor: text; user-select: text;
+}

@@ -272,12 +272,8 @@
     </div>
   </div>
 
-  <script>
-    // Localhost uses the local backend; Discord/Cloudflare uses the configured public backend.
-    window.PET_GAME_BACKEND_URL = ['localhost', '127.0.0.1'].includes(location.hostname)
-      ? 'http://127.0.0.1:8000'
-      : 'https://hazards-segments-jamie-inquiry.trycloudflare.com';
-  </script>
+  <script src="config.js"></script>
+  <script src="discord.js"></script>
   <script src="i18n.js"></script>
   <script src="multiplayer.js"></script>
   <script src="game.js"></script>

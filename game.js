@@ -286,8 +286,59 @@ const elements = {};
 let hatredImpactTimer = null;
 const seenMultiplayerEvents = new Set();
 
+// Multiplayer bookkeeping: latest server state, who I am, and ending/vote progress flags.
+const mp = { server: null, selfId: null, awaitingReset: false, votePromptLogged: false };
+
 function sendMultiplayerAction(action, payload = {}) {
   return window.Multiplayer?.connected && window.Multiplayer.send(action, payload);
+}
+
+function isOnline() {
+  return Boolean(window.Multiplayer?.connected);
+}
+
+function hasOtherPlayers() {
+  return (mp.server?.player_count || 0) > 1;
+}
+
+// t() with a built-in fallback for texts that are not in strings.json yet.
+function tr(key, zh, en) {
+  const value = t(key);
+  return value === key ? (I18n.language === 'zh' ? zh : en) : value;
+}
+
+function makePlayerId() {
+  try {
+    return crypto.randomUUID();
+  } catch {
+    return `p-${Math.random().toString(36).slice(2)}${Date.now().toString(36)}`;
+  }
+}
+
+// code -> [strings.json key, 中文 fallback, English fallback]
+const serverErrorTexts = {
+  no_powder: ['log.feedNoPowder', '粉末不足。', 'Out of powder.'],
+  no_item: ['log.feedNoItem', '没有可投喂的物品。', 'No item to feed.'],
+  not_feedable: ['log.feedNotFeedable', '这个物品不能投喂。', 'That item cannot be fed.'],
+  mine_limit: ['log.mineLimit', '今天的挖矿次数用完了。', 'No mining left today.'],
+  already_subscribed: ['log.alreadySubscribed', '已经订阅过了。', 'Already subscribed.'],
+  reality_used: ['log.realityUsed', '今天已经回归过现实了。', 'Already went outside today.'],
+  whip_locked: ['log.whipLocked', '鞭打尚未解锁。', 'Whip is still locked.'],
+  whip_limit: ['log.whipLimit', '今天的鞭打次数用完了。', 'No whips left today.'],
+  market_claimed: ['err.marketClaimed', '黑市今天已经有人拿走了商品。', 'Someone already took an item from the market today.'],
+  invalid_item: ['err.invalidItem', '黑市里没有这个商品。', 'That item is not in the market.'],
+  vote_pending: ['err.votePending', '请先完成 whip[pet] 投票。', 'Finish the whip[pet] vote first.'],
+  ending_in_progress: ['err.endingInProgress', '结局进行中，请等待。', 'The ending is playing — please wait.'],
+};
+
+function handleMultiplayerError(code) {
+  if (code === 'connection_failed') {
+    elements.onlineBar.classList.add('offline');
+    elements.onlineStatus.textContent = t('ui.onlineOffline');
+    return;
+  }
+  const known = serverErrorTexts[code];
+  if (known) logTerminal(tr(...known));
 }
 
 function clamp(value, min, max) {
@@ -457,6 +508,7 @@ async function loadEndingCatalog() {
   }
 
   renderEndingGallery();
+  maybeStartServerEnding();
 }
 
 function endingRequirementMet(requirements, statName, value) {
@@ -584,7 +636,7 @@ function closeEndingModal() {
   elements.endingModal.setAttribute('aria-hidden', 'true');
 }
 
-function lockGameplayForEnding() {
+function lockGameplayControls() {
   for (const buttonId of gameplayButtonIds) {
     const button = elements[buttonId];
     if (!button) continue;
@@ -592,6 +644,10 @@ function lockGameplayForEnding() {
   }
   elements.feedModeSelect.disabled = true;
   elements.feedItemSelect.disabled = true;
+}
+
+function lockGameplayForEnding() {
+  lockGameplayControls();
   elements.terminal.classList.add('playback-active');
 }
 
@@ -641,10 +697,11 @@ function resetRunState() {
   renderEndingGallery();
 }
 
-function startEndingPlayback(endingId) {
+function startEndingPlayback(endingId, kind = 'replay') {
   const ending = endingData[endingId];
   if (!ending) return;
   state.currentEndingPlaying = endingId;
+  state.endingKind = kind;
   state.endingPlayIndex = 0;
   lockGameplayForEnding();
   closeEndingModal();
@@ -657,13 +714,54 @@ function startEndingPlayback(endingId) {
 function finishEndingPlayback() {
   const endingId = state.currentEndingPlaying;
   if (!endingId) return;
+  const kind = state.endingKind;
   unlockEnding(endingId);
-  logTerminal([t('log.endingFinished', { id: endingId }), t('log.gameReset')]);
-  pushEvent('events.endingUnlocked', { ending: endingId });
   state.currentEndingPlaying = null;
   state.endingPlayIndex = 0;
+  state.endingKind = null;
+
+  if (kind === 'replay') {
+    // Re-watching a gallery ending must not wipe the current run.
+    logTerminal([t('log.endingFinished', { id: endingId })]);
+    unlockGameplay();
+    return;
+  }
+
+  if (kind === 'server') {
+    if (sendMultiplayerAction('ending_done')) {
+      // The server starts a new game once every player has finished the ending.
+      mp.awaitingReset = true;
+      elements.terminal.classList.remove('playback-active');
+      lockGameplayControls();
+      logTerminal([
+        t('log.endingFinished', { id: endingId }),
+        hasOtherPlayers()
+          ? tr('log.waitEndingReset', '等待其他玩家看完结局……', 'Waiting for the other players to finish the ending…')
+          : t('log.gameReset'),
+      ]);
+      return;
+    }
+    // Connection lost while watching: fall back to a local reset.
+  }
+
+  logTerminal([t('log.endingFinished', { id: endingId }), t('log.gameReset')]);
+  pushEvent('events.endingUnlocked', { ending: endingId });
   unlockGameplay();
   resetRunState();
+}
+
+// Multiplayer: day 5 is decided by the server; every client plays the ending locally.
+function maybeStartServerEnding() {
+  const server = mp.server;
+  if (!server?.ending_phase) return;
+  if (state.currentEndingPlaying || mp.awaitingReset) return;
+  if (!endingData || Object.keys(endingData).length === 0) return; // retried when the catalog finishes loading
+  const endingId = resolveEndingId();
+  logTerminal([
+    t('log.day5Reached'),
+    t('log.endingMatched', { title: endingTitle(endingId) }),
+  ]);
+  startEndingPlayback(endingId, 'server');
 }
 
 function advanceEndingPlayback() {
@@ -712,7 +810,7 @@ function updateWhipAvailability() {
 }
 
 function syncNormalAvailability() {
-  if (state.currentEndingPlaying) return;
+  if (state.currentEndingPlaying || mp.awaitingReset) return;
   renderFeedControls();
   setMarketAvailability();
   updateRealityAvailability();
@@ -767,6 +865,7 @@ function logMultiplayerAction(entry) {
 
 function applyMultiplayerState(serverState) {
   if (!serverState) return;
+  mp.server = serverState;
   Object.assign(stats, serverState.stats || {});
   state.day = serverState.day ?? state.day;
   state.powderStock = serverState.powder_stock ?? state.powderStock;
@@ -777,31 +876,71 @@ function applyMultiplayerState(serverState) {
   state.realityUsedToday = Boolean(serverState.reality_used_today);
   state.whipPetInstalled = Boolean(serverState.whip_pet_installed);
   state.whipPetPrompted = Boolean(serverState.whip_pet_prompted);
+  state.marketItems = (serverState.market_items || [])
+    .map((id) => marketPool.find((item) => item.id === id))
+    .filter(Boolean);
+  state.marketClaimedThisRefresh = Boolean(serverState.market_claimed);
   state.eventLog = serverState.event_log || [];
-  for (const entry of state.eventLog) logMultiplayerAction(entry);
+  for (const entry of [...state.eventLog].reverse()) logMultiplayerAction(entry);
+
+  const self = (serverState.players || []).find((player) => player.id === mp.selfId);
+
+  // The server started a fresh game after everybody finished the ending.
+  if (mp.awaitingReset && !serverState.ending_phase) {
+    mp.awaitingReset = false;
+    logTerminal(t('log.gameReset'));
+    unlockGameplay();
+  }
+
+  updateEffects();
   renderStats();
   renderInventory();
-  renderFeedControls();
-  updateRealityAvailability();
-  updateMineAvailability();
-  updateSubscribeAvailability();
-  updateWhipAvailability();
   renderEventFeed();
   renderOnlinePlayers(serverState);
-  if (state.whipPetInstalled || state.eventLog.some((entry) => entry.key === 'events.whipPetDeclined')) {
+
+  if (state.currentEndingPlaying || mp.awaitingReset) {
+    lockGameplayControls();
+  } else {
+    renderFeedControls();
+    setMarketAvailability();
+    updateRealityAvailability();
+    updateMineAvailability();
+    updateSubscribeAvailability();
+    updateWhipAvailability();
+    const total = serverState.player_count || 0;
+    const ready = `${serverState.day_ready_count || 0}/${total}`;
+    elements.nextDayButton.disabled = Boolean(self?.ready_for_day) || Boolean(serverState.whip_vote_open);
+    elements.nextDayButton.textContent = total > 1 && serverState.day_ready_count > 0
+      ? `${t('buttons.nextDay')} (${ready})`
+      : t('buttons.nextDay');
+    elements.nextDayButton.title = total > 1
+      ? `${t('ui.dayWaiting')} · ${t('ui.dayReady', { ready, total })}`
+      : '';
+  }
+
+  // Day 3: every online player has to vote on whip[pet].
+  if (serverState.whip_vote_open && !mp.votePromptLogged) {
+    mp.votePromptLogged = true;
+    logTerminal(t('log.whipPetPrompt'));
+  }
+  if (!serverState.whip_vote_open) mp.votePromptLogged = false;
+  if (serverState.whip_vote_open && self && !self.voted && !state.currentEndingPlaying) {
+    showWhipPetModal();
+  } else {
     closeWhipPetModal();
   }
-  const ready = `${serverState.day_ready_count || 0}/${serverState.player_count || 0}`;
-  elements.nextDayButton.title = serverState.player_count > 1
-    ? `${t('ui.dayWaiting')} · ${t('ui.dayReady', { ready, total: serverState.player_count })}`
-    : '';
+
+  if (!elements.marketModal.classList.contains('hidden')) renderMarket();
+  maybeStartServerEnding();
 }
 
 function renderOnlinePlayers(serverState) {
   if (!elements.onlineStatus || !elements.onlinePlayers) return;
   const players = serverState.players || [];
   elements.onlineStatus.textContent = t('ui.onlineConnected');
-  elements.onlinePlayers.textContent = players.map((player) => player.name).join(' · ');
+  elements.onlinePlayers.textContent = players
+    .map((player) => (player.ready_for_day ? `${player.name} ✓` : player.name))
+    .join(' · ');
   elements.onlineBar.classList.remove('offline');
 }
 
@@ -826,18 +965,14 @@ function setupOnlineBar() {
     elements.onlineBar.classList.toggle('offline', !isConnected);
     elements.onlineStatus.textContent = isConnected ? t('ui.onlineConnected') : t('ui.onlineOffline');
   };
-  window.Multiplayer.onError = () => {
-    elements.onlineBar.classList.add('offline');
-    elements.onlineStatus.textContent = t('ui.onlineOffline');
-  };
+  window.Multiplayer.onError = handleMultiplayerError;
   window.Multiplayer.onState = applyMultiplayerState;
-  window.Multiplayer.onResult = (result) => {
-    if (result === 'ending_ready' && endingData && Object.keys(endingData).length) {
-      startEndingPlayback(resolveEndingId());
-    }
+  window.Multiplayer.onResult = (result, info) => {
+    if (result === 'whip_used' && info?.deltas) createWhipPopup(info.deltas);
   };
+  mp.selfId = window.discordUser?.id || makePlayerId();
   window.Multiplayer.connect({
-    id: window.discordUser?.id || crypto.randomUUID(),
+    id: mp.selfId,
     name: window.discordUser?.name || `Player ${Math.floor(Math.random() * 900 + 100)}`,
   });
 }
@@ -944,6 +1079,7 @@ function renderMarket() {
     }
     row.querySelector('button').addEventListener('click', () => {
       if (state.marketClaimedThisRefresh) return;
+      if (sendMultiplayerAction('market_claim', { item: item.id })) return; // server applies it and syncs everyone
       applyStats(item.effect);
       state.inventory[item.id] = getInventoryCount(item.id) + 1;
       state.powderStock += 2;
@@ -1006,7 +1142,7 @@ function toggleAnnouncement() {
 
 function openMarket() {
   if (state.currentEndingPlaying) return;
-  refreshMarketIfNeeded();
+  if (!isOnline()) refreshMarketIfNeeded(); // online: the server rotates the market every day
   setMarketAvailability();
   renderMarket();
   elements.marketModal.classList.remove('hidden');
@@ -1115,7 +1251,10 @@ function closeSubscriptionModal() {
 
 function selectSubscriptionTier(tierId) {
   if (state.subscriptionTier) return;
-  if (sendMultiplayerAction('subscribe', { tier: tierId })) return;
+  if (sendMultiplayerAction('subscribe', { tier: tierId })) {
+    closeSubscriptionModal();
+    return;
+  }
 
   const tier = subscriptionTiers[tierId];
   if (!tier) return;
@@ -1154,7 +1293,10 @@ function closeRealityModal() {
 
 // 【家 Home】
 function visitHome() {
-  if (sendMultiplayerAction('reality', { location: 'home' })) return;
+  if (sendMultiplayerAction('reality', { location: 'home' })) {
+    closeRealityModal();
+    return;
+  }
   state.realityUsedToday = true;
   const randomEvent = Math.random();
 
@@ -1180,7 +1322,10 @@ function visitHome() {
 
 // 【快递柜】
 function visitExpress() {
-  if (sendMultiplayerAction('reality', { location: 'express' })) return;
+  if (sendMultiplayerAction('reality', { location: 'express' })) {
+    closeRealityModal();
+    return;
+  }
   state.realityUsedToday = true;
   const random = Math.random();
 
@@ -1222,7 +1367,10 @@ function visitExpress() {
 
 // 【公司】
 function visitCompany() {
-  if (sendMultiplayerAction('reality', { location: 'company' })) return;
+  if (sendMultiplayerAction('reality', { location: 'company' })) {
+    closeRealityModal();
+    return;
+  }
   state.realityUsedToday = true;
   const hatredVal = stats.hatred;
   const loveVal = stats.love;
@@ -1273,7 +1421,10 @@ function visitCompany() {
 
 // 【电脑桌】
 function visitDesk() {
-  if (sendMultiplayerAction('reality', { location: 'desk' })) return;
+  if (sendMultiplayerAction('reality', { location: 'desk' })) {
+    closeRealityModal();
+    return;
+  }
   state.realityUsedToday = true;
 
   // 桌面互动以当前情绪决定倾向，再保留随机波动。
@@ -1322,12 +1473,16 @@ function actionWhip() {
   }
 }
 
+function showWhipPetModal() {
+  elements.whipPetModal.classList.remove('hidden');
+  elements.whipPetModal.setAttribute('aria-hidden', 'false');
+}
+
 function openWhipPetModal() {
   if (state.currentEndingPlaying) return;
   if (state.whipPetPrompted) return;
   state.whipPetPrompted = true;
-  elements.whipPetModal.classList.remove('hidden');
-  elements.whipPetModal.setAttribute('aria-hidden', 'false');
+  showWhipPetModal();
 }
 
 function closeWhipPetModal() {
@@ -1335,11 +1490,17 @@ function closeWhipPetModal() {
   elements.whipPetModal.setAttribute('aria-hidden', 'true');
 }
 
-function installWhipPet() {
-  if (sendMultiplayerAction('whip_vote', { yes: true })) {
-    closeWhipPetModal();
-    return;
+function castWhipVote(yes) {
+  if (!sendMultiplayerAction('whip_vote', { yes })) return false;
+  closeWhipPetModal();
+  if (hasOtherPlayers()) {
+    logTerminal(tr('log.voteSent', '已投票，等待其他玩家……', 'Vote cast — waiting for the other players…'));
   }
+  return true;
+}
+
+function installWhipPet() {
+  if (castWhipVote(true)) return;
   applyStats({ jealousy: 8, hatred: 12, depression: 10, love: -6, patience: -8 });
   state.whipPetInstalled = true;
   updateWhipAvailability();
@@ -1349,10 +1510,7 @@ function installWhipPet() {
 }
 
 function declineWhipPet() {
-  if (sendMultiplayerAction('whip_vote', { yes: false })) {
-    closeWhipPetModal();
-    return;
-  }
+  if (castWhipVote(false)) return;
   state.whipPetInstalled = false;
   logTerminal(t('log.whipPetDeclined'));
   pushEvent('events.whipPetDeclined');
@@ -1361,7 +1519,12 @@ function declineWhipPet() {
 
 function nextDay() {
   if (state.currentEndingPlaying) return;
-  if (sendMultiplayerAction('day_ready')) return;
+  if (sendMultiplayerAction('day_ready')) {
+    if (hasOtherPlayers()) {
+      logTerminal(tr('log.dayReadySent', '已登记，等待其他玩家点击“下一天”……', 'Ready — waiting for the other players…'));
+    }
+    return;
+  }
 
   if (state.day >= 4) {
     state.day = 5;
@@ -1371,7 +1534,7 @@ function nextDay() {
       t('log.endingMatched', { title: endingTitle(endingId) }),
     ]);
     pushEvent('events.day5Reached');
-    startEndingPlayback(endingId);
+    startEndingPlayback(endingId, 'run');
     return;
   }
 
@@ -1672,6 +1835,12 @@ async function init() {
   elements.onlineBar = document.getElementById('onlineBar');
   elements.onlineStatus = document.getElementById('onlineStatus');
   elements.onlinePlayers = document.getElementById('onlinePlayers');
+
+  try {
+    await window.initDiscord?.(); // no-op outside Discord
+  } catch (error) {
+    console.warn('Discord init failed', error);
+  }
 
   try {
     await I18n.load(I18n.detectLanguage());

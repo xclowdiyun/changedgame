@@ -1,35 +1,65 @@
-const Multiplayer = (() => {
+// WebSocket client: auto-reconnect + heartbeat (tunnels close idle sockets).
+// Must live on window: game.js reads window.Multiplayer (a top-level const would not).
+window.Multiplayer = (() => {
   let socket = null;
   let connected = false;
+  let identity = {};
+  let retryDelay = 1000;
+  let retryTimer = null;
+  let pingTimer = null;
   let onState = () => {};
   let onResult = () => {};
   let onError = () => {};
   let onConnection = () => {};
 
   function backendUrl() {
-    const configured = window.PET_GAME_BACKEND_URL;
-    if (configured) return configured.replace(/^http/, 'ws').replace(/\/$/, '');
-    return `${location.protocol === 'https:' ? 'wss' : 'ws'}://${location.hostname}:8000`;
+    const configured = String(window.PET_GAME_BACKEND_URL || '').replace(/\/$/, '');
+    if (configured) return configured.replace(/^http/, 'ws');
+    // Same origin as the page (the Python backend also serves the page).
+    return `${location.protocol === 'https:' ? 'wss' : 'ws'}://${location.host}`;
+  }
+
+  function open() {
+    clearTimeout(retryTimer);
+    socket = new WebSocket(`${backendUrl()}/ws/activity`);
+    const current = socket;
+    current.addEventListener('open', () => {
+      connected = true;
+      retryDelay = 1000;
+      onConnection(true);
+      current.send(JSON.stringify({ type: 'hello', user: identity }));
+      clearInterval(pingTimer);
+      pingTimer = setInterval(() => {
+        if (current.readyState === WebSocket.OPEN) current.send(JSON.stringify({ type: 'ping' }));
+      }, 25000);
+    });
+    current.addEventListener('message', (event) => {
+      let message;
+      try {
+        message = JSON.parse(event.data);
+      } catch {
+        return;
+      }
+      if (message.type === 'state') {
+        onState(message.state);
+        if (message.result) onResult(message.result, message.info || {});
+      }
+      if (message.type === 'error') onError(message.code);
+    });
+    current.addEventListener('close', () => {
+      if (current !== socket) return;
+      connected = false;
+      clearInterval(pingTimer);
+      onConnection(false);
+      retryTimer = setTimeout(open, retryDelay);
+      retryDelay = Math.min(retryDelay * 2, 10000);
+    });
+    current.addEventListener('error', () => onError('connection_failed'));
   }
 
   function connect(user = {}) {
-    socket = new WebSocket(`${backendUrl()}/ws/activity`);
-    socket.addEventListener('open', () => {
-      connected = true;
-      onConnection(true);
-      socket.send(JSON.stringify({ type: 'hello', user }));
-    });
-    socket.addEventListener('message', (event) => {
-      const message = JSON.parse(event.data);
-      if (message.type === 'state') onState(message.state);
-      if (message.type === 'state' && message.result) onResult(message.result);
-      if (message.type === 'error') onError(message.code);
-    });
-    socket.addEventListener('close', () => {
-      connected = false;
-      onConnection(false);
-    });
-    socket.addEventListener('error', () => onError('connection_failed'));
+    identity = user;
+    open();
   }
 
   function send(action, payload = {}) {

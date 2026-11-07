@@ -1,4 +1,5 @@
-// Language packs live in lang/<code>/ (strings.json, endings.json, announcement.txt).
+// Language packs live in lang/<code>/ (strings.json, endings.json, announcement.txt)
+// and are served by the Python backend at /api/data/<code>.
 // Chinese is the source language; keys missing from another pack fall back to it.
 const I18n = (() => {
   const languages = { zh: '中文', en: 'English' };
@@ -11,6 +12,7 @@ const I18n = (() => {
   let endings = {};
   let announcement = null;
 
+  // Empty string = same origin as the page (the normal case).
   function dataBaseUrl() {
     return String(window.PET_GAME_BACKEND_URL || '').replace(/\/$/, '');
   }
@@ -27,31 +29,23 @@ const I18n = (() => {
   }
 
   async function fetchJson(url) {
-    const response = await fetch(url);
+    const response = await fetch(url, { cache: 'no-store' });
     if (!response.ok) throw new Error(`${url}: HTTP ${response.status}`);
     return response.json();
-  }
-
-  async function fetchText(url) {
-    const response = await fetch(url, { cache: 'no-store' });
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-    return response.text();
   }
 
   async function load(code) {
     const lang = languages[code] ? code : sourceLanguage;
     const base = dataBaseUrl();
-    if (!base) throw new Error('Backend URL is not configured');
-    const [source, local, localEndings, localAnnouncement] = await Promise.all([
-      fetchJson(`${base}/api/data/${sourceLanguage}`).then((payload) => payload.strings),
-      lang === sourceLanguage ? null : fetchJson(`${base}/api/data/${lang}`).then((payload) => payload.strings).catch(() => ({})),
-      fetchJson(`${base}/api/data/${lang}`).then((payload) => payload.endings).catch(() => fetchJson(`${base}/api/data/${sourceLanguage}`).then((payload) => payload.endings)).catch(() => ({})),
-      fetchJson(`${base}/api/data/${lang}`).then((payload) => payload.announcement).catch((error) => error),
-    ]);
-    sourceStrings = source;
-    strings = local || source;
-    endings = localEndings;
-    announcement = localAnnouncement;
+    const sourcePayload = await fetchJson(`${base}/api/data/${sourceLanguage}`);
+    let payload = sourcePayload;
+    if (lang !== sourceLanguage) {
+      payload = await fetchJson(`${base}/api/data/${lang}`).catch(() => null);
+    }
+    sourceStrings = sourcePayload.strings || {};
+    strings = payload?.strings || sourceStrings;
+    endings = payload?.endings || sourcePayload.endings || {};
+    announcement = payload?.announcement ?? sourcePayload.announcement ?? null;
     current = lang;
     try {
       window.localStorage.setItem(storageKey, lang);

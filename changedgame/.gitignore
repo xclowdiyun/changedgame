@@ -1,12 +1,24 @@
-# secrets - never upload
-.env
-backend/.env
-
-# local junk
+# Python
 .venv/
 venv/
+env/
 __pycache__/
-*.pyc
-*.zip
-ngrok.exe
-node_modules/
+*.py[cod]
+*.egg-info/
+__pypackages__/
+
+# Local configuration and secrets
+backend/.env
+.env
+*.pem
+*.key
+
+# Local tooling and generated files
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+*.log
+build/
+dist/
+.DS_Store

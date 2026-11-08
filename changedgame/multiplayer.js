@@ -11,6 +11,7 @@ window.Multiplayer = (() => {
   let onResult = () => {};
   let onError = () => {};
   let onConnection = () => {};
+  let onWelcome = () => {};
 
   function backendUrl() {
     const configured = String(window.PET_GAME_BACKEND_URL || '').replace(/\/$/, '');
@@ -27,7 +28,14 @@ window.Multiplayer = (() => {
       connected = true;
       retryDelay = 1000;
       onConnection(true);
-      current.send(JSON.stringify({ type: 'hello', user: identity }));
+      // The server decides who you are; we only send a name, an optional Discord token and a resume secret.
+      current.send(JSON.stringify({
+        type: 'hello',
+        user: { name: identity.name },
+        token: identity.token || '',
+        resume: identity.resume || '',
+        instance: identity.instance || '',
+      }));
       clearInterval(pingTimer);
       pingTimer = setInterval(() => {
         if (current.readyState === WebSocket.OPEN) current.send(JSON.stringify({ type: 'ping' }));
@@ -39,6 +47,10 @@ window.Multiplayer = (() => {
         message = JSON.parse(event.data);
       } catch {
         return;
+      }
+      if (message.type === 'welcome') {
+        if (message.resume) identity.resume = message.resume;
+        onWelcome(message);
       }
       if (message.type === 'state') {
         onState(message.state);
@@ -84,5 +96,6 @@ window.Multiplayer = (() => {
     set onResult(callback) { onResult = callback; },
     set onError(callback) { onError = callback; },
     set onConnection(callback) { onConnection = callback; },
+    set onWelcome(callback) { onWelcome = callback; },
   };
 })();

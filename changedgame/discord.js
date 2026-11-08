@@ -14,6 +14,7 @@ window.initDiscord = async function initDiscord() {
     const sdk = new DiscordSDK(clientId);
     await sdk.ready();
     window.discordSdk = sdk;
+    window.discordInstanceId = sdk.instanceId; // one game room per Discord activity instance
     try {
       const { code } = await sdk.commands.authorize({
         client_id: clientId,
@@ -30,6 +31,7 @@ window.initDiscord = async function initDiscord() {
       if (!response.ok) throw new Error(`/api/token HTTP ${response.status}`);
       const { access_token: accessToken } = await response.json();
       const auth = await sdk.commands.authenticate({ access_token: accessToken });
+      window.discordAccessToken = accessToken; // the server checks it with Discord
       window.discordUser = { id: auth.user.id, name: auth.user.global_name || auth.user.username };
     } catch (error) {
       console.warn('Discord sign-in skipped (players will get random names):', error);

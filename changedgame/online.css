@@ -8,3 +8,9 @@
   width: 9em; font: inherit; color: inherit; background: rgba(0, 0, 0, 0.35);
   border: 1px solid currentColor; border-radius: 4px; padding: 0 4px; cursor: text; user-select: text;
 }
+.online-player.away { opacity: 0.45; font-style: italic; }
+.online-force {
+  margin-left: 8px; font: inherit; font-size: 0.85em; color: inherit; cursor: pointer;
+  background: rgba(255, 255, 255, 0.12); border: 1px solid currentColor; border-radius: 4px; padding: 0 8px;
+}
+.online-force[hidden] { display: none; }

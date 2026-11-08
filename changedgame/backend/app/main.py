@@ -4,6 +4,9 @@ import asyncio
 import json
 import os
 import random
+import re
+import secrets
+import time
 import urllib.parse
 import urllib.request
 import uuid
@@ -68,6 +71,18 @@ SUBSCRIPTION_EFFECTS: dict[str, dict[str, int]] = {
     "ash": {"powder": 500},
 }
 
+# 断线后保留玩家和进度的时间（秒）：刷新页面、网络抖动不会丢失次数和进度
+RECONNECT_GRACE_SECONDS = float(os.getenv("RECONNECT_GRACE_SECONDS", "90"))
+# 有人已操作、其他人迟迟不动时，多少秒后允许“跳过未响应的玩家”
+FORCE_SKIP_AFTER_SECONDS = float(os.getenv("FORCE_SKIP_AFTER_SECONDS", "45"))
+# 超过这么久没收到任何消息（客户端每 25 秒发一次心跳）就认为连接已死
+IDLE_TIMEOUT_SECONDS = float(os.getenv("IDLE_TIMEOUT_SECONDS", "120"))
+# 设为 1 后：必须带有效的 Discord 登录令牌才能进入游戏（本地测试请不要设）
+REQUIRE_DISCORD_AUTH = os.getenv("REQUIRE_DISCORD_AUTH", "").strip().lower() in ("1", "true", "yes")
+DISCORD_API_BASE = os.getenv("DISCORD_API_BASE", "https://discord.com/api").rstrip("/")
+MAX_ROOMS = 200
+NAME_MAX = 20
+
 WHIP_SPREAD = {"powder": 16, "jealousy": 14, "hatred": 16, "love": 14, "patience": 12, "depression": 14}
 
 
@@ -99,6 +114,7 @@ class Player:
     ready_for_day: bool = False
     vote: bool | None = None
     ending_done: bool = False
+    can_vote: bool = True  # 投票开始后才加入的人不参与这一轮投票，也不会卡住投票
     # 每位玩家各自的次数限制（数值、库存、粉末是全员共享的）
     subscription_tier: str | None = None
     mine_uses: int = 0
@@ -117,6 +133,7 @@ class Player:
         self.reset_day()
         self.vote = None
         self.ending_done = False
+        self.can_vote = True
         self.subscription_tier = None
 
 
@@ -148,10 +165,34 @@ class Room:
     state: GameState = field(default_factory=GameState)
     players: dict[str, Player] = field(default_factory=dict)
     sockets: dict[WebSocket, str] = field(default_factory=dict)  # socket -> player id
+    sessions: dict[str, str] = field(default_factory=dict)  # 重连凭证 -> player id（只有服务器发给本人）
+    cleanup: dict[str, asyncio.Task] = field(default_factory=dict)  # 断线后等待删除的计时任务
+    wait_started: float | None = None  # 第一个人完成当前步骤的时间，用于“跳过未响应玩家”
     lock: asyncio.Lock = field(default_factory=asyncio.Lock)
 
 
-rooms: dict[str, Room] = {"activity": Room()}
+# 每个 Discord 活动实例（instanceId）一个独立房间
+rooms: dict[str, Room] = {}
+
+
+def get_room(key: str) -> Room:
+    room = rooms.get(key)
+    if room is None:
+        if len(rooms) >= MAX_ROOMS:
+            raise RuntimeError("too_many_rooms")
+        room = rooms[key] = Room()
+    return room
+
+
+def clean_name(value: Any) -> str:
+    text = re.sub(r"[\x00-\x1f\x7f]", "", str(value or "")).strip()
+    return text[:NAME_MAX]
+
+
+def clean_instance(value: Any) -> str:
+    text = str(value or "")
+    return text if re.fullmatch(r"[A-Za-z0-9._-]{1,64}", text) else "activity"
+
 
 try:
     data = load_public_data()
@@ -203,40 +244,97 @@ def event(state: GameState, player: Player, key: str, params: dict[str, Any] | N
     del state.event_log[12:]
 
 
+def online_ids(room: Room) -> set[str]:
+    return set(room.sockets.values())
+
+
+def active_players(room: Room) -> list[Player]:
+    ids = online_ids(room)
+    return [player for player in room.players.values() if player.id in ids]
+
+
 def public_state(room: Room) -> dict[str, Any]:
     state = asdict(room.state)
-    players = list(room.players.values())
+    ids = online_ids(room)
+    active = [player for player in room.players.values() if player.id in ids]
     state["players"] = [
         {
             "id": player.id,
             "name": player.name,
+            "online": player.id in ids,
             "ready_for_day": player.ready_for_day,
             "voted": player.vote is not None,
+            "can_vote": player.can_vote,
             "subscription_tier": player.subscription_tier,
             "mine_uses_today": player.mine_uses,
             "whip_uses_today": player.whip_uses,
             "reality_used_today": player.reality_used,
             "market_claimed": player.market_claimed,
         }
-        for player in players
+        for player in room.players.values()
     ]
-    state["day_ready_count"] = sum(player.ready_for_day for player in players)
-    state["player_count"] = len(players)
+    # 计数只统计在线玩家：离线的人不会卡住进度
+    state["day_ready_count"] = sum(player.ready_for_day for player in active)
+    state["player_count"] = len(active)
     state["ending_phase"] = room.state.day >= 5
     state["votes"] = {
-        "yes": sum(player.vote is True for player in players),
-        "no": sum(player.vote is False for player in players),
-        "total": len(players),
+        "yes": sum(player.vote is True for player in active),
+        "no": sum(player.vote is False for player in active),
+        "total": len(active),
     }
+    state["waiting"] = room.wait_started is not None
+    state["wait_seconds"] = int(time.monotonic() - room.wait_started) if room.wait_started else 0
+    state["force_after"] = FORCE_SKIP_AFTER_SECONDS
     return state
 
 
+async def _send(socket: WebSocket, message: dict[str, Any]) -> WebSocket | None:
+    try:
+        await asyncio.wait_for(socket.send_json(message), timeout=5)
+        return None
+    except Exception:  # noqa: BLE001
+        return socket
+
+
 async def broadcast(room: Room, message: dict[str, Any]) -> None:
-    for socket in list(room.sockets):
+    """并发发送并设超时：某个人网络很慢，不会拖住其他人。发送失败的连接会被关闭。"""
+    sockets = list(room.sockets)
+    failed = await asyncio.gather(*(_send(socket, message) for socket in sockets))
+    for socket in failed:
+        if socket is None:
+            continue
+        room.sockets.pop(socket, None)
         try:
-            await socket.send_json(message)
-        except Exception:
-            room.sockets.pop(socket, None)
+            await socket.close()
+        except Exception:  # noqa: BLE001
+            pass
+
+
+async def fetch_discord_user(token: Any) -> dict[str, str] | None:
+    """向 Discord 验证令牌，返回 {"id", "name"}；无效则返回 None。"""
+    if not isinstance(token, str) or not token or len(token) > 2048:
+        return None
+
+    def call() -> dict[str, Any]:
+        request = urllib.request.Request(
+            f"{DISCORD_API_BASE}/users/@me",
+            headers={
+                "Authorization": f"Bearer {token}",
+                "User-Agent": "DiscordBot (pet-game-activity, 1.0)",
+            },
+        )
+        with urllib.request.urlopen(request, timeout=8) as response:
+            return json.loads(response.read().decode("utf-8"))
+
+    try:
+        payload = await asyncio.to_thread(call)
+    except Exception as error:  # noqa: BLE001
+        print(f"[discord] token check failed: {error}")
+        return None
+    user_id = str(payload.get("id") or "")
+    if not user_id.isdigit():
+        return None
+    return {"id": user_id, "name": clean_name(payload.get("global_name") or payload.get("username"))}
 
 
 # ---------------------------------------------------------------------------
@@ -244,14 +342,21 @@ async def broadcast(room: Room, message: dict[str, Any]) -> None:
 # ---------------------------------------------------------------------------
 
 
+def mark_waiting(room: Room) -> None:
+    if room.wait_started is None:
+        room.wait_started = time.monotonic()
+
+
 def reset_game(room: Room) -> None:
     room.state = GameState()
+    room.wait_started = None
     for member in room.players.values():
         member.reset_game()
 
 
 def advance_day(room: Room, actor: Player) -> str:
     state = room.state
+    room.wait_started = None
     for member in room.players.values():
         member.reset_day()
     if state.day >= 4:
@@ -269,16 +374,19 @@ def advance_day(room: Room, actor: Player) -> str:
         state.whip_vote_open = True
         for member in room.players.values():
             member.vote = None
+            member.can_vote = True
         event(state, actor, "events.whipPetTeaser")
     return "day_advanced"
 
 
-def resolve_whip_vote(room: Room, actor: Player) -> str:
+def resolve_whip_vote(room: Room, actor: Player, voters: list[Player]) -> str:
     state = room.state
-    approved = all(member.vote for member in room.players.values())
+    approved = bool(voters) and all(member.vote for member in voters)
     state.whip_vote_open = False
+    room.wait_started = None
     for member in room.players.values():
         member.vote = None
+        member.can_vote = True
     if approved:
         state.whip_pet_installed = True
         add_stats(state, {"jealousy": 8, "hatred": 12, "depression": 10, "love": -6, "patience": -8})
@@ -289,8 +397,8 @@ def resolve_whip_vote(room: Room, actor: Player) -> str:
 
 
 def check_progress(room: Room, actor: Player | None = None) -> str | None:
-    """所有在线玩家都完成某个步骤时，推进游戏。返回结果名；没有推进则返回 None。"""
-    players = list(room.players.values())
+    """所有【在线】玩家都完成某个步骤时推进游戏；离线的人不会卡住。返回结果名，没推进返回 None。"""
+    players = active_players(room)
     if not players:
         return None
     actor = actor or players[0]
@@ -301,8 +409,10 @@ def check_progress(room: Room, actor: Player | None = None) -> str | None:
             return "game_reset"
         return None
     if state.whip_vote_open:
-        if all(member.vote is not None for member in players):
-            return resolve_whip_vote(room, actor)
+        ids = {player.id for player in players}
+        voters = [m for m in room.players.values() if m.can_vote and (m.id in ids or m.vote is not None)]
+        if not voters or all(member.vote is not None for member in voters):
+            return resolve_whip_vote(room, actor, voters)
         return None
     if all(member.ready_for_day for member in players):
         return advance_day(room, actor)
@@ -369,10 +479,34 @@ def reality_visit(state: GameState, location: str) -> tuple[str, dict[str, Any]]
 def apply_action(room: Room, player: Player, action: str, payload: dict[str, Any]) -> tuple[str, dict[str, Any]]:
     state = room.state
 
+    if action == "force_progress":
+        # 有人已经操作完、其他人一直没反应：任何一个“已操作”的玩家都可以跳过他们
+        if room.wait_started is None or time.monotonic() - room.wait_started < FORCE_SKIP_AFTER_SECONDS:
+            raise ValueError("too_early")
+        others = active_players(room)
+        if state.day >= 5:
+            if not player.ending_done:
+                raise ValueError("not_waiting")
+            for member in others:
+                member.ending_done = True
+        elif state.whip_vote_open:
+            if player.vote is None:
+                raise ValueError("not_waiting")
+            for member in others:
+                if member.vote is None:
+                    member.can_vote = False  # 本轮不参与投票
+        else:
+            if not player.ready_for_day:
+                raise ValueError("not_waiting")
+            for member in others:
+                member.ready_for_day = True
+        return check_progress(room, player) or "forced", {"forced": True}
+
     if action == "ending_done":
         if state.day < 5:
             raise ValueError("not_in_ending")
         player.ending_done = True
+        mark_waiting(room)
         return check_progress(room, player) or "ending_waiting", {}
 
     if state.day >= 5:
@@ -382,12 +516,16 @@ def apply_action(room: Room, player: Player, action: str, payload: dict[str, Any
         if state.whip_vote_open:
             raise ValueError("vote_pending")
         player.ready_for_day = True
+        mark_waiting(room)
         return check_progress(room, player) or "day_ready", {}
 
     if action == "whip_vote":
         if not state.whip_vote_open:
             raise ValueError("no_vote_open")
+        if not player.can_vote:
+            raise ValueError("cannot_vote")
         player.vote = bool(payload.get("yes"))
+        mark_waiting(room)
         return check_progress(room, player) or "vote_recorded", {}
 
     info: dict[str, Any] = {}
@@ -542,32 +680,91 @@ async def ending_catalog() -> dict[str, Any]:
 # ---------------------------------------------------------------------------
 
 
+async def expire_player(key: str, room: Room, player_id: str) -> None:
+    """断线超过宽限期仍没回来：删除这个玩家；房间空了就删掉整个房间。"""
+    await asyncio.sleep(RECONNECT_GRACE_SECONDS)
+    async with room.lock:
+        room.cleanup.pop(player_id, None)
+        if player_id in room.sockets.values():
+            return
+        room.players.pop(player_id, None)
+        for secret in [k for k, v in room.sessions.items() if v == player_id]:
+            del room.sessions[secret]
+        if not room.players:
+            if rooms.get(key) is room:
+                del rooms[key]
+            return
+        out: dict[str, Any] = {"type": "state"}
+        result = check_progress(room)
+        out["state"] = public_state(room)
+        if result:
+            out["result"] = result
+        await broadcast(room, out)
+
+
 @app.websocket("/ws/activity")
 async def activity_socket(websocket: WebSocket) -> None:
     await websocket.accept()
-    room = rooms["activity"]
+    key = "activity"
+    room: Room | None = None
     player: Player | None = None
     try:
-        hello = await websocket.receive_json()
-        user = hello.get("user") if isinstance(hello, dict) else None
-        user = user if isinstance(user, dict) else {}
-        player_id = str(user.get("id") or uuid.uuid4())[:64]
-        player_name = str(user.get("name") or f"Player {len(room.players) + 1}")[:32]
-        async with room.lock:
-            player = room.players.get(player_id)
-            if player is None:
-                player = Player(player_id, player_name)
-                room.players[player_id] = player
-            else:
-                player.name = player_name
-            room.sockets[websocket] = player_id
-            await broadcast(room, {"type": "state", "state": public_state(room)})
+        hello = await asyncio.wait_for(websocket.receive_json(), timeout=15)
+        if not isinstance(hello, dict):
+            return
+        user = hello.get("user") if isinstance(hello.get("user"), dict) else {}
+        key = clean_instance(hello.get("instance"))
+        resume = hello.get("resume")
+        requested_name = clean_name(user.get("name"))
+
+        # 身份只由服务器决定，绝不采用客户端自称的 id：
+        #  - 带有效 Discord 令牌 -> 用 Discord 返回的账号 id
+        #  - 否则 -> 服务器发一个匿名 id + 只有本人知道的重连凭证
+        identity = await fetch_discord_user(hello.get("token"))
+        if identity is None and REQUIRE_DISCORD_AUTH:
+            await websocket.send_json({"type": "error", "code": "auth_required"})
+            return
+
         while True:
-            message = await websocket.receive_json()
+            room = get_room(key)
+            async with room.lock:
+                if rooms.get(key) is not room:
+                    continue  # 房间刚被清理掉，重新取
+                resume_out: str | None = None
+                if identity:
+                    player_id = f"discord:{identity['id']}"
+                elif isinstance(resume, str) and room.sessions.get(resume) in room.players:
+                    player_id = room.sessions[resume]
+                    resume_out = resume
+                else:
+                    player_id = f"anon:{uuid.uuid4()}"
+                    resume_out = secrets.token_urlsafe(24)
+                    room.sessions[resume_out] = player_id
+                pending = room.cleanup.pop(player_id, None)
+                if pending is not None:
+                    pending.cancel()
+                player = room.players.get(player_id)
+                if player is None:
+                    name = requested_name or (identity or {}).get("name") or f"Player {len(room.players) + 1}"
+                    player = Player(player_id, name, can_vote=not room.state.whip_vote_open)
+                    room.players[player_id] = player
+                elif requested_name:
+                    player.name = requested_name
+                room.sockets[websocket] = player_id
+                await websocket.send_json({"type": "welcome", "player_id": player_id, "resume": resume_out})
+                await broadcast(room, {"type": "state", "state": public_state(room)})
+                break
+
+        while True:
+            try:
+                message = await asyncio.wait_for(websocket.receive_json(), timeout=IDLE_TIMEOUT_SECONDS)
+            except asyncio.TimeoutError:
+                await websocket.close(code=1001)  # 心跳都没了：连接已死
+                break
             if not isinstance(message, dict) or message.get("type") == "ping":
                 continue
             if message.get("type") == "rename":
-                new_name = str(message.get("name", "")).strip()[:20]
+                new_name = clean_name(message.get("name"))
                 if new_name:
                     async with room.lock:
                         player.name = new_name
@@ -593,20 +790,18 @@ async def activity_socket(websocket: WebSocket) -> None:
     except Exception as error:  # noqa: BLE001
         print(f"[ws] connection closed with error: {error!r}")
     finally:
-        async with room.lock:
-            room.sockets.pop(websocket, None)
-            if player is not None and player.id not in room.sockets.values():
-                room.players.pop(player.id, None)
-                if not room.players:
-                    # 所有人都离开了：下次进来从头开始
-                    room.state = GameState()
-                    result = None
-                else:
-                    result = check_progress(room)  # 剩下的人可能已全部就绪
-                message_out: dict[str, Any] = {"type": "state", "state": public_state(room)}
+        if room is not None and player is not None:
+            async with room.lock:
+                room.sockets.pop(websocket, None)
+                if player.id not in room.sockets.values() and player.id not in room.cleanup:
+                    # 不立刻删除：给一段宽限期，刷新页面或网络抖动后可以接着玩
+                    room.cleanup[player.id] = asyncio.create_task(expire_player(key, room, player.id))
+                out: dict[str, Any] = {"type": "state"}
+                result = check_progress(room)  # 剩下的在线玩家也许已经全部就绪
+                out["state"] = public_state(room)
                 if result:
-                    message_out["result"] = result
-                await broadcast(room, message_out)
+                    out["result"] = result
+                await broadcast(room, out)
 
 
 # ---------------------------------------------------------------------------

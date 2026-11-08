@@ -287,10 +287,25 @@ let hatredImpactTimer = null;
 const seenMultiplayerEvents = new Set();
 
 // Multiplayer bookkeeping: latest server state, who I am, and ending/vote progress flags.
-const mp = { server: null, selfId: null, selfName: '', renaming: false, awaitingReset: false, votePromptLogged: false };
+const mp = {
+  server: null, selfId: null, selfName: '', renaming: false, awaitingReset: false, votePromptLogged: false,
+  pendingEndingDone: false, offlineLocked: false, waitAnchor: null, forceButton: null,
+};
 
+let lastOfflineNotice = 0;
+function notifyOffline() {
+  const now = Date.now();
+  if (now - lastOfflineNotice < 3000) return;
+  lastOfflineNotice = now;
+  logTerminal(tr('log.offlineAction', '未连接到服务器，操作没有生效，正在重连……', 'Not connected to the server — action ignored, reconnecting…'));
+}
+
+// Every action is decided by the server. While offline nothing is applied locally
+// (the next server update would overwrite it anyway), the player is just told.
 function sendMultiplayerAction(action, payload = {}) {
-  return window.Multiplayer?.connected && window.Multiplayer.send(action, payload);
+  if (window.Multiplayer?.connected && window.Multiplayer.send(action, payload)) return true;
+  notifyOffline();
+  return true;
 }
 
 function isOnline() {
@@ -307,14 +322,6 @@ function tr(key, zh, en) {
   return value === key ? (I18n.language === 'zh' ? zh : en) : value;
 }
 
-function makePlayerId() {
-  try {
-    return crypto.randomUUID();
-  } catch {
-    return `p-${Math.random().toString(36).slice(2)}${Date.now().toString(36)}`;
-  }
-}
-
 // code -> [strings.json key, 中文 fallback, English fallback]
 const serverErrorTexts = {
   no_powder: ['log.feedNoPowder', '粉末不足。', 'Out of powder.'],
@@ -326,6 +333,7 @@ const serverErrorTexts = {
   whip_locked: ['log.whipLocked', '鞭打尚未解锁。', 'Whip is still locked.'],
   whip_limit: ['log.whipLimit', '今天的鞭打次数用完了。', 'No whips left today.'],
   market_claimed: ['err.marketClaimed', '你今天已经在黑市拿过东西了。', 'You already took an item from the market today.'],
+  auth_required: ['err.authRequired', '请从 Discord 里启动这个活动。', 'Please launch this activity from inside Discord.'],
   invalid_item: ['err.invalidItem', '黑市里没有这个商品。', 'That item is not in the market.'],
   vote_pending: ['err.votePending', '请先完成 whip[pet] 投票。', 'Finish the whip[pet] vote first.'],
   ending_in_progress: ['err.endingInProgress', '结局进行中，请等待。', 'The ending is playing — please wait.'],
@@ -337,6 +345,14 @@ function handleMultiplayerError(code) {
     elements.onlineStatus.textContent = t('ui.onlineOffline');
     return;
   }
+  if (code === 'not_in_ending') {
+    // The game was reset while this player was still watching the ending.
+    mp.awaitingReset = false;
+    mp.pendingEndingDone = false;
+    unlockGameplay();
+    return;
+  }
+  if (['too_early', 'not_waiting', 'cannot_vote', 'no_vote_open'].includes(code)) return;
   const known = serverErrorTexts[code];
   if (known) logTerminal(tr(...known));
 }
@@ -728,20 +744,19 @@ function finishEndingPlayback() {
   }
 
   if (kind === 'server') {
-    if (sendMultiplayerAction('ending_done')) {
-      // The server starts a new game once every player has finished the ending.
-      mp.awaitingReset = true;
-      elements.terminal.classList.remove('playback-active');
-      lockGameplayControls();
-      logTerminal([
-        t('log.endingFinished', { id: endingId }),
-        hasOtherPlayers()
-          ? tr('log.waitEndingReset', '等待其他玩家看完结局……', 'Waiting for the other players to finish the ending…')
-          : t('log.gameReset'),
-      ]);
-      return;
-    }
-    // Connection lost while watching: fall back to a local reset.
+    const sent = isOnline() && window.Multiplayer.send('ending_done');
+    mp.pendingEndingDone = !sent; // resent after reconnecting
+    // The server starts a new game once every online player has finished the ending.
+    mp.awaitingReset = true;
+    elements.terminal.classList.remove('playback-active');
+    lockGameplayControls();
+    logTerminal([
+      t('log.endingFinished', { id: endingId }),
+      hasOtherPlayers()
+        ? tr('log.waitEndingReset', '等待其他玩家看完结局……', 'Waiting for the other players to finish the ending…')
+        : t('log.gameReset'),
+    ]);
+    return;
   }
 
   logTerminal([t('log.endingFinished', { id: endingId }), t('log.gameReset')]);
@@ -971,9 +986,19 @@ function applyMultiplayerState(serverState) {
   // The server started a fresh game after everybody finished the ending.
   if (mp.awaitingReset && !serverState.ending_phase) {
     mp.awaitingReset = false;
+    mp.pendingEndingDone = false;
     logTerminal(t('log.gameReset'));
     unlockGameplay();
   }
+  if (mp.pendingEndingDone && serverState.ending_phase && !state.currentEndingPlaying) {
+    mp.pendingEndingDone = false;
+    window.Multiplayer.send('ending_done'); // the first one was lost while offline
+  }
+  if (mp.offlineLocked) {
+    mp.offlineLocked = false;
+    if (!state.currentEndingPlaying && !mp.awaitingReset) unlockGameplay();
+  }
+  mp.waitAnchor = serverState.waiting ? Date.now() - (serverState.wait_seconds || 0) * 1000 : null;
 
   updateEffects();
   renderStats();
@@ -1007,7 +1032,7 @@ function applyMultiplayerState(serverState) {
     logTerminal(t('log.whipPetPrompt'));
   }
   if (!serverState.whip_vote_open) mp.votePromptLogged = false;
-  if (serverState.whip_vote_open && self && !self.voted && !state.currentEndingPlaying) {
+  if (serverState.whip_vote_open && self && !self.voted && self.can_vote !== false && !state.currentEndingPlaying) {
     showWhipPetModal();
   } else {
     closeWhipPetModal();
@@ -1015,6 +1040,19 @@ function applyMultiplayerState(serverState) {
 
   if (!elements.marketModal.classList.contains('hidden')) renderMarket();
   maybeStartServerEnding();
+  updateForceButton();
+}
+
+// Someone already acted but another online player has not for a while: offer to skip them.
+function updateForceButton() {
+  if (!mp.forceButton) return;
+  const server = mp.server;
+  const self = server?.players?.find((player) => player.id === mp.selfId);
+  const acted = Boolean(self) && (self.ready_for_day || (server.whip_vote_open && self.voted) || mp.awaitingReset);
+  const elapsed = mp.waitAnchor ? (Date.now() - mp.waitAnchor) / 1000 : 0;
+  const show = acted && isOnline() && elapsed >= (server?.force_after ?? 45);
+  mp.forceButton.hidden = !show;
+  if (show) mp.forceButton.textContent = tr('ui.forceSkip', '跳过未响应的玩家', 'Skip idle players');
 }
 
 function renderOnlinePlayers(serverState) {
@@ -1026,7 +1064,7 @@ function renderOnlinePlayers(serverState) {
   for (const player of serverState.players || []) {
     const span = document.createElement('span');
     const isSelf = player.id === mp.selfId;
-    span.className = `online-player${isSelf ? ' self' : ''}`;
+    span.className = `online-player${isSelf ? ' self' : ''}${player.online === false ? ' away' : ''}`;
     span.textContent = player.ready_for_day ? `${player.name} ✓` : player.name;
     if (isSelf) span.title = tr('ui.renameHint', '双击修改你的名字', 'Double-click to rename yourself');
     elements.onlinePlayers.appendChild(span);
@@ -1114,9 +1152,22 @@ function setupOnlineBar() {
     if (event.target.closest('.online-player.self')) startRename();
   });
 
+  mp.forceButton = document.createElement('button');
+  mp.forceButton.type = 'button';
+  mp.forceButton.className = 'online-force';
+  mp.forceButton.hidden = true;
+  mp.forceButton.addEventListener('pointerdown', (event) => event.stopPropagation());
+  mp.forceButton.addEventListener('click', () => window.Multiplayer.send('force_progress'));
+  bar.appendChild(mp.forceButton);
+  setInterval(updateForceButton, 1000);
+
   window.Multiplayer.onConnection = (isConnected) => {
     bar.classList.toggle('offline', !isConnected);
     elements.onlineStatus.textContent = isConnected ? t('ui.onlineConnected') : t('ui.onlineOffline');
+    if (!isConnected && !state.currentEndingPlaying && !mp.awaitingReset) {
+      mp.offlineLocked = true;
+      lockGameplayControls(); // buttons would do nothing while offline
+    }
   };
   window.Multiplayer.onError = handleMultiplayerError;
   window.Multiplayer.onState = applyMultiplayerState;
@@ -1125,10 +1176,25 @@ function setupOnlineBar() {
   };
 
   let savedName = '';
-  try { savedName = window.sessionStorage.getItem('playerName') || ''; } catch { /* ignore */ }
-  mp.selfId = window.discordUser?.id || makePlayerId();
-  mp.selfName = window.discordUser?.name || savedName || `Player ${Math.floor(Math.random() * 900 + 100)}`;
-  window.Multiplayer.connect({ id: mp.selfId, name: mp.selfName });
+  let resume = '';
+  try {
+    savedName = window.sessionStorage.getItem('playerName') || '';
+    resume = window.sessionStorage.getItem('petResume') || '';
+  } catch { /* ignore */ }
+  mp.selfName = savedName || window.discordUser?.name || `Player ${Math.floor(Math.random() * 900 + 100)}`;
+  // Who you are is decided by the server (Discord account, or a server-issued id).
+  window.Multiplayer.onWelcome = (welcome) => {
+    mp.selfId = welcome.player_id;
+    if (welcome.resume) {
+      try { window.sessionStorage.setItem('petResume', welcome.resume); } catch { /* ignore */ }
+    }
+  };
+  window.Multiplayer.connect({
+    name: mp.selfName,
+    token: window.discordAccessToken || '',
+    resume,
+    instance: window.discordInstanceId || '',
+  });
 }
 
 function applyStats(deltas) {
@@ -1645,7 +1711,10 @@ function closeWhipPetModal() {
 }
 
 function castWhipVote(yes) {
-  if (!sendMultiplayerAction('whip_vote', { yes })) return false;
+  if (!isOnline() || !window.Multiplayer.send('whip_vote', { yes })) {
+    notifyOffline();
+    return true; // keep the vote modal open
+  }
   closeWhipPetModal();
   if (hasOtherPlayers()) {
     logTerminal(tr('log.voteSent', '已投票，等待其他玩家……', 'Vote cast — waiting for the other players…'));
@@ -1989,6 +2058,17 @@ async function init() {
   elements.onlineBar = document.getElementById('onlineBar');
   elements.onlineStatus = document.getElementById('onlineStatus');
   elements.onlinePlayers = document.getElementById('onlinePlayers');
+
+  const logoImg = document.querySelector('#logoButton img');
+  if (logoImg) {
+    const showTextLogo = () => {
+      const fallback = document.createElement('span');
+      fallback.textContent = '[pet]';
+      logoImg.replaceWith(fallback);
+    };
+    if (logoImg.complete && logoImg.naturalWidth === 0) showTextLogo();
+    else logoImg.addEventListener('error', showTextLogo, { once: true });
+  }
 
   try {
     await window.initDiscord?.(); // no-op outside Discord

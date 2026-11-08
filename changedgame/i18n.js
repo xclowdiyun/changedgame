@@ -71,11 +71,10 @@ const I18n = (() => {
     return typeof value === 'string' ? interpolate(value, params) : value;
   }
 
-  // rng lets multiplayer clients draw the same line from a shared seed.
-  function pick(key, params = {}, rng = Math.random) {
+  function pick(key, params = {}) {
     const list = t(key);
     if (!Array.isArray(list) || list.length === 0) return key;
-    const entry = list[Math.floor(rng() * list.length)];
+    const entry = list[Math.floor(Math.random() * list.length)];
     return typeof entry === 'string' ? interpolate(entry, params) : entry;
   }
 

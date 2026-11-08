@@ -40,6 +40,14 @@
 5. 点 **Deploy Web Service**。等几分钟，日志出现 `Your service is live` 就成功了。
 6. 页面左上角会显示你的域名，形如 `https://pet-game-abcd.onrender.com`。**先在浏览器打开它**，能看到游戏就对了。
 
+### 可选的环境变量（都不填也能正常玩）
+
+| Key | 作用 |
+|---|---|
+| `REQUIRE_DISCORD_AUTH` = `true` | 只允许通过 Discord 登录的人进入。**请等确认 Discord 里能显示真实昵称后再开**；本机测试（`start_game.bat`）不要设 |
+| `RECONNECT_GRACE_SECONDS` | 断线后保留进度的秒数，默认 90 |
+| `FORCE_SKIP_AFTER_SECONDS` | 多少秒后出现“跳过未响应的玩家”，默认 45 |
+
 ## 第 3 步：填到 Discord
 
 开发者后台 → 你的应用 → **Activities → URL Mappings**：
